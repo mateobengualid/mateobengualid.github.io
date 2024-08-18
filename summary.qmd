@@ -1,0 +1,5 @@
+# Summary
+
+What a ride. I'll be honest, when I started I wasn't even thinking of making it this far. It took me months to reach a point where I feel comfortable writing this. I hope that you got to learn a bit about Malliavin Calculus, like I did. If you want to continue and prefer a more theoretical treatment, I left links to all interesting sources for pre-work, before Malliavin Calculus, and I guess Nualart, Oksendal or Malliavin himself for the actual topic. For more practical matters, I can't recommend @MalliavinCalculusInFinance enough. It's way ahead of the rest.
+
+I'm finally thanking you for reading all of this. I echo Bret Victor when he said that ideas shouldn't die, and the mere fact that you reached this point proves that this content can survive another day.

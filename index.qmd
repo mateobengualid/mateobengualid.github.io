@@ -1,0 +1,11 @@
+# Preface {.unnumbered}
+
+To understand Malliavin Calculus, you don't just understand the formulas and their proofs. Malliavin Calculus is the answer to a question, and knowing the answer and the path to it isn't enough.
+
+You need to understand the question.
+
+This entire web book was created so I can explain the topic to myself, and learn this obscure topic as a consequence of it. If you are unfamiliar with "12 Monkeys" or "Arrival" this will undoubtedly sound backwards. Just follow along and both you and I will (hopefully) learn.
+
+This web book was created using Quarto and RStudio, the last IDE you'll ever need. To learn more about Quarto books visit <https://quarto.org/docs/books>. To learn more about RStudio IDE visit <https://posit.co/products/open-source/rstudio/>. I also use R over Python because I like it better for Math/Statistics topics.
+
+Finally, I dedicate this work to Pablo Azcue, may his memory be a blessing. He probably never knew, but he was the one that made me love real analysis and stochastic processes.

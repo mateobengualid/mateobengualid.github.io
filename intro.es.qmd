@@ -1,0 +1,11 @@
+# Introduccion
+
+Este ensayo trata sobre el Calculo Malliavin y la formula de Clark-Ocone. Tras meses de estudio, conclui que el principal problema para entender el topico es el enfasis en el rigor matematico de las fuentes consultadas, por sobre la claridad pedagogica. La falta de aplicaciones en la vida real o ejemplos practicos tambien es muy frustrante.
+
+Voy a empezar desarrollando que intenta lograr el Calculo Malliavin. Me aproximare en forma indirecta, meandrosa. Luego de documentar situaciones donde un problema existe, la necesidad de una solucion generara una especie de "vacio". Luego, tambien indirectamente, pondre las fundaciones paso a paso. Finalmente, el vacio sera llenado.
+
+Elegi Quarto porque el codigo fuente y sus resultados estaran disponibles. Ayuda mucho ver una pieza de matematicas y conectarla con instrucciones de codigo fuente.
+
+Como dije anteriormente, la claridad pedagogica es el factor primorial. No voy a escribir demostraciones si no pienso que sean importantes. Tomare atajos con impunidad. Algunas partes tal vez no lleven a ningun lado y solo esten ahi para redondear un concepto. Incluso puede que me declare ignorante sobre un tema y lo deje ahi.
+
+Por ultimo, no soy un profesional de las matematicas, estadisticas o economia. Soy un ingeniero tratando de entender un topico muy arido y oscuro. Y esto es, al fin, una suerte de conversacion conmigo mismo.

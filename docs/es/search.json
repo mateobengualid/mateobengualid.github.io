@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Introduccion",
+    "section": "",
+    "text": "Introduccion\nEste ensayo trata sobre el Calculo Malliavin y la formula de Clark-Ocone. Tras meses de estudio, conclui que el principal problema para entender el topico es el enfasis en el rigor matematico de las fuentes consultadas, por sobre la claridad pedagogica. La falta de aplicaciones en la vida real o ejemplos practicos tambien es muy frustrante.\nVoy a empezar desarrollando que intenta lograr el Calculo Malliavin. Me aproximare en forma indirecta, meandrosa. Luego de documentar situaciones donde un problema existe, la necesidad de una solucion generara una especie de “vacio”. Luego, tambien indirectamente, pondre las fundaciones paso a paso. Finalmente, el vacio sera llenado.\nElegi Quarto porque el codigo fuente y sus resultados estaran disponibles. Ayuda mucho ver una pieza de matematicas y conectarla con instrucciones de codigo fuente.\nComo dije anteriormente, la claridad pedagogica es el factor primorial. No voy a escribir demostraciones si no pienso que sean importantes. Tomare atajos con impunidad. Algunas partes tal vez no lleven a ningun lado y solo esten ahi para redondear un concepto. Incluso puede que me declare ignorante sobre un tema y lo deje ahi.\nPor ultimo, no soy un profesional de las matematicas, estadisticas o economia. Soy un ingeniero tratando de entender un topico muy arido y oscuro. Y esto es, al fin, una suerte de conversacion conmigo mismo."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Prefacio",
+    "section": "",
+    "text": "Prefacio\nPara entender el Calculo Malliavin, no alcanza con entender las formulas y sus demostraciones. El Calculo Malliavin es la respuesta a una pregunta, y conocer la respuesta y el camino a ella no es suficiente.\nHay que entender la pregunta.\nEste libro fue creado para explicarme el topico a mi mismo y aprenderlo como consecuencia de ello. Si no viste “12 Monos” o “Arrival”, esto va a sonar contraintuitivo. Simplemente segui leyendo y (con suerte) ambos aprenderemos.\nPara crear este libro, use Quarto y RStudio, el ultimo IDE que vas a necesitar en tu vida. Para aprender mas de Quarto books, visita https://quarto.org/docs/books. Para aprender mas de RStudio IDE, visita https://posit.co/products/open-source/rstudio/. Tambien prefiero R sobre Python para topicos de Matematicas y Estadisticas.\nPor ultimo, dedico este trabajo a Pablo Azcue, que su memoria sea una bendicion. Probablemente nunca lo supo, pero fue el quien me hizo amar analisis real y procesos estocasticos."
+  }
+]

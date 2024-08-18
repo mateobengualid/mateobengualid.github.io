@@ -1,0 +1,11 @@
+# Prefacio {.unnumbered}
+
+Para entender el Calculo Malliavin, no alcanza con entender las formulas y sus demostraciones. El Calculo Malliavin es la respuesta a una pregunta, y conocer la respuesta y el camino a ella no es suficiente.
+
+Hay que entender la pregunta.
+
+Este libro fue creado para explicarme el topico a mi mismo y aprenderlo como consecuencia de ello. Si no viste "12 Monos" o "Arrival", esto va a sonar contraintuitivo. Simplemente segui leyendo y (con suerte) ambos aprenderemos.
+
+Para crear este libro, use Quarto y RStudio, el ultimo IDE que vas a necesitar en tu vida. Para aprender mas de Quarto books, visita <https://quarto.org/docs/books>. Para aprender mas de RStudio IDE, visita <https://posit.co/products/open-source/rstudio/>. Tambien prefiero R sobre Python para topicos de Matematicas y Estadisticas.
+
+Por ultimo, dedico este trabajo a Pablo Azcue, que su memoria sea una bendicion. Probablemente nunca lo supo, pero fue el quien me hizo amar analisis real y procesos estocasticos.

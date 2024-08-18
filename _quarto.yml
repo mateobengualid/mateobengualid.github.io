@@ -1,0 +1,101 @@
+project:
+  # type: book
+  type: website
+  output-dir: docs
+
+# Check https://github.com/maelle/babelsite for a multi-language site.
+# To compile, check https://docs.ropensci.org/babelquarto/ and
+# https://docs.ropensci.org/babeldown/articles/quarto.html
+# babelquarto::render_website()
+
+# Alternatively, check https://quarto-dev.marioangst.com/en/blog/posts/multi-language-quarto/
+# or https://oooo12.ooo/blog/multilanguage-blog-with-quarto/
+# for a setup using templates.
+
+website:
+  site-url: https://mateobengualid.github.io/malliavincalculus/
+  # To test in local, comment above and uncomment below
+  # site-url: file:///local/path/to/RamblingsOnMalliavinCalculus/docs/
+  repo-url: https://github.com/mateobengualid/malliavincalculus
+  page-navigation: true
+  repo-actions: [edit, issue]
+  title: "Malliavin Calculus"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - intro.qmd
+      - integrationbyparts.qmd
+      - measuretheory.qmd
+      - question.qmd
+      - multidimensional.qmd
+      - cameronmartin.qmd
+      - malliavinderivative.qmd
+      - clarkocone.qmd
+      - summary.qmd
+      - references.qmd
+  navbar:
+    left:
+      #- href: index.qmd
+      #  text: Home
+      - index.qmd
+      #- intro.qmd
+      #- integrationbyparts.qmd
+      #- measuretheory.qmd
+      #- question.qmd
+      #- multidimensional.qmd
+      #- cameronmartin.qmd
+      #- malliavinderivative.qmd
+      #- clarkocone.qmd
+      #- summary.qmd
+      #- references.qmd
+    tools:
+      - icon: twitter
+        href: https://x.com/one_twit_wonder/
+      - icon: github
+        menu:
+          - text: Source Code
+            href: https://github.com/mateobengualid/mateobengualid.github.io
+
+
+book:
+  title: "Ramblings On Malliavin Calculus"
+  author: "Mateo Bengualid"
+  date: "10/26/2023"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - integrationbyparts.qmd
+    - measuretheory.qmd
+    - question.qmd
+    - multidimensional.qmd
+    - cameronmartin.qmd
+    - malliavinderivative.qmd
+    - clarkocone.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    code-fold: true
+    theme: cosmo
+    css: styles.css
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
+babelquarto:
+  languagecodes:
+  - name: es
+    text: "Español"
+  - name: en
+    text: "English"
+  mainlanguage: 'en'
+  languages: ['es']
+title-es: Desvarios sobre el Calculo Malliavin
+description-es: Ensayo sobre el calculo Malliavin y la formula de Clark-Ocone
+author-es: Mateo Bengualid
+lang: en

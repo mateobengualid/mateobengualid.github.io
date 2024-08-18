@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Malliavin Calculus – multidimensional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="./">
+<link href="./cameronmartin.html" rel="next">
+<link href="./question.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Malliavin Calculus</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+<div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/malliavincalculus/es/multidimensional.html" id="language-link-es">Español</a></li></ul>
+</div>
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Preface</span></a>
+  </li>  
+</ul>
+<div class="quarto-navbar-tools ms-auto">
+    <a href="https://x.com/one_twit_wonder/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/mateobengualid/mateobengualid.github.io">
+            Source Code
+            </a>
+          </li>
+      </ul>
+</div>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./multidimensional.html">Infinite-dimensional vector spaces</a></li></ol></nav><a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./integrationbyparts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integration by parts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measuretheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measure theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The question</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multidimensional.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Infinite-dimensional vector spaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cameronmartin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cameron-Martin spaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./malliavinderivative.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Malliavin Derivative</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clarkocone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications and in-depth cases</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats">
+<h2>Other Formats</h2>
+<ul><li><a href="multidimensional.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul>
+</div>
+</div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><section id="infinite-dimensional-vector-spaces" class="level1"><h1>Infinite-dimensional vector spaces</h1>
+<p>Now that we know what Malliavin Calculus wants to achieve, let us jot down some ideas. If you look for the definition of Malliavin Calculus in Wikipedia, you’ll quickly find that there’s a Cameron-Martin direction in which the derivative takes place. That doesn’t make any sense, so we need to explain what a Cameron-Martin space is. But that requires us to go, before that, to vector spaces with infinite dimensions. And that will require talking about measuring, especially lengths and distances between vectors, and functions as vectors. You’ll see I take a lot of inspiration from <span class="citation" data-cites="functions_are_vectors">Slater (<a href="#ref-functions_are_vectors" role="doc-biblioref">2023</a>)</span> and <span class="citation" data-cites="lunardi_miranda_pallara">Alessandra Lunardi (<a href="#ref-lunardi_miranda_pallara" role="doc-biblioref">2015</a>)</span>, great websites that you must visit if you haven’t done so. This section is quite long and touches many algebra-related topics, so brace yourself.</p>
+<section id="hierarchy-of-spaces" class="level2"><h2 class="anchored" data-anchor-id="hierarchy-of-spaces">Hierarchy of spaces</h2>
+<p>We start from the beginning, with spaces, especially spaces over <span class="math inline">\(\mathbb{R}\)</span>, the field of reals<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. A space is a set <span class="math inline">\(V\)</span>, with elements that we will call vectors, that comes equipped with two operations:</p>
+<ul>
+<li>A “vector addition” operation that returns another vector. That is, <span class="math inline">\(V_1 \text{ '+' } V_2 = V_3\)</span>
+</li>
+<li>A “scalar multiplication” operation that returns another vector. That is, <span class="math inline">\(k \text{ '}*\text{' } V_1 = V_2\)</span>
+</li>
+</ul>
+<p>We use the quotes because we don’t want to impose any definitions on what those operations are. At most, we will say that they should observe properties like commutation (<span class="math inline">\(V_1+V_2=V_2+V_1\)</span>). In practice, though, we won’t be so exotic.</p>
+<p>Now, we can also equip spaces with other operations that will allow us to measure distances and lengths.</p>
+<section id="metric-spaces" class="level3"><h3 class="anchored" data-anchor-id="metric-spaces">Metric spaces</h3>
+<p>A metric space is a vector space that’s paired with a <strong>metric</strong> or <strong>distance</strong> function <span class="math inline">\(d(V,V) \rightarrow \mathbb{R}\)</span>. That is, a function that takes two vectors and gives back a real, positive value. Not every function will do, though. It needs to:</p>
+<ul>
+<li>Be symmetric, that is <span class="math inline">\(d(x,y)=d(y,x)\)</span>
+</li>
+<li>Return a positive value for different vectors, or zero if both vectors are the same</li>
+<li>Have the “triangle inequality”. That is, the distance between two vectors is larger (or equal) if you pass through a third, intermediate vector.</li>
+</ul>
+<p>The three most famous distances are the euclidean distance or <span class="math inline">\(d_2\)</span>, the taxicab distance or <span class="math inline">\(d_1\)</span>, and the maximum distance or <span class="math inline">\(d_\infty\)</span>. These are their definitions for vectors composed of <span class="math inline">\(n\)</span> real numbers:</p>
+<p><span class="math display">\[
+\begin{aligned}
+d_2(\vec a,\vec b) &amp;= \sqrt[2]{\sum_{k=1}^n{\left(a_k - b_k\right)^2}} \\\\
+d_1(\vec a,\vec b) &amp;= \sum_{k=1}^n{\left|a_k - b_k\right|} \\\\
+d_\infty(\vec a,\vec b) &amp;= \max_k{\left|a_k - b_k\right|}
+\end{aligned}
+\]</span></p>
+</section><section id="normed-vector-spaces" class="level3"><h3 class="anchored" data-anchor-id="normed-vector-spaces">Normed vector spaces</h3>
+<p>If you pair a vector space with a <strong>norm</strong>, it becomes a normed vector space. A norm is an operation that calculates the length of a single vector and it’s denoted as <span class="math inline">\(\|\,.\|:V\rightarrow \mathbb{R}\)</span>. As a function, it takes a single vector and gives back a real, positive value. Again, not every function will do, it needs to:</p>
+<ul>
+<li>Return zero for the zero-vector, or a positive value for non-zero vectors</li>
+<li>Be homogeneous. That is, a vector with components twice as big will have a length twice as large, as in <span class="math inline">\(\| k\cdot x\|=|k|\cdot\|x\|\)</span>
+</li>
+<li>Have the triangle inequality. That is, the norm of a sum is smaller or equal than the sum of the norms</li>
+</ul>
+<p>A classical example of norms are the family of <span class="math inline">\(p\)</span>-norms. For a vector of <span class="math inline">\(n\)</span>-length:</p>
+<p><span class="math display">\[
+\|x\|_p=\sqrt[p]{\sum_{i=1}^n\left(|x_i|\right)^p}
+\]</span></p>
+<p>Similar to above, the 1-norm is the taxicab norm <span class="math inline">\(\|x\|_1=\sum_{i=1}^n{|x_i|}\)</span>, the 2-norm is the euclidean norm and the infinite-norm is the maximum norm. That similarity doesn’t end there: you can create a distance out of a norm if you define the distance function to be the norm of the vectors’ difference. For example, <span class="math inline">\(d_1(a,b)=|a-b|_1\)</span> . This is known as a metric or distance induced by the norm.</p>
+<p>The opposite isn’t true, though. In general, a distance function can’t be turned into a norm, unless:</p>
+<ul>
+<li>The metric is invariant to translations, that is, <span class="math inline">\(d(x,y)=d(x+a,y+a)\)</span>
+</li>
+<li>The metric is homogeneous, that is, <span class="math inline">\(d(kx, ky)=|k|\cdot d(x,y)\)</span>
+</li>
+</ul>
+<p>In that case, the metric is induced by the norm <span class="math inline">\(\|x\|=d(x,0)\)</span>.</p>
+</section><section id="inner-product-spaces" class="level3"><h3 class="anchored" data-anchor-id="inner-product-spaces">Inner product spaces</h3>
+<p>There is yet another step in this ladder. You can equip a vector space with an operation called the <strong>inner product</strong>. It’s denoted <span class="math inline">\(\langle V,V\rangle \rightarrow\mathbb{R}\)</span> and it is, like the metric, a function that takes two vectors and gives back a real number. It can be thought of as the length of a vector when you use another vector as a ruler. It has a few requirements, though:</p>
+<ul>
+<li>It must be symmetric, that is, <span class="math inline">\(\langle x,y\rangle=\langle y,x\rangle\)</span>
+</li>
+<li>It must be linear in the first argument, that is, <span class="math inline">\(\langle ix+jy,z\rangle=i\langle x,z\rangle+j\langle y,z\rangle\)</span> . It will also apply for the second argument because of symmetry.</li>
+<li>If x is zero, <span class="math inline">\(\langle x,x\rangle=0\)</span>, otherwise it’s a strictly positive number.</li>
+</ul>
+<p>Every inner product will induce a canonical norm <span class="math inline">\(\|x\|=\sqrt[2]{\langle x, x \rangle}\)</span>, which in turn induces a metric. The most common example is the dot product. A <span class="math inline">\(n\)</span>-length vector would be:</p>
+<p><span class="math display">\[
+\langle x,y\rangle=x^Ty=\sum_{i=1}^n{(x_i \cdot y_i)}
+\]</span></p>
+</section></section><section id="sec-infinite-dimensional-vector-spaces" class="level2"><h2 class="anchored" data-anchor-id="sec-infinite-dimensional-vector-spaces">Infinite-dimensional vector spaces</h2>
+<p>In the formulas above, we say that there are <span class="math inline">\(n\)</span> components in our vectors. If we want to make sense of Cameron Martin spaces, we need to compare distances and lengths of vectors of potentially infinite dimensions. This is going be heavily inspired on <span class="citation" data-cites="functions_are_vectors">Slater (<a href="#ref-functions_are_vectors" role="doc-biblioref">2023</a>)</span>.</p>
+<p>Now, I’m going to assume you know a bit about linear algebra. For example, let’s take a vector space with vectors of this form:</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+a &amp;b &amp;c \\
+\end{pmatrix},\,\text{ } a,b,c \in \mathbb{R}
+\]</span></p>
+<p>We say that this vector space has dimension 3 because the smallest number of vectors we need to create a linear combination of every vector in that space is 3. Those vectors conform a <strong>basis</strong>, like so:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{pmatrix}a &amp;b &amp;c\end{pmatrix} =\, &amp;a \begin{pmatrix}1 &amp;0 &amp;0\end{pmatrix} + \\
+&amp;b \begin{pmatrix}0 &amp;1 &amp;0\end{pmatrix} + \\
+&amp;c \begin{pmatrix}0 &amp;0 &amp;1\end{pmatrix} \\
+\end{aligned}
+\]</span></p>
+<p>Let’s jump to a more interesting case: a vector space that represents polynomials, up to grade <span class="math inline">\(x^n, n \in \mathbb{N}\)</span>. That means,</p>
+<p><span class="math display">\[
+a_0 + a_1 x + ... + a_{n-1} x^{n-1} + a_n x^n \rightarrow \begin{pmatrix}a_0 &amp;a_1 &amp;... &amp;a_{n-1} &amp;a_n\end{pmatrix}
+\]</span></p>
+<p>We can see that polynomials admit multiplication by a scalar, as well as addition between two polynomials. So, we can truly use these as vectors from a space instead of the full polynomial’s formula.</p>
+<p>Now, there’s nothing preventing us from saying that <span class="math inline">\(n\)</span> is just the <em>entire</em> <span class="math inline">\(\mathbb{N}\)</span>, and that these vectors are infinite in nature. That is, we need infinitely many vectors to represent all possible polynomials:</p>
+<p><span class="math display">\[
+\begin{aligned}
+a_0 + a_1 x+ a_2x^2 +\, ... \rightarrow \begin{pmatrix}a_0 &amp;a_1 &amp;a_2 &amp;...\end{pmatrix} =\, &amp;a_0 \begin{pmatrix}1 &amp;0 &amp;0 &amp;...\end{pmatrix} + \\
+&amp;a_1 \begin{pmatrix}0 &amp;1 &amp;0 &amp;...\end{pmatrix} + \\
+&amp;a_2 \begin{pmatrix}0 &amp;0 &amp;1 &amp;...\end{pmatrix} +\, ...\\
+\end{aligned}
+\]</span></p>
+<p>The idea, while strange, isn’t <em>too</em> exotic. In fact, a lot of what we already knew for vectors with finite dimensions translate to infinite dimensions. For example, we can apply a linear transformation by multiplying these vectors with an equally-infinite matrix. You may already know that the derivative is a linear operation, so we can represent it with a matrix acting on our vector-as-polynomial:</p>
+<p><span class="math display">\[
+\frac{\partial }{\partial{x}}\left(a_0+a_1x+a_2x^2+...\right)
+\rightarrow
+\begin{pmatrix}
+0 &amp;1 &amp;0 &amp;0 &amp;...\\
+0 &amp;0 &amp;2 &amp;0 &amp;...\\
+0 &amp;0 &amp;0 &amp;3 &amp;...\\
+0 &amp;0 &amp;0 &amp;0 &amp;...\end{pmatrix}*\begin{pmatrix}a_0 \\ a_1 \\ a_2 \\...\end{pmatrix}=\begin{pmatrix}a_1 \\ 2a_2 \\ 3a_3 \\...\end{pmatrix}
+\rightarrow
+a_1+2a_2x+3a_3x^2+...
+\]</span></p>
+<section id="infinite-sequences" class="level3"><h3 class="anchored" data-anchor-id="infinite-sequences">Infinite sequences</h3>
+<p>A situation that’s a bit more interesting is when evaluating the norm or “length” of an element of these spaces. Let’s follow <span class="citation" data-cites="lunardi_miranda_pallara">Alessandra Lunardi (<a href="#ref-lunardi_miranda_pallara" role="doc-biblioref">2015</a>)</span> and consider the vector space of all infinite sequences of real numbers, <span class="math inline">\((a_i)\)</span>, which map to <span class="math inline">\(\mathbb{R}^{\infty}\)</span>. When dealing with finite dimensions, norms will always give you a finite result. This is no longer the case with infinite dimensions. For example, let’s take the harmonic sequence:</p>
+<p><span class="math display">\[
+(b_k)_{k\in\mathbb{N}}, b_k=\frac{1}{k} \rightarrow \begin{pmatrix}1 &amp;\frac{1}{2} &amp;\frac{1}{3} &amp;...\end{pmatrix}
+\]</span></p>
+<p>With the 1-norm,</p>
+<p><span class="math display">\[
+\|b\|_1=\lim_{n\to \infty}{\sum_{k=1}^n |b_k|}=\lim_{n\to \infty}{\sum_{k=1}^n \frac{1}{k}} \rightarrow \infty
+\]</span></p>
+<p>we can’t calculate a length value for the sequence, the harmonic series diverges. On the other hand, the 2-norm or euclidean norm, is capable to calculate a value because the series converges to a real number:</p>
+<p><span class="math display">\[
+\|b\|_2=\lim_{n\to \infty}{\sqrt{\sum_{k=1}^n {b_k}^2}}={\sqrt{\lim_{n\to \infty}\sum_{k=1}^n \frac{1}{k^2}}}=\sqrt\frac{\pi^2}{6}
+\]</span></p>
+<p>In fact, mathematicians name <span class="math inline">\(\ell^p\)</span> the space of sequences where the <span class="math inline">\(p\)</span>-norm returns a value. Alternatively, if you don’t want to deal with norms, you are better off defining a distance function for the space, like this:</p>
+<p><span class="math display">\[
+d(x,y)=\sum_{k=0}\frac{1}{2^k}\frac{|x_k-y_k|}{1+|x_k-y_k|}
+\]</span></p>
+<p>This will calculate a distance between any two sequences and it will always converge, but this metric isn’t translation invariant, and therefore doesn’t have an equivalent norm.</p>
+</section><section id="function-spaces" class="level3"><h3 class="anchored" data-anchor-id="function-spaces">Function spaces</h3>
+<p>Up until now, we have seen countably infinite dimensions, so let’s explore an uncountable one now: a space of <em>functions</em>. Yeah, functions are now elements of a vector space.</p>
+<p>To make any sense of this, we will start with a vector space with an inner product, and we will get the norm and metric for free. Let’s remember that for <span class="math inline">\(n\)</span>-size vectors, we did <span class="math inline">\(x^Ty\)</span>. So, in infinite dimensions, it would be something like:</p>
+<p><span class="math display">\[
+\begin{pmatrix}1 &amp;3 &amp;-2 &amp;...\end{pmatrix}
+*
+\begin{pmatrix}0 \\ -1 \\ 3 \\...\end{pmatrix}=1\cdot0+3\cdot(-1)+(-2)\cdot3+...=\lim_{n\rightarrow\infty}\sum_{i=1}^n{(x_i \cdot y_i)}
+\]</span></p>
+<p>As we transition from <span class="math inline">\(\mathbb{N}\)</span> to <span class="math inline">\(\mathbb{R}\)</span>, these sums will become integrals. In our vector space of functions defined over some generic domain <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[
+\langle f,g \rangle=\int_Xf(x)g(x)dx
+\]</span></p>
+<p>This definition fulfills our conditions for an inner product, and therefore induces a norm and a distance function:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\|f\|&amp;=\left(\int_X\left[f(x)\right]^2dx\right)^{\frac{1}{2}} \\
+d(f,g)&amp;=\left(\int_X\left[f(x)-g(x)\right]^2dx\right)^{\frac{1}{2}} \\
+\end{aligned}
+\]</span></p>
+<p>As a final note, you can check that there aren’t a lot of functions that will give you a value for these as well. Just like <span class="math inline">\(\ell^p\)</span> restricted the space to sequences that returned a value under the <span class="math inline">\(p\)</span>-norm, we can also restrict the space of functions to those that return a value under the special 2-norm that we induced above. The space is, creatively named, <span class="math inline">\(L^p\)</span>. Alternatively, <span class="math inline">\(L^p\)</span> is named the space of functions that are Lebesgue-integrable.</p>
+<p>This space is really very limited when <span class="math inline">\(X=\mathbb{R}\)</span>. There aren’t many functions where <span class="math inline">\(\int_{-\infty}^{+\infty}\left[f(x)\right]^2dx&lt;\infty\)</span>. Only some functions like <span class="math inline">\(e^{-x^2}\)</span> belong there. Polynomials, <span class="math inline">\(e^x\)</span> or logarithms aren’t included. That’s why people typically define the inner product over a smaller interval, <span class="math inline">\(X=[a,b]\)</span>. A norm such as <span class="math inline">\(\int_{a}^{b}\left[f(x)\right]^2dx\)</span> admits many more functions and it’s much more useful.</p>
+<p>There’s an additional option that can maintain <span class="math inline">\(X=\mathbb{R}\)</span> and still give you a value: we discard the Lebesgue measure and switch to Gaussian measure. In terms of the Riemann integral, it means that we stop treating all values of <span class="math inline">\(X\)</span> the same and we add a “weighting factor” that will reduce the function values as they go to infinity.</p>
+<p><span class="math display">\[
+\int_{-\infty}^{+\infty}f(x)g(x)dx = \int_{\mathbb{R}}\left[f\cdot g\right] d\lambda \rightarrow \int_{\mathbb{R}}\left[f\cdot g\right] d\gamma_{\mu,\sigma}=\int_{-\infty}^{+\infty}f(x)g(x)e^{-\frac{(x-\mu)^2}{\sigma}}dx
+\]</span></p>
+<p>This is the alternative we will choose. As we will see soon, it won’t come free of charge.</p>
+</section></section><section id="linear-operators-and-an-alternative-derivative-definition" class="level2"><h2 class="anchored" data-anchor-id="linear-operators-and-an-alternative-derivative-definition">Linear operators and an alternative derivative definition</h2>
+<p>Before we continue to the Cameron Martin space, this is probably the best moment to present linear operators. We briefly mentioned them in our polynomials-as-vectors example. We mentioned that we could create a matrix (of infinite size) to represent the derivative. In truth, these matrices can also be thought as functions that transform a vector to another vector. If this transformation is linear, then the matrix/function is called, unsurprisingly, a linear operator or linear map.</p>
+<p>We will use this fancy way of calling matrices/functions to define a derivative in the sense of Fréchet. Fréchet wanted to extend the notion of derivative to work with functions that take <span class="math inline">\(m\)</span> variables as input and outputs an <span class="math inline">\(n\)</span>-sized vector, with our classical derivative being the case for <span class="math inline">\(m=1,n=1\)</span>. Here’s the definition: if you have two normed vector spaced <span class="math inline">\(V\)</span> and <span class="math inline">\(W\)</span>, and a subset <span class="math inline">\(U \subseteq V\)</span>. Then <span class="math inline">\(f: V \rightarrow W\)</span> is Fréchet-differentiable at <span class="math inline">\(x \in V\)</span> if there’s a linear operator <span class="math inline">\(A: V \rightarrow W\)</span> such that</p>
+<p><span class="math display">\[
+\lim_{\|h\|\rightarrow 0} \frac{\|f(x+h)-f(x)-Ah\|_W}{\|h\|_V}=0
+\]</span></p>
+<p>and <span class="math inline">\(A=Df(x)\)</span> is the Fréchet derivative. This may look daunting, but notice that with some minor algebra and alterations, we can obtain a more familiar and straightforward formula:</p>
+<p><span class="math display">\[
+f(x+h) = f(x) + Ah
+\]</span></p>
+<p>So, in the end, <span class="math inline">\(A\)</span> is how much the function changes with a small <span class="math inline">\(h\)</span> displacement.</p>
+<p>This special definition of derivative even allows you to calculate the derivative of the norm <span class="math inline">\(\|\,.\|:H \rightarrow \mathbb{R}\)</span> around <span class="math inline">\(x \neq 0\)</span>:</p>
+<p><span class="math display">\[
+D_xv = \left\langle v, \frac{x}{\|x\|} \right\rangle
+\]</span></p>
+<p>That is, the derivative of the norm around <span class="math inline">\(x\)</span>, applied on a vector, is how much the length of the vector grows on the direction of <span class="math inline">\(x\)</span>, using a vector of length 1 as a ruler.</p>
+</section><section id="adjoint-operators" class="level2"><h2 class="anchored" data-anchor-id="adjoint-operators">Adjoint operators</h2>
+<p>A final topic around operators is the adjoint operator. Let’s take a linear operator <span class="math inline">\(A:U\rightarrow V\)</span>, vectors <span class="math inline">\(u \in U, v \in V\)</span>, and an inner product for <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span>. Then the adjoint of <span class="math inline">\(A\)</span>, called <span class="math inline">\(A^*: V \rightarrow U\)</span> , is such that:</p>
+<p><span class="math display">\[
+\langle Au, v \rangle_V = \langle u, A^* v \rangle_U
+\]</span></p>
+<p>It’s important to note that <span class="math inline">\(A^*\)</span> isn’t an inverse, although <span class="math inline">\(A^{**}=A\)</span>, it’s more like a “companion” operator that can be used instead of <span class="math inline">\(A\)</span> if we are in the other vector space. We will use it later to make sense of the derivative operator <span class="math inline">\(D\)</span> under particular inner products.</p>
+</section><section id="orthonormalization" class="level2"><h2 class="anchored" data-anchor-id="orthonormalization">Orthonormalization</h2>
+<p>We mentioned above that a basis already has the property of generating every element in the space by linear combination of its (linearly independent) elements. It can also have additional properties.</p>
+<p>A basis is “orthogonal” if <span class="math inline">\(\langle b_i, b_j \rangle = 0 \text{ if } i \neq j\)</span> . That is, different elements in the basis don’t “overlap” with each other. This means we can express any vector <span class="math inline">\(v\)</span> as a sum that depends only on the basis vectors and <span class="math inline">\(v\)</span>. In particular, if <span class="math inline">\(B\)</span> is an orthogonal basis of <span class="math inline">\(V\)</span>, then any element <span class="math inline">\(v\)</span> of <span class="math inline">\(V\)</span> can be written as:</p>
+<p><span class="math display">\[
+v = \sum_{b_i \in B}a_i b_i = \sum_{b_i \in B} \underbrace{\frac{\langle b_i, x \rangle}{\|b_i\|^2}}_{a_i}b_i
+\]</span></p>
+<p>With a non-orthogonal basis, you can still write it as a sum, but you need to solve a system of equations to obtain the <span class="math inline">\(a_i\)</span> for the given vector. Compare that to an orthogonal basis, where you can get them directly from an operation that uses the vector and the basis elements themselves.</p>
+<p>This can be even better if the basis is “orthonormal”. A basis is orthonormal if it’s orthogonal and <span class="math inline">\(\langle b_i, b_i \rangle = \|b_i\|^2=1\)</span> . In that case it’s even more straightforward, you really only need a single inner product operation to obtain the scalar that belongs to the basis element:</p>
+<p><span class="math display">\[
+v = \sum_{b_i \in B}a_i b_i = \sum_{b_i \in B} \underbrace{\langle b_i, x \rangle}_{a_i}b_i
+\]</span></p>
+<p>You may ask why don’t we just use orthonormal basis all the time and save us the hassle. Indeed, we can transform a basis into an orthonormal basis by using the Gram-Schmidt process. I won’t explain the process, it’s only important that we know it can be done.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-lunardi_miranda_pallara" class="csl-entry" role="listitem">
+Alessandra Lunardi, Diego Pallara, Michele Miranda. 2015. <span>“Infinite Dimensional Analysis.”</span> 2015. <a href="http://dmi.unife.it/it/ricerca-dmi/seminari/isem19/lectures/lecture-notes/view">http://dmi.unife.it/it/ricerca-dmi/seminari/isem19/lectures/lecture-notes/view</a>.
+</div>
+<div id="ref-functions_are_vectors" class="csl-entry" role="listitem">
+Slater, Max. 2023. <span>“Functions Are Vectors.”</span> 2023. <a href="https://thenumb.at/Functions-are-Vectors">https://thenumb.at/Functions-are-Vectors</a>.
+</div>
+</div>
+</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>A word of warning: some of these properties don’t apply for the field of complex numbers <span class="math inline">\(\mathbb{C}\)</span>, but we won’t deal with them.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./question.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">The question</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cameronmartin.html" class="pagination-link">
+        <span class="nav-page-text">Cameron-Martin spaces</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
+<div><i class="bi bi-github"></i></div>
+<div class="action-links">
+<p><a href="https://github.com/mateobengualid/malliavincalculus/edit/main/multidimensional.qmd" class="toc-action">Edit this page</a></p>
+<p><a href="https://github.com/mateobengualid/malliavincalculus/issues/new" class="toc-action">Report an issue</a></p>
+</div>
+</div></div></div></footer>
+</body>
+</html>
