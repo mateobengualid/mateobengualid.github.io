@@ -76,7 +76,7 @@ $$
 
 It looks messy, but things are what we expect: $t$ is the terminal value of both integrals, $s$ is the variable we use to integrate from $0$ to $t$, and $r$ is the variable we introduced with the Malliavin Derivative. See that it makes sense: the influence of $\sigma$ in the Ito process is the same along the whole Ito process path.
 
-Now, we can use a similar argument for the number of trouts in the lake, which followed an Ornstein-Uhlenbeck process. I'll save us some effort and directly copy the formula for a process like the one that motivated Ito's Lemma:
+Now, we can use a similar argument for the number of trouts in the lake, which followed an Ornstein-Uhlenbeck process. Given that $\mu_s$ and $\sigma_s$ are now $a(s,X_s)$ and $b(s,X_s)$, we apply chain and product rules as above to arrive to:
 
 $$
 D_rX_t = \int_r^t \frac{\partial a}{\partial x}(s, X_s)\,D_rX_s\,ds + b(r,X_r)1_{[0,t]}(r) + \int_r^t \frac{\partial b}{\partial x}(s, X_s)\,D_rX_s\,dW_s \\
@@ -98,7 +98,7 @@ Finally, we lucked out above. The expression for $D_rN_t$ is simple, so we could
 
 ## Clark-Ocone-Haussman Formula
 
-Let's see a relatively simple application with profound implications, following @Friz2002AnIT . Let's consider this function:
+Let's see a relatively simple application with profound implications, following @Friz2002AnIT entirely. Let's consider this function:
 
 $$
 F(t) = e^{\int_0^t h\,dB - \frac{1}{2}\int_0^t{h^2}d\lambda}
@@ -135,7 +135,7 @@ $$
 
 This is the Clark-Ocone formula, which is an explicit formula for the Martingale Representation Theorem. The Malliavin derivative is the key ingredient to have an analytic expression and it's the main reason one would care about it. What this is telling us is that any random variable indexed by time $F_t$ can be split into a sum of a "deterministic" portion, the expected value, and a martingale that fluctuates around it.
 
-We can apply this to the Ornstein-Uhlenbeck process for our trouts. We know from before that $D_rN_t = \sigma\,e^{-\theta(t-r)}$. Notice that there's no $W_t$, so the expected value is just the Malliavin derivative. We could estimate the value of $\mathbb{E}[N]$ or try to solve the (stochastic) differential equation, but given that the process already has a solution for it, I'll go ahead and add it. Here's in all its splendor:
+We can apply this to the Ornstein-Uhlenbeck process for our trouts. We know from before that $D_rN_t = \sigma\,e^{-\theta(t-r)}$. Notice that there's no $W_t$, so the expected value is just the Malliavin derivative. We could estimate the value of $\mathbb{E}[N]$ or try to solve the (stochastic) differential equation, but given that the process already has a known solution, I'll go ahead and add it. Here's in all its splendor:
 
 $$
 \begin{aligned}

@@ -1,6 +1,6 @@
 # Integration by parts
 
-We begin our journey by talking about a trick that could be seen as the reverse for the product rule for derivatives. We will use it to develop an entirely new way to solve problems by minimizing a function of functions. This will basically follow @calculus_of_variations, but I'm copying it here for completion's sake.
+We begin our journey by talking about a trick that could be seen as the reverse for the product rule for derivatives. We will use it to develop an entirely new way to solve problems by minimizing a function of functions. FInally, this will follow @calculus_of_variations, which has the classical derivation, with some pieces added by me.
 
 ## Sketch for deriving the integration-by-parts formula
 
