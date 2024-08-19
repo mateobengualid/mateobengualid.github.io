@@ -1,32 +1,32 @@
 # Measure theory
 
-After calculus of variations, we need to divert further to a topic somewhat related to integration. It will be really hard to follow some pieces otherwise.
+After calculus of variations, we need to divert further to a topic somewhat related to integration. Some pieces will be harder to follow otherwise.
 
 ## A primer on measure theory
 
-You may have grown accustomed to call "integration" to something like $\int_{a}^{b}fdx$ , but that's actually just the Riemann integration. Ok, it "just" powers 99% of all real-life integration, but there are many other specialized integrals that can handle special situations like discontinuities or holes in $f$ , such as the Riemann-Stieltjes integral, the Henstock-Kurzweil integral, and the Lebesgue integral. The last one is where we will concentrate the most.
+You may have grown accustomed to calling "integration" to something like $\int_{a}^{b}fdx$ , but that's actually just the Riemann integration. Ok, it "just" powers 99% of all real-life integration, but there are many other specialized integrals that can handle special situations like discontinuities or holes in $f$, such as the Riemann-Stieltjes integral, the Henstock-Kurzweil integral, and the Lebesgue integral. The last one is where we will concentrate the most.
 
 We start with a seemingly unrelated problem: the size of a set. Let's say we have a set of $\mathbb{N}$ and we want to know how big it is: we may, for example, just count how many elements are there in the set:
 
 $$
 \begin{aligned}
-&\#\{0,2,3\} = 3\\
+&\#\{\pi,e,25\} = 3\\
 &\#\{\} = 0 \\
 &\#\{1,2,3,..\} = \infty
 \end{aligned}
 $$
 
-In a sense, $\#$ is a function that receives a set with a combination of elements from $\mathbb{N}$ and outputs a numeric value. In the literature, the elements belong to a set $\Omega$ and the combinations of those elements comes from a set of sets $\Sigma$ , also called a sigma-algebra. More formally, $\# : \Sigma \to \mathbb{N}$.
+In a sense, $\#$ is a function that receives a set with a combination of elements from $\mathbb{N}$ and outputs a numeric value. In the literature, the elements belong to a set $\Omega$ and the combinations of those elements belong to a set of sets $\Sigma$ , also called a sigma-algebra. More formally, $\# : \Sigma \to \mathbb{N}$.
 
 $\#$ is called a measure. Measures are normally referred as $\mu$, and fulfill roughly two conditions:
 
 -   $\mu(s) \ge 0 ,\, \forall s \in \Sigma$, that is, they are always positive. This condition can be relaxed, though, into having "signed measures".
 
--   If $A_1 \cap A_2 = \{\} \implies {\mu (A_1 \cup A_2) = \mu(A_1) + \mu(A_2)}$ . This means that the "size" of a set is the same as the sum of the sizes of its subsets.
+-   If $A_1 \cap A_2 = \{\} \implies {\mu (A_1 \cup A_2) = \mu(A_1) + \mu(A_2)}$. This means that the "size" of a set is the same as the sum of the sizes of its subsets.
 
-There are many measures, with different properties, that are defined to operate over "measurable sets", namely the pair $(\Omega,\Sigma)$. For example, the Borel measure, which we will use interchangeably with the Lebesgue measure[^measuretheory-1]:
+There are many measures, with different properties, that are defined to operate over "measurable sets", namely the pair $(\Omega,\Sigma)$. You have already seen the counting measure. The Borel measure, which we will use interchangeably with the Lebesgue measure[^measuretheory-1], can be defined as:
 
-[^measuretheory-1]: The Lebesgue outer measure has a more complex definition that avoids some pathological results that the Borel measure has in certain sets. In "reasonable" sets where the Borel measure is defined, the Lebesgue measure coincides.
+[^measuretheory-1]: The Lebesgue outer measure has a more complex definition that avoids some pathological results that the Borel measure has in certain measurable sets. In "reasonable" sets where the Borel measure is defined, the Lebesgue measure coincides.
 
 $$
 \lambda((a,b])=b-a
@@ -46,7 +46,7 @@ $$
 
 ## Connection between measures and integrals
 
-We will now do something daring: notice that definite integrals work over an interval (a set) and the result is a number. Yes, an integral is a (signed) measure[^measuretheory-2]. This will require a bit of rethinking of what integrating really means, as well as changing our notation for the integral.
+We will now do something daring: have you noticed that definite integrals work over an interval (a set) and the result is a number? Yes, an integral is a (signed) measure[^measuretheory-2]. This will require a bit of rethinking of what integrating really means, as well as changing our notation for the integral.
 
 [^measuretheory-2]: The converse, that any (signed) measure is always an integral, is also true under certain conditions. This is the consequence of the Radon-Nikodym theorem.
 
@@ -66,6 +66,7 @@ Here's how it looks like:
 
 ```{r}
 #| echo: true
+#| warning: false
 library(ggplot2)
 library(broom)
 
@@ -249,3 +250,5 @@ $$
 Again, for every possible value of $x \in A$, we will measure all the image sets that result from those values and we add up all those measure results. This particular function is really great because for $x\rightarrow\pm \infty$, the measure is still a number. It's also called a probability measure because $\gamma^n(\Omega)=1$, that is, the total measured area under the whole domain is 1 or 100%. If you have done a bit of probability, the function $\mathbb{P}$ was a probability measure all along.
 
 This is a lot to digest, I know. Just read it until it clicks. It took me 3 years of meditating on the subject after all!
+
+------------------------------------------------------------------------

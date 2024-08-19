@@ -64,7 +64,7 @@ ggplot(data = df, mapping = aes(x=time), legend=TRUE) +
   ylab('f(X)') +
   geom_area(mapping = aes(y=density_y, fill="f(X)"), alpha = 0.3) +
   geom_area(mapping = aes(y=density_y_plus, fill="f(X+5)"), alpha = 0.5) +
-  scale_fill_manual(values=c("green", "blue"))
+  scale_fill_manual("Functions",values=c("green", "blue"))
 ```
 
 Unfortunately, the Gaussian measure doesn't allow that. Let's remember the $n$-dimensional or 1-dimensional cases for a standard, centered Gaussian measure.
@@ -108,9 +108,9 @@ ggplot(data = df, mapping = aes(x=time), legend=TRUE) +
   #theme(legend.position = "none")
 ```
 
-As you can see, the first function had plenty of area in the middle of the weight, so it retains quite a bit. The shifted function instead has shrunk. In order to preserve the area size, you'll need to replace the Gaussian measure with a shifted Gaussian measure inside the integral, similar to a change of variables. This is straightforward with finite dimensions, but it's challenging in infinite dimensions for theoretical reasons (which I won't put here).
+As you can see, the first function had plenty of area in the middle of the weight, so it retains quite a bit. The shifted function instead has shrunk. Now, even though the area has changed, we could in theory recover the factor by which it has changed. With finite dimensions, this is doable, but it's challenging in infinite dimensions.
 
-The main idea, though, is that you *are* allowed to perform these translations in infinite dimensions. The only requirement is that the translation exists in a "smaller" space, the **Cameron-Martin** space, and only those translations make sense and are allowed.
+The main idea here is that you *are* allowed to perform these translations in infinite dimensions and arrive to a calculation that still works. The only requirement is that the translation comes from a "smaller" space, the **Cameron-Martin** space, and only those translations make sense and are allowed.
 
 ## The Cameron-Martin space
 
@@ -134,7 +134,7 @@ So, a Gaussian measure for a translated set is the measure for the original set,
 
 Now, let's point out once again that, if there's a space $E$ and a measure $\mu$ that's locally finite and equivalent to itself after *any* translation "change of variables", then either $E$ is finite-dimensional, as shown above, or $\mu$ is the trivial measure $\mu(A) = 0,\, \forall A$. We can also already see from the expression above that if $h$ is infinite-dimensional then there's the potential to make this integral tend to infinity. Fortunately for us, we can sidestep this by only expecting equivalence under *some* translations, namely translations that are elements of a Cameron-Martin space, also called Cameron-Martin directions.
 
-We start from an infinite-dimensional space $H$, our Cameron-Martin space. We will have $h \in H$, with a mapping $i(h):H\rightarrow E$, and $i(H) \subseteq E$. These $i(H)$ will be our Cameron-Martin directions. We will impose additional restrictions on $h$. For starters, and based on the Radon-Nikodym derivative we see above, we need $\|h\|^2_H < \infty$. Then, we need to decide what $\langle h, x \rangle$ even means and what to do with it. In fact, this isn't a true inner product because $h \in H$ and $x \in E$ (remember, the whole point of $H$ *is* to reduce the space!). In short, what's going on with that fake inner product is that there's a mapping for every $h$ to a function in the space of functions $I(h): H \rightarrow L^2$, and $I(h)(x)$ is what will count as the "inner product" $\langle h, x \rangle^\sim$. [^cameronmartin-3]
+We start from an infinite-dimensional space $H$, our Cameron-Martin space. We will have $h \in H$, with a mapping $i(h):H\rightarrow E$, and $i(H) \subseteq E$. These $i(H)$ will be our Cameron-Martin directions. We will impose additional restrictions on $h$. For starters, and based on the Radon-Nikodym derivative we see above, we need *at least* $\|h\|^2_H < \infty$. Then, we need to decide what $\langle h, x \rangle$ even means and what to do with it. In fact, this isn't a true inner product because $h \in H$ and $x \in E$ (remember, the whole point of $H$ *is* to reduce the space!). In short, what's going on with that fake inner product is that there's a mapping for every $h$ to a function in the space of functions $I(h): H \rightarrow L^2$, and $I(h)(x)$ is what will count as the "inner product" $\langle h, x \rangle^\sim$. [^cameronmartin-3]
 
 [^cameronmartin-3]: This is called the Paley-Wiener integral. We won't need to mention or refer to this again because it agrees with the Ito integral when both are defined, similar to the Borel and Lebesgue measures.
 
@@ -144,7 +144,7 @@ All of the above is pretty arid, so let's take a look at one example of a infini
 
 ### Infinite sequences
 
-Recall the space of infinite sequences? It's an infinite-dimensional space and we denoted it $\mathbb{R}^{\mathbb{N}}:=\mathbb{R}^{\infty}$, with countable cardinality. Now, let's consider the space of sequences that vanish at infinity, with the exotic symbol $\mathbb{R}_c^{\infty}$ and its elements will have the even more exotic symbol $\xi\in\mathbb{R}_c^{\infty}$ . At this point, we know $\lim_{k\rightarrow \infty}\xi_k = 0$.
+Recall the space of infinite sequences? It's an infinite-dimensional space and we denoted it $\mathbb{R}^{\mathbb{N}}:=\mathbb{R}^{\infty}$, with countable cardinality. Now, let's consider the space of sequences that vanish at infinity, with the exotic symbol $\mathbb{R}_c^{\infty}$ and its elements will have the even more exotic symbol $\xi\in\mathbb{R}_c^{\infty}$ . So, by definition, we know $\lim_{k\rightarrow \infty}\xi_k = 0$.
 
 Now, we establish a correspondence between these sequences and functions, very straightforward: $\xi \rightarrow f, \text{with }f(x) = \sum^\infty_{k=1}\xi_k x_k$ , and we will limit this to the sums that are finite, in other words $f(x)<\infty$ or $f(x) \in L^2$. Notice that when we measure the first term of this series with a Gaussian measure, we will be simplifying a lot:
 
@@ -155,3 +155,5 @@ $$
 Now, you can do this for all $x_k$ and find the same result. This is no coincidence, and it's the reason why we used the Gaussian measure for infinite dimensions. In fact, $\gamma$ for the infinite-dimensional case will have mean $\mu=0$ and variance/covariance $B_\gamma(\xi,\xi)=\|\xi\|_{\ell^2}$.
 
 This last statement is also useful because we can use it to arrive from the norm of a function using the Gaussian measure to its value. I won't prove it now, but $\|f\|^2_{L^2(X,\gamma)}=\|\xi\|^2_{\ell^2}$. Now, if we take a $h\in \mathbb{R}^\infty$, we can show (but we won't) that by having $h\in H = \ell^2$ instead, this is enough for the functions above to be measured and to always obtain a value. So, the Cameron-Martin space is $\ell^2$.
+
+------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 # Integration by parts
 
-We start our convoluted journey by talking about a trick that could be seen as the reverse for the product rule for derivatives. We will use it to develop an entirely new way to solve problems by minimizing a function of functions.
+We begin our journey by talking about a trick that could be seen as the reverse for the product rule for derivatives. We will use it to develop an entirely new way to solve problems by minimizing a function of functions. This will basically follow @calculus_of_variations, but I'm copying it here for completion's sake.
 
 ## Sketch for deriving the integration-by-parts formula
 
@@ -28,7 +28,7 @@ $$
 \end{aligned}
 $$
 
-Finally, imagine that the functions vanish on the extremes $a$ and $b$. That is, $u(b)v(b)-u(a)v(a)=0$. Then you can simplify further:
+Finally, imagine that the functions vanish on the extremes $a$ and $b$. That is, $u(b)v(b)-u(a)v(a)=0$. In that case, you can simplify even further:
 
 $$
 \int u\,dv = -\int v\,du
@@ -36,11 +36,11 @@ $$
 
 ## Calculus of variations
 
-Malliavin Calculus is sometimes called an extension of calculus of variations to stochastic processes. What does that even means? We start with the first part.
+Malliavin Calculus is sometimes called an extension of calculus of variations to stochastic processes. What does that even means? Let's deal with the first part.
 
 ### Derivation and application
 
-I'll assume that you know the basics of calculus. That means you can solve problems like this: let's say we have a function $f$ and we want to know the value of $x$ where $f$ attains its minimum.
+I'll assume that you know the basics of calculus. That means you can solve problems like this: let's say we have a function $f$ and we want to know the value of $x$ where $f$ attains its minimum:
 
 $$
 \min{f(x)}=x^2-4x+5
@@ -60,9 +60,9 @@ Which means that $\min{f(x)}=f(2)=2^2-4*2+5=1$.
 
 This approach works great when you try to minimize a function **value** over the reals, $f: \mathbb{R} \to \mathbb{R}$, or in general for multivariate functions, $f: \mathbb{R}^n \to \mathbb{R}$.
 
-But let's say we want to find the **function** that minimizes an expression. We don't know how that function looks, or want to impose any preconceived notions like being a polynomial or a sum of sine/cosine pairs. What do we do, then?
+But let's say we want to find the **function** $y=f(x)$ that minimizes an expression. We don't know how that function looks, or want to impose any preconceived notions like being a polynomial or a sum of sine/cosine pairs. What do we do, then?
 
-From now on, I'll be basically copy-pasting Wikipedia. The first step is to define a "function of functions" as the starting point for minimization, and that function is essentially an integral:
+From now on, it's autopilot from any course (I'll be using the Wikipedia article as the baseline). The first step is to define a "function of functions" as the starting point for minimization, and that function is essentially the integral like this:
 
 $$
 J[y]=\int^{x_2}_{x_1} L(x,y,y')dx \\
@@ -74,7 +74,7 @@ $$
 \min\sum^n_{i=1}\sqrt{ (\Delta x_i)^2+(\Delta y_i)^2}
 $$
 
-As little changes become infinitesimal, and with some extreme abuse of notation, we switch to an integral:
+As little changes become infinitesimal, and with some extreme abuse of notation, we switch to an integral and obtain the expression for $L$:
 
 $$
 \begin{aligned}
@@ -86,7 +86,7 @@ $$
 \end{aligned}
 $$
 
-Now, we will introduce a generic function $\eta(x)$ called the variation. This function represents an unknown perturbation and the only requirement that we will impose on it is that $\eta(a)=\eta(b)=0$. We can assume now that $f(x)=y$ is the solution and $\eta$ is the deviation from the solution, which we can multiply by a small number $\varepsilon$. We can then define a function over $\varepsilon$, $\Phi(\varepsilon)= J[f + \varepsilon *\eta]$, so that $\Phi(0)=f$, our solution.
+Now, we will introduce a generic function $\eta(x)$ called the variation. This function represents a perturbation and the only requirement that we will impose on it is that $\eta(a)=\eta(b)=0$. We can assume that $f(x)=y$ is the solution and $\eta$ is the deviation from the solution, which we can multiply by a small number $\varepsilon$. We can then define a function over $\varepsilon$, $\Phi(\varepsilon)= J[f + \varepsilon *\eta]$, so that $\Phi(0)=f$, our solution.
 
 The trick here is that now, instead of minimizing something that depends on unknown functions, which we can't even start to comprehend, we minimize something that depends on a number, $\varepsilon$. Not only that, we constructed $\varepsilon$ and $\eta$ so that we know, in advance, that the function we are looking for, the solution, is at $\Phi(\varepsilon=0)=J[f]$ and $\Phi'(0)=0$ because it's the minimum. Absolute genius.
 
@@ -116,7 +116,7 @@ $$
 \end{aligned}
 $$
 
-We start from $\Phi'(0)$ and we do an *integration by parts*. This is crucial, without that operation this whole scheme falls apart. We also know that $\eta(a)=\eta(b)=0$, so that term vanishes. Joining terms and taking a common factor we reach our final conclusion. The final piece of magic is realizing that this integral is zero, no matter what $\eta(x)$ we pick. By the Fundamental Lemma of Calculus of Variations, that leaves only one possibility, and it's so important that it's named the Euler-Lagrange equation:
+We start from $\Phi'(0)$ and we do an *integration by parts*. This is crucial, without that operation this whole scheme falls apart. We also know that $\eta(a)=\eta(b)=0$, so that term vanishes. Joining terms and taking a common factor we reach our final conclusion. The final piece of magic is realizing that this integral is zero, no matter what $\eta(x)$ we pick. By the Fundamental Lemma of Calculus of Variations, that leaves only one possibility, and it's so important that it's called the Euler-Lagrange equation:
 
 $$
 \frac{\partial L}{\partial f} -\frac{d}{dx} \frac{\partial L}{\partial f'}=0
@@ -155,3 +155,5 @@ f(x) &= mx+b
 $$
 
 The function with the shortest path between two points is a straight line, and the only thing we needed to know is how the distance between two points is calculated to get a closed-form, analytic solution.
+
+------------------------------------------------------------------------

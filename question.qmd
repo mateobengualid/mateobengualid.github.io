@@ -2,7 +2,7 @@
 
 As I mentioned previously, Malliavin Calculus isn't a topic that can easily relate to everyday things. Most authors I've checked don't detail too much on why an object like it exists, or the Clark-Ocone formula. Instead, they go to the Hormander condition, which is meaningless for our purposes.
 
-Malliavin Calculus is used in connection with stochastic processes and martingales, so we better explain those.
+If Malliavin Calculus is called the extension of calculus of variations to stochastic processes, then the time has come to discuss stochastic processes and martingales.
 
 ## Stochastic processes
 
@@ -17,11 +17,12 @@ $$
 \end{aligned}
 $$
 
-This is very simple: at time $i$, after $\Delta t$ has passed, the drunkard take a step $X_i$, which can be either up or down with equal probability. The position $Z$ at $t$ is simply the result of all the steps the drunkard has taken before. As it stands, each movement "up" can be considered a "success", so this sum follows a binomial distribution centered at $0$.
+This is very simple: at time $i$, after $\Delta t$ has passed, the drunkard take a step $X_i$, which can be either up or down the street with equal probability. The position $Z$ at $t$ is simply the result of all the steps the drunkard has taken before. As it stands, each movement "up" can be considered a "success", so this sum follows a binomial distribution centered at $0$.
 
 Let's consider something else: let the random walk take more frequent and shorter steps. In the language of the symbols above, $\Delta t$ and $X_i$ are made smaller. As the steps become infinitesimals, the process becomes continuous. This is how a path may look like when $\Delta t=0.1,\,0.01,\,0.001$:
 
 ```{r}
+#| warning: false
 library(ggplot2)
 library(rgl)
 
@@ -29,25 +30,34 @@ library(rgl)
 h <- 0.01
 steps = 1 / h
 xl <- seq(from = 0, to = 1, length.out=steps)
-yl <- (rbinom(steps,1,0.5)*2-1)*sqrt(h)/2
-zl <- cumsum(yl)
-ggplot(mapping = aes(x = xl, y = zl)) + geom_line()
+yl <- (rbinom(steps-1,1,0.5)*2-1)*sqrt(h)/2
+zl <- c(0,cumsum(yl))
+ggplot(mapping = aes(x = xl), legend=TRUE) +
+  geom_line(mapping = aes(y=zl, fill="f(X)")) +
+  xlab('Time') +
+  ylab('Z')
 
 # Middle
 h <- 0.001
 steps = 1 / h
 xl <- seq(from = 0, to = 1, length.out=steps)
-yl <- (rbinom(steps,1,0.5)*2-1)*sqrt(h)/2
-zl <- cumsum(yl)
-ggplot(mapping = aes(x = xl, y = zl)) + geom_line()
+yl <- (rbinom(steps-1,1,0.5)*2-1)*sqrt(h)/2
+zl <- c(0,cumsum(yl))
+ggplot(mapping = aes(x = xl), legend=TRUE) +
+  geom_line(mapping = aes(y=zl, fill="f(X)")) +
+  xlab('Time') +
+  ylab('Z')
 
 # Right
 h <- 0.0001
 steps = 1 / h
 xl <- seq(from = 0, to = 1, length.out=steps)
-yl <- (rbinom(steps,1,0.5)*2-1)*sqrt(h)/2
-zl <- cumsum(yl)
-ggplot(mapping = aes(x = xl, y = zl)) + geom_line()
+yl <- (rbinom(steps-1,1,0.5)*2-1)*sqrt(h)/2
+zl <- c(0,cumsum(yl))
+ggplot(mapping = aes(x = xl), legend=TRUE) +
+  geom_line(mapping = aes(y=zl, fill="f(X)")) +
+  xlab('Time') +
+  ylab('Z')
 ```
 
 A one-dimensional random walk from $0$ to $t$, in a similar fashion to the Central Limit Theorem, will converge to a normal variable:
@@ -66,11 +76,11 @@ These continuous-time stochastic processes are called Brownian motions or Wiener
 
 -   $B_t$ is continuous at $t$. A bit circular, I know.
 
-There's a catch, though. Even though they are continuous, these functions aren't differentiable. You kind of see it from the previous path graphs, with how jagged they become as the indices, or steps, shrink. It also makes sense if you think about the way we constructed the process: when you are at a point in time $t$, you don't know from where you randomly came. Did you arrive from a smaller or bigger value at $t-\Delta t$? There's no way to make sense of $\frac{\partial Z_t}{\partial t}$. This will become an issue later.
+There's a catch, though. Even though they are continuous, these functions aren't differentiable. You kind of see it from the previous path graphs, with how jagged they become as the indices, or steps, shrink. It also makes sense if you think about the way we constructed the process: when you are at a point in time $t$, you don't know from where you randomly came. Did you arrive from a smaller or bigger value at $t-\Delta t$? There's no way to make sense of $\frac{\partial Z_t}{\partial t}$.
 
 ### Ito Calculus
 
-We have seen a very simple case of a stochastic process. What about more complicated random variables or functions of these variables?
+The drunkard's walk is a very simple case of a stochastic process. What about more complicated random variables or functions of these variables?
 
 We start from a simple substitution: we can't do $\frac{\partial Z_t}{\partial t}$ but we "can" pass the $dt$ as a multiplication, like we do with total derivatives, and refer to just $dZ_t$. In general, we would like to express a minuscule change in the random variable being composed of something that changes very little in time and a little "noise". In short, something like this:
 
@@ -92,7 +102,7 @@ $$
 \sigma_{t_{i}} * (B_{t_i}-B_{t_{i-1}})
 $$
 
-We can calculate the above because that difference of Brownian motions can be transformed into a normal distribution. To show how this help us, we can do the following calculation and confirm that the expected value depends only on the first term:
+We can calculate the above because that difference of Brownian motions can be transformed into a normal distribution that we can manipulate. To show how this help us, we can do the following calculation and confirm that the expected value of $Z$ only depends on the first term:
 
 $$
 \mathbb{E}\left[ \int_0^t \sigma_s \, dB_s\right]=
@@ -151,13 +161,13 @@ df(t,X_t) &=\underbrace{\left(\frac{\partial f}{\partial t} + \mu_t \frac{\parti
 \end{aligned}
 $$
 
-The first equation almost looks like a Taylor expansion up to the 2nd derivative, and in informal proofs that's what's going on. The second equation shows the explicit expressions for the $a(t,X_t)$ and $b(t,X_t)$ functions we mentioned before. This is great, because we can still split the "trend" component and the "noise" component for more complicated random processes. It also means that the "trend" is affected by how strong the "noise" is. Finally, notice that a non-random function with $\sigma_t=0$ falls back to a classical total derivative and chain rule.
+The first equation almost looks like a Taylor expansion up to the 2nd derivative, and in informal proofs that's what's going on. The second equation shows the explicit expressions for the $a(t,X_t)$ and $b(t,X_t)$ functions we mentioned before. This is great, because we can still split the "trend" component and the "noise" component for more complicated random processes. It also means that the "trend" is affected by how strong the "noise" is. Finally, notice that a non-random function with $\sigma_t=0$ reverts to a classical total derivative and chain rule.
 
 ### Martingales and final notions
 
 Some stochastic processes present additional properties. One of those "some" are the martingales. They are either discrete or continuous-time processes that satisfy:
 
--   $\mathbb{E}[X_t]<\infty, \forall t \ge 0$ . This means that the process always has a value.
+-   $\mathbb{E}[|X_t|]<\infty, \forall t \ge 0$ . This means that the process always has a finite value.
 -   $\mathbb{E}[X_{t+s}|X_t]=X_t, \forall t \le s$. This means that the expected value for future realizations of the process is whatever value you have right now.
 
 The drunkard's walk is an example of a martingale: at any time, it's equally likely it will go up or down, so the expected value is wherever you are at that point in time. Brownian motions are also martingales: increments follow a normal distribution, so the expected value of the increment is $0$. Other examples of typical martingales are betting black or red at the roulette, or a stock price in the short term.
@@ -188,9 +198,10 @@ W(x, t)& = \frac{1}{\sqrt{2 \pi t}} e^{-x^2/(2t)} \\
 \end{aligned}
 $$
 
-And there we have it. Ugly as it may be, we have constructed a derivative for how the density of these random variables evolve with time, although we don't know if it's even useful. Let's plot it.
+And there we have it. Ugly as it may be, we have constructed a derivative for how the density of these random variables evolve with time, although we don't know if it's even useful. Let's plot it both the density and the derivative in 3D.
 
 ```{r}
+#| warning: false
 options(rgl.useNULL=TRUE)
 rgl::setupKnitr(autoprint = TRUE)
 h = 200
@@ -220,13 +231,15 @@ W <- outer(xes, times, Wt)
 palette <- colorRampPalette(c("blue", "green", "yellow", "red")) 
 col.table <- palette(256)
 col.ind <- cut(W, 256)
-persp3d(x=xes, y=times, z=W, col=col.table[col.ind])
+persp3d(x=xes, y=times, z=W, col=col.table[col.ind],
+        xlab="X", ylab="Time", zlab="Density")
 # rglwidget()
 
 dW <- outer(xes, times, dWt)
 # persp(xes, times, dW, col='white', shade=.1, theta = 150, phi = 15, ticktype='detailed', xlab = "X", ylab = "T", zlab = "N", d = 2, expand = 1.0, border="darkgrey")
 col.ind <- cut(dW, 256)
-persp3d(x=xes, y=times, z=dW, col=col.table[col.ind])
+persp3d(x=xes, y=times, z=dW, col=col.table[col.ind],
+        xlab="X", ylab="Time", zlab="Derivative of density")
 # rglwidget()
 
 ```
@@ -234,3 +247,5 @@ persp3d(x=xes, y=times, z=dW, col=col.table[col.ind])
 ## Conclusion
 
 At this point, we have seen enough. We know what we want: a way to calculate derivatives over random variables and Wiener processes "in a certain sense" that's useful. That's what Malliavin calculus is set to do.
+
+------------------------------------------------------------------------

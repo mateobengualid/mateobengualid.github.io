@@ -13,10 +13,10 @@ project:
 # for a setup using templates.
 
 website:
-  site-url: https://mateobengualid.github.io/malliavincalculus/
+  site-url: https://mateobengualid.github.io/
   # To test in local, comment above and uncomment below
   # site-url: file:///local/path/to/RamblingsOnMalliavinCalculus/docs/
-  repo-url: https://github.com/mateobengualid/malliavincalculus
+  repo-url: https://github.com/mateobengualid/mateobengualid.github.io
   page-navigation: true
   repo-actions: [edit, issue]
   title: "Malliavin Calculus"
@@ -33,7 +33,7 @@ website:
       - malliavinderivative.qmd
       - clarkocone.qmd
       - summary.qmd
-      - references.qmd
+      #- references.qmd
   navbar:
     left:
       #- href: index.qmd
@@ -56,8 +56,7 @@ website:
         menu:
           - text: Source Code
             href: https://github.com/mateobengualid/mateobengualid.github.io
-
-
+  
 book:
   title: "Ramblings On Malliavin Calculus"
   author: "Mateo Bengualid"
@@ -76,7 +75,7 @@ book:
     - references.qmd
 
 bibliography: references.bib
-
+#suppress-bibliography: true
 format:
   html:
     code-fold: true

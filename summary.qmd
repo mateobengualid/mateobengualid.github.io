@@ -1,5 +1,19 @@
-# Summary
+# Closing remarks
+
+## Is there anything else?
+
+There's a lot left! This work did enough to present the Malliavin Derivative and Clark-Ocone formula, but it did very little else. There are three things that I've excluded, this is long as it is.
+
+First of all, Malliavin Derivatives make it simpler to work with stochastic variances. That is, imagine $\sigma$ being an Ito process. If you don't have a solution, you need to run a computer program to estimate your process and expected value. It's more tractable to use the techniques above, rather than simulating and estimating the evolution of $N$.
+
+Secondly, we can use an integration by parts to flip between a function derivative and the Skorohod integral. In the case of non-anticipatory processes, the formula is easy to compute because it's just an Ito integral. This makes it, in turn, easier to calculate/estimate derivatives of functions of processes against other processes. For example, the derivative of an insurance payoff for some asset against the price of the asset is called $\Delta$. Switching to less risky assets to reduce this derivative is called delta-hedging. When this derivative is zero, changes on the asset's price don't affect the insurance payoff anymore and the insurance is considered delta-neutral.
+
+A final point is that Skorohod integrals also work for anticipatory integrals. We haven't touched those here because they aren't proper Ito integrals and it was already too much content, but this is also where Malliavin Calculus shines.
+
+## Last words
 
 What a ride. I'll be honest, when I started I wasn't even thinking of making it this far. It took me months to reach a point where I feel comfortable writing this. I hope that you got to learn a bit about Malliavin Calculus, like I did. If you want to continue and prefer a more theoretical treatment, I left links to all interesting sources for pre-work, before Malliavin Calculus, and I guess Nualart, Oksendal or Malliavin himself for the actual topic. For more practical matters, I can't recommend @MalliavinCalculusInFinance enough. It's way ahead of the rest.
 
-I'm finally thanking you for reading all of this. I echo Bret Victor when he said that ideas shouldn't die, and the mere fact that you reached this point proves that this content can survive another day.
+I'm finally thanking you for reading all of this. I echo Bret Victor when he said that ideas shouldn't die, and the mere fact that you reached this point proves that this subject can survive another day.
+
+------------------------------------------------------------------------

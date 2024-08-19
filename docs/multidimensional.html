@@ -81,7 +81,7 @@ div.csl-indent {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
 <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/malliavincalculus/es/multidimensional.html" id="language-link-es">Español</a></li></ul>
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/es/multidimensional.html" id="language-link-es">Español</a></li></ul>
 </div>
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
@@ -174,13 +174,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Summary</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Closing remarks</span></a>
   </div>
 </li>
     </ul>
@@ -196,7 +190,7 @@ div.csl-indent {
 </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><section id="infinite-dimensional-vector-spaces" class="level1"><h1>Infinite-dimensional vector spaces</h1>
-<p>Now that we know what Malliavin Calculus wants to achieve, let us jot down some ideas. If you look for the definition of Malliavin Calculus in Wikipedia, you’ll quickly find that there’s a Cameron-Martin direction in which the derivative takes place. That doesn’t make any sense, so we need to explain what a Cameron-Martin space is. But that requires us to go, before that, to vector spaces with infinite dimensions. And that will require talking about measuring, especially lengths and distances between vectors, and functions as vectors. You’ll see I take a lot of inspiration from <span class="citation" data-cites="functions_are_vectors">Slater (<a href="#ref-functions_are_vectors" role="doc-biblioref">2023</a>)</span> and <span class="citation" data-cites="lunardi_miranda_pallara">Alessandra Lunardi (<a href="#ref-lunardi_miranda_pallara" role="doc-biblioref">2015</a>)</span>, great websites that you must visit if you haven’t done so. This section is quite long and touches many algebra-related topics, so brace yourself.</p>
+<p>Now that we know what Malliavin Calculus wants to achieve, let us jot down some ideas. If you look for the definition of Malliavin Calculus in Wikipedia, you’ll quickly find that there’s a Cameron-Martin direction in which the derivative takes place. That doesn’t make any sense, so we need to explain what a Cameron-Martin space is. But that requires us to go, before that, to vector spaces with infinite dimensions. And that will require talking about measuring, especially lengths and distances between vectors, and functions as vectors. You’ll see I take a lot of inspiration from <span class="citation" data-cites="functions_are_vectors">Slater (<a href="#ref-functions_are_vectors" role="doc-biblioref">2023</a>)</span> and <span class="citation" data-cites="lunardi_miranda_pallara">Alessandra Lunardi (<a href="#ref-lunardi_miranda_pallara" role="doc-biblioref">2015</a>)</span>, great websites that you should visit. This section is quite long and touches many algebra-related topics, so brace yourself.</p>
 <section id="hierarchy-of-spaces" class="level2"><h2 class="anchored" data-anchor-id="hierarchy-of-spaces">Hierarchy of spaces</h2>
 <p>We start from the beginning, with spaces, especially spaces over <span class="math inline">\(\mathbb{R}\)</span>, the field of reals<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. A space is a set <span class="math inline">\(V\)</span>, with elements that we will call vectors, that comes equipped with two operations:</p>
 <ul>
@@ -252,7 +246,7 @@ d_\infty(\vec a,\vec b) &amp;= \max_k{\left|a_k - b_k\right|}
 <li>It must be linear in the first argument, that is, <span class="math inline">\(\langle ix+jy,z\rangle=i\langle x,z\rangle+j\langle y,z\rangle\)</span> . It will also apply for the second argument because of symmetry.</li>
 <li>If x is zero, <span class="math inline">\(\langle x,x\rangle=0\)</span>, otherwise it’s a strictly positive number.</li>
 </ul>
-<p>Every inner product will induce a canonical norm <span class="math inline">\(\|x\|=\sqrt[2]{\langle x, x \rangle}\)</span>, which in turn induces a metric. The most common example is the dot product. A <span class="math inline">\(n\)</span>-length vector would be:</p>
+<p>Every inner product will induce a canonical norm <span class="math inline">\(\|x\|=\sqrt[2]{\langle x, x \rangle}\)</span>, which in turn induces a metric. The most common example is the dot product. A <span class="math inline">\(n\)</span>-size vector would be:</p>
 <p><span class="math display">\[
 \langle x,y\rangle=x^Ty=\sum_{i=1}^n{(x_i \cdot y_i)}
 \]</span></p>
@@ -277,7 +271,7 @@ a &amp;b &amp;c \\
 a_0 + a_1 x + ... + a_{n-1} x^{n-1} + a_n x^n \rightarrow \begin{pmatrix}a_0 &amp;a_1 &amp;... &amp;a_{n-1} &amp;a_n\end{pmatrix}
 \]</span></p>
 <p>We can see that polynomials admit multiplication by a scalar, as well as addition between two polynomials. So, we can truly use these as vectors from a space instead of the full polynomial’s formula.</p>
-<p>Now, there’s nothing preventing us from saying that <span class="math inline">\(n\)</span> is just the <em>entire</em> <span class="math inline">\(\mathbb{N}\)</span>, and that these vectors are infinite in nature. That is, we need infinitely many vectors to represent all possible polynomials:</p>
+<p>Now, there’s nothing preventing us from saying that <span class="math inline">\(n\)</span> is just the <em>entire</em> <span class="math inline">\(\mathbb{N}\)</span>, and that the basis is infinite in nature. That is, we need infinitely many vectors to represent all possible polynomials:</p>
 <p><span class="math display">\[
 \begin{aligned}
 a_0 + a_1 x+ a_2x^2 +\, ... \rightarrow \begin{pmatrix}a_0 &amp;a_1 &amp;a_2 &amp;...\end{pmatrix} =\, &amp;a_0 \begin{pmatrix}1 &amp;0 &amp;0 &amp;...\end{pmatrix} + \\
@@ -310,7 +304,7 @@ a_1+2a_2x+3a_3x^2+...
 <p><span class="math display">\[
 \|b\|_2=\lim_{n\to \infty}{\sqrt{\sum_{k=1}^n {b_k}^2}}={\sqrt{\lim_{n\to \infty}\sum_{k=1}^n \frac{1}{k^2}}}=\sqrt\frac{\pi^2}{6}
 \]</span></p>
-<p>In fact, mathematicians name <span class="math inline">\(\ell^p\)</span> the space of sequences where the <span class="math inline">\(p\)</span>-norm returns a value. Alternatively, if you don’t want to deal with norms, you are better off defining a distance function for the space, like this:</p>
+<p>In fact, mathematicians name <span class="math inline">\(\ell^p\)</span> the space of sequences where the <span class="math inline">\(p\)</span>-norm converges to a value. Alternatively, if you don’t want to deal with norms, you are better off defining a distance function for the space like this:</p>
 <p><span class="math display">\[
 d(x,y)=\sum_{k=0}\frac{1}{2^k}\frac{|x_k-y_k|}{1+|x_k-y_k|}
 \]</span></p>
@@ -362,7 +356,7 @@ D_xv = \left\langle v, \frac{x}{\|x\|} \right\rangle
 <p><span class="math display">\[
 \langle Au, v \rangle_V = \langle u, A^* v \rangle_U
 \]</span></p>
-<p>It’s important to note that <span class="math inline">\(A^*\)</span> isn’t an inverse, although <span class="math inline">\(A^{**}=A\)</span>, it’s more like a “companion” operator that can be used instead of <span class="math inline">\(A\)</span> if we are in the other vector space. We will use it later to make sense of the derivative operator <span class="math inline">\(D\)</span> under particular inner products.</p>
+<p>It’s important to note that <span class="math inline">\(A^*\)</span> isn’t an inverse, although <span class="math inline">\(A^{**}=A\)</span>, it’s more like a “companion” operator that can be used instead of <span class="math inline">\(A\)</span> if we are in the other vector space.</p>
 </section><section id="orthonormalization" class="level2"><h2 class="anchored" data-anchor-id="orthonormalization">Orthonormalization</h2>
 <p>We mentioned above that a basis already has the property of generating every element in the space by linear combination of its (linearly independent) elements. It can also have additional properties.</p>
 <p>A basis is “orthogonal” if <span class="math inline">\(\langle b_i, b_j \rangle = 0 \text{ if } i \neq j\)</span> . That is, different elements in the basis don’t “overlap” with each other. This means we can express any vector <span class="math inline">\(v\)</span> as a sum that depends only on the basis vectors and <span class="math inline">\(v\)</span>. In particular, if <span class="math inline">\(B\)</span> is an orthogonal basis of <span class="math inline">\(V\)</span>, then any element <span class="math inline">\(v\)</span> of <span class="math inline">\(V\)</span> can be written as:</p>
@@ -375,8 +369,7 @@ v = \sum_{b_i \in B}a_i b_i = \sum_{b_i \in B} \underbrace{\frac{\langle b_i, x 
 v = \sum_{b_i \in B}a_i b_i = \sum_{b_i \in B} \underbrace{\langle b_i, x \rangle}_{a_i}b_i
 \]</span></p>
 <p>You may ask why don’t we just use orthonormal basis all the time and save us the hassle. Indeed, we can transform a basis into an orthonormal basis by using the Gram-Schmidt process. I won’t explain the process, it’s only important that we know it can be done.</p>
-
-
+<hr>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-lunardi_miranda_pallara" class="csl-entry" role="listitem">
 Alessandra Lunardi, Diego Pallara, Michele Miranda. 2015. <span>“Infinite Dimensional Analysis.”</span> 2015. <a href="http://dmi.unife.it/it/ricerca-dmi/seminari/isem19/lectures/lecture-notes/view">http://dmi.unife.it/it/ricerca-dmi/seminari/isem19/lectures/lecture-notes/view</a>.
@@ -638,8 +631,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
 <div><i class="bi bi-github"></i></div>
 <div class="action-links">
-<p><a href="https://github.com/mateobengualid/malliavincalculus/edit/main/multidimensional.qmd" class="toc-action">Edit this page</a></p>
-<p><a href="https://github.com/mateobengualid/malliavincalculus/issues/new" class="toc-action">Report an issue</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/edit/main/multidimensional.qmd" class="toc-action">Edit this page</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/issues/new" class="toc-action">Report an issue</a></p>
 </div>
 </div></div></div></footer>
 </body>

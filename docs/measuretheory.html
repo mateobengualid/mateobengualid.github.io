@@ -96,7 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
 <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/malliavincalculus/es/measuretheory.html" id="language-link-es">Español</a></li></ul>
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/es/measuretheory.html" id="language-link-es">Español</a></li></ul>
 </div>
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
@@ -189,13 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Summary</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Closing remarks</span></a>
   </div>
 </li>
     </ul>
@@ -211,24 +205,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><section id="measure-theory" class="level1"><h1>Measure theory</h1>
-<p>After calculus of variations, we need to divert further to a topic somewhat related to integration. It will be really hard to follow some pieces otherwise.</p>
+<p>After calculus of variations, we need to divert further to a topic somewhat related to integration. Some pieces will be harder to follow otherwise.</p>
 <section id="a-primer-on-measure-theory" class="level2"><h2 class="anchored" data-anchor-id="a-primer-on-measure-theory">A primer on measure theory</h2>
-<p>You may have grown accustomed to call “integration” to something like <span class="math inline">\(\int_{a}^{b}fdx\)</span> , but that’s actually just the Riemann integration. Ok, it “just” powers 99% of all real-life integration, but there are many other specialized integrals that can handle special situations like discontinuities or holes in <span class="math inline">\(f\)</span> , such as the Riemann-Stieltjes integral, the Henstock-Kurzweil integral, and the Lebesgue integral. The last one is where we will concentrate the most.</p>
+<p>You may have grown accustomed to calling “integration” to something like <span class="math inline">\(\int_{a}^{b}fdx\)</span> , but that’s actually just the Riemann integration. Ok, it “just” powers 99% of all real-life integration, but there are many other specialized integrals that can handle special situations like discontinuities or holes in <span class="math inline">\(f\)</span>, such as the Riemann-Stieltjes integral, the Henstock-Kurzweil integral, and the Lebesgue integral. The last one is where we will concentrate the most.</p>
 <p>We start with a seemingly unrelated problem: the size of a set. Let’s say we have a set of <span class="math inline">\(\mathbb{N}\)</span> and we want to know how big it is: we may, for example, just count how many elements are there in the set:</p>
 <p><span class="math display">\[
 \begin{aligned}
-&amp;\#\{0,2,3\} = 3\\
+&amp;\#\{\pi,e,25\} = 3\\
 &amp;\#\{\} = 0 \\
 &amp;\#\{1,2,3,..\} = \infty
 \end{aligned}
 \]</span></p>
-<p>In a sense, <span class="math inline">\(\#\)</span> is a function that receives a set with a combination of elements from <span class="math inline">\(\mathbb{N}\)</span> and outputs a numeric value. In the literature, the elements belong to a set <span class="math inline">\(\Omega\)</span> and the combinations of those elements comes from a set of sets <span class="math inline">\(\Sigma\)</span> , also called a sigma-algebra. More formally, <span class="math inline">\(\# : \Sigma \to \mathbb{N}\)</span>.</p>
+<p>In a sense, <span class="math inline">\(\#\)</span> is a function that receives a set with a combination of elements from <span class="math inline">\(\mathbb{N}\)</span> and outputs a numeric value. In the literature, the elements belong to a set <span class="math inline">\(\Omega\)</span> and the combinations of those elements belong to a set of sets <span class="math inline">\(\Sigma\)</span> , also called a sigma-algebra. More formally, <span class="math inline">\(\# : \Sigma \to \mathbb{N}\)</span>.</p>
 <p><span class="math inline">\(\#\)</span> is called a measure. Measures are normally referred as <span class="math inline">\(\mu\)</span>, and fulfill roughly two conditions:</p>
 <ul>
 <li><p><span class="math inline">\(\mu(s) \ge 0 ,\, \forall s \in \Sigma\)</span>, that is, they are always positive. This condition can be relaxed, though, into having “signed measures”.</p></li>
-<li><p>If <span class="math inline">\(A_1 \cap A_2 = \{\} \implies {\mu (A_1 \cup A_2) = \mu(A_1) + \mu(A_2)}\)</span> . This means that the “size” of a set is the same as the sum of the sizes of its subsets.</p></li>
+<li><p>If <span class="math inline">\(A_1 \cap A_2 = \{\} \implies {\mu (A_1 \cup A_2) = \mu(A_1) + \mu(A_2)}\)</span>. This means that the “size” of a set is the same as the sum of the sizes of its subsets.</p></li>
 </ul>
-<p>There are many measures, with different properties, that are defined to operate over “measurable sets”, namely the pair <span class="math inline">\((\Omega,\Sigma)\)</span>. For example, the Borel measure, which we will use interchangeably with the Lebesgue measure<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<p>There are many measures, with different properties, that are defined to operate over “measurable sets”, namely the pair <span class="math inline">\((\Omega,\Sigma)\)</span>. You have already seen the counting measure. The Borel measure, which we will use interchangeably with the Lebesgue measure<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, can be defined as:</p>
 <p><span class="math display">\[
 \lambda((a,b])=b-a
 \]</span></p>
@@ -241,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 \lambda^2((0,\pi]\times(2,4])=\lambda((0,\pi])*\lambda((2,4])=(\pi-0)*(4-2)=\pi*2=2\pi
 \]</span></p>
 </section><section id="connection-between-measures-and-integrals" class="level2"><h2 class="anchored" data-anchor-id="connection-between-measures-and-integrals">Connection between measures and integrals</h2>
-<p>We will now do something daring: notice that definite integrals work over an interval (a set) and the result is a number. Yes, an integral is a (signed) measure<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. This will require a bit of rethinking of what integrating really means, as well as changing our notation for the integral.</p>
+<p>We will now do something daring: have you noticed that definite integrals work over an interval (a set) and the result is a number? Yes, an integral is a (signed) measure<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. This will require a bit of rethinking of what integrating really means, as well as changing our notation for the integral.</p>
 <p>In the world we all know, we do Riemann integration, <span class="math inline">\(\int_{a}^{b}fdx\)</span>. This means:</p>
 <ul>
 <li><p><span class="math inline">\(I=\left[a,b\right]\)</span> will select the portion of the function’s domain, <span class="math inline">\(\Omega\)</span> , to integrate. With the language we have used above, <span class="math inline">\(I\subset \Omega,\, I\in \Sigma\)</span></p></li>
@@ -253,41 +247,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Here’s how it looks like:</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'broom' was built under R version 4.3.2</code></pre>
-</div>
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x <span class="sc">+</span><span class="dv">4</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the interval [a, b] for integration</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of rectangles for approximation</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">24</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate x values and corresponding function values</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(a, b, <span class="at">length.out =</span> n<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">f</span>(x_values)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame for ggplot</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate rectangle heights</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>rect_heights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">f</span>(x_values)[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(x_values)])</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total width of the bars to fill the x-axis</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>total_width <span class="ot">&lt;-</span> b <span class="sc">-</span> a</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ggplot with rectangles</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> rect_heights)) <span class="sc">+</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">width=</span>(total_width<span class="sc">/</span>n), <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">just =</span> <span class="dv">1</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_function</span>(<span class="at">fun =</span> f, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Riemann Integration Demonstration"</span>,</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"x"</span>, <span class="at">y =</span> <span class="st">"f(x)"</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x <span class="sc">+</span><span class="dv">4</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the interval [a, b] for integration</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of rectangles for approximation</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate x values and corresponding function values</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(a, b, <span class="at">length.out =</span> n<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">f</span>(x_values)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame for ggplot</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate rectangle heights</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>rect_heights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">f</span>(x_values)[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(x_values)])</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total width of the bars to fill the x-axis</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>total_width <span class="ot">&lt;-</span> b <span class="sc">-</span> a</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ggplot with rectangles</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> rect_heights)) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">width=</span>(total_width<span class="sc">/</span>n), <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">just =</span> <span class="dv">1</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_function</span>(<span class="at">fun =</span> f, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Riemann Integration Demonstration"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"x"</span>, <span class="at">y =</span> <span class="st">"f(x)"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="measuretheory_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -304,121 +296,121 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Here’s how this mess looks like:</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) A<span class="sc">*</span>x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> B<span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> C<span class="sc">*</span>x <span class="sc">+</span> D</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>dfdx <span class="ot">&lt;-</span> <span class="cf">function</span>(x) A<span class="sc">*</span><span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> B<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> C</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the domain [left, right] for integration</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>left <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>right <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of image partitions</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>max_y <span class="ot">&lt;-</span> <span class="dv">7</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">28</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>delta_y <span class="ot">&lt;-</span> max_y <span class="sc">/</span> n</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate x values and corresponding function values</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, max_y, <span class="at">length.out =</span> n <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>find_real_roots_of_cubic <span class="ot">&lt;-</span> <span class="cf">function</span>(A, B, C, D, <span class="at">tolerance =</span> <span class="fl">1e-10</span>) {</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the roots using polyroot()</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  roots <span class="ot">&lt;-</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(D, C, B, A))</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract real parts of the roots</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  real_parts <span class="ot">&lt;-</span> <span class="fu">Re</span>(roots)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter out complex roots (where the imaginary part is close to zero)</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  real_roots <span class="ot">&lt;-</span> real_parts[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> tolerance]</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(real_roots)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>calculate_intervals_for_measure <span class="ot">&lt;-</span> <span class="cf">function</span>(A, B, C, D, lower_bound, upper_bound) {</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the real roots </span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  roots <span class="ot">&lt;-</span> <span class="fu">find_real_roots_of_cubic</span>(A, B, C, D)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  roots <span class="ot">&lt;-</span> <span class="fu">sort</span>(roots)</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The first interval should start on the lower bound if the function is decreasing </span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">double</span>(), <span class="at">b =</span> <span class="fu">double</span>())</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  current_left <span class="ot">&lt;-</span> lower_bound</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then, build every pair of (f' &gt; 0, f' &lt; 0).</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(roots))) {</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Stop if you have gone beyond the boundary.</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (roots[i] <span class="sc">&gt;</span> upper_bound) {</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span>;</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(current_left)) {</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>      possible_right <span class="ot">&lt;-</span> roots[i]</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">dfdx</span>(possible_right) <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (current_left <span class="sc">&lt;</span> possible_right) {</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>          <span class="co"># Add an interval.</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>          intervals[<span class="fu">nrow</span>(intervals) <span class="sc">+</span> <span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(current_left, possible_right)</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>          current_left <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>          <span class="co"># This is closing an interval to the left of the lower bound. Skip.</span></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Another increasing left would be the start of an interval to the left of the lower bound</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>        <span class="co"># or to the right of the lower bound. So, just keep the maximum.</span></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>        <span class="co"># It could also be a missed root in between, but we will disregard this option.</span></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>        current_left <span class="ot">&lt;-</span> <span class="fu">max</span>(current_left, possible_right)</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>      possible_left <span class="ot">&lt;-</span> roots[i]</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">dfdx</span>(possible_left) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (possible_left <span class="sc">&lt;</span> upper_bound) {</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>          <span class="co"># The opening of a new interval. As long as it's not beyond the upper bound, use it.</span></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>          current_left <span class="ot">&lt;-</span> possible_left</span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># A decreasing function, without a left boundary, can be discarded</span></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If there's an open interval after processing, close it at the upper bound.</span></span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(current_left)) {</span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    intervals[<span class="fu">nrow</span>(intervals) <span class="sc">+</span> <span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(current_left, upper_bound)</span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(intervals)</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame for ggplot</span></span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>rectangles <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmin =</span> <span class="fu">double</span>(),</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmax =</span> <span class="fu">double</span>(),</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymin =</span> <span class="fu">double</span>(),</span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymax =</span> <span class="fu">double</span>())</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate all rectangles</span></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(y <span class="cf">in</span> y_values) {</span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">calculate_intervals_for_measure</span>(A, B, C, D <span class="sc">-</span> y, left, right)</span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(intervals))) {</span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>    interval <span class="ot">&lt;-</span> intervals[i,]</span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    rectangles[<span class="fu">nrow</span>(rectangles) <span class="sc">+</span> <span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(interval[<span class="dv">1</span>], interval[<span class="dv">2</span>], <span class="fu">max</span>(<span class="dv">0</span>, y <span class="sc">-</span> delta_y), y)</span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ggplot with rectangles</span></span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_rect</span>(<span class="at">data =</span> rectangles,</span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax),</span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"skyblue"</span>,</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"darkgrey"</span>,</span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_function</span>(<span class="at">fun =</span> f, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Lebesgue Integration Demonstration"</span>,</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"x"</span>, <span class="at">y =</span> <span class="st">"f(x)"</span>)</span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) A<span class="sc">*</span>x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> B<span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> C<span class="sc">*</span>x <span class="sc">+</span> D</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>dfdx <span class="ot">&lt;-</span> <span class="cf">function</span>(x) A<span class="sc">*</span><span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> B<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> C</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the domain [left, right] for integration</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>left <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>right <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of image partitions</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>max_y <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">28</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>delta_y <span class="ot">&lt;-</span> max_y <span class="sc">/</span> n</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate x values and corresponding function values</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, max_y, <span class="at">length.out =</span> n <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>find_real_roots_of_cubic <span class="ot">&lt;-</span> <span class="cf">function</span>(A, B, C, D, <span class="at">tolerance =</span> <span class="fl">1e-10</span>) {</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the roots using polyroot()</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  roots <span class="ot">&lt;-</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(D, C, B, A))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract real parts of the roots</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  real_parts <span class="ot">&lt;-</span> <span class="fu">Re</span>(roots)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter out complex roots (where the imaginary part is close to zero)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  real_roots <span class="ot">&lt;-</span> real_parts[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> tolerance]</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(real_roots)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>calculate_intervals_for_measure <span class="ot">&lt;-</span> <span class="cf">function</span>(A, B, C, D, lower_bound, upper_bound) {</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the real roots </span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  roots <span class="ot">&lt;-</span> <span class="fu">find_real_roots_of_cubic</span>(A, B, C, D)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  roots <span class="ot">&lt;-</span> <span class="fu">sort</span>(roots)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The first interval should start on the lower bound if the function is decreasing </span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">double</span>(), <span class="at">b =</span> <span class="fu">double</span>())</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  current_left <span class="ot">&lt;-</span> lower_bound</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then, build every pair of (f' &gt; 0, f' &lt; 0).</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(roots))) {</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Stop if you have gone beyond the boundary.</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (roots[i] <span class="sc">&gt;</span> upper_bound) {</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span>;</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(current_left)) {</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>      possible_right <span class="ot">&lt;-</span> roots[i]</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">dfdx</span>(possible_right) <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (current_left <span class="sc">&lt;</span> possible_right) {</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>          <span class="co"># Add an interval.</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>          intervals[<span class="fu">nrow</span>(intervals) <span class="sc">+</span> <span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(current_left, possible_right)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>          current_left <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> {</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>          <span class="co"># This is closing an interval to the left of the lower bound. Skip.</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Another increasing left would be the start of an interval to the left of the lower bound</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        <span class="co"># or to the right of the lower bound. So, just keep the maximum.</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        <span class="co"># It could also be a missed root in between, but we will disregard this option.</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        current_left <span class="ot">&lt;-</span> <span class="fu">max</span>(current_left, possible_right)</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>      possible_left <span class="ot">&lt;-</span> roots[i]</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">dfdx</span>(possible_left) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (possible_left <span class="sc">&lt;</span> upper_bound) {</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>          <span class="co"># The opening of a new interval. As long as it's not beyond the upper bound, use it.</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>          current_left <span class="ot">&lt;-</span> possible_left</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># A decreasing function, without a left boundary, can be discarded</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If there's an open interval after processing, close it at the upper bound.</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(current_left)) {</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    intervals[<span class="fu">nrow</span>(intervals) <span class="sc">+</span> <span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(current_left, upper_bound)</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(intervals)</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame for ggplot</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>rectangles <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmin =</span> <span class="fu">double</span>(),</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  <span class="at">xmax =</span> <span class="fu">double</span>(),</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymin =</span> <span class="fu">double</span>(),</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  <span class="at">ymax =</span> <span class="fu">double</span>())</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate all rectangles</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(y <span class="cf">in</span> y_values) {</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">calculate_intervals_for_measure</span>(A, B, C, D <span class="sc">-</span> y, left, right)</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(intervals))) {</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    interval <span class="ot">&lt;-</span> intervals[i,]</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    rectangles[<span class="fu">nrow</span>(rectangles) <span class="sc">+</span> <span class="dv">1</span>,] <span class="ot">&lt;-</span> <span class="fu">c</span>(interval[<span class="dv">1</span>], interval[<span class="dv">2</span>], <span class="fu">max</span>(<span class="dv">0</span>, y <span class="sc">-</span> delta_y), y)</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ggplot with rectangles</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_rect</span>(<span class="at">data =</span> rectangles,</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax),</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"skyblue"</span>,</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"darkgrey"</span>,</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_function</span>(<span class="at">fun =</span> f, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Lebesgue Integration Demonstration"</span>,</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"x"</span>, <span class="at">y =</span> <span class="st">"f(x)"</span>)</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="measuretheory_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -430,11 +422,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 \]</span></p>
 <p>Again, for every possible value of <span class="math inline">\(x \in A\)</span>, we will measure all the image sets that result from those values and we add up all those measure results. This particular function is really great because for <span class="math inline">\(x\rightarrow\pm \infty\)</span>, the measure is still a number. It’s also called a probability measure because <span class="math inline">\(\gamma^n(\Omega)=1\)</span>, that is, the total measured area under the whole domain is 1 or 100%. If you have done a bit of probability, the function <span class="math inline">\(\mathbb{P}\)</span> was a probability measure all along.</p>
 <p>This is a lot to digest, I know. Just read it until it clicks. It took me 3 years of meditating on the subject after all!</p>
-
-
-</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<hr></section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1"><p>The Lebesgue outer measure has a more complex definition that avoids some pathological results that the Borel measure has in certain sets. In “reasonable” sets where the Borel measure is defined, the Lebesgue measure coincides.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The Lebesgue outer measure has a more complex definition that avoids some pathological results that the Borel measure has in certain measurable sets. In “reasonable” sets where the Borel measure is defined, the Lebesgue measure coincides.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>The converse, that any (signed) measure is always an integral, is also true under certain conditions. This is the consequence of the Radon-Nikodym theorem.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -686,8 +676,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
 <div><i class="bi bi-github"></i></div>
 <div class="action-links">
-<p><a href="https://github.com/mateobengualid/malliavincalculus/edit/main/measuretheory.qmd" class="toc-action">Edit this page</a></p>
-<p><a href="https://github.com/mateobengualid/malliavincalculus/issues/new" class="toc-action">Report an issue</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/edit/main/measuretheory.qmd" class="toc-action">Edit this page</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/issues/new" class="toc-action">Report an issue</a></p>
 </div>
 </div></div></div></footer>
 </body>

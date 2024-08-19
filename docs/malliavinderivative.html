@@ -115,7 +115,7 @@ div.csl-indent {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
 <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/malliavincalculus/es/malliavinderivative.html" id="language-link-es">Español</a></li></ul>
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/es/malliavinderivative.html" id="language-link-es">Español</a></li></ul>
 </div>
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
@@ -208,13 +208,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Summary</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Closing remarks</span></a>
   </div>
 </li>
     </ul>
@@ -230,7 +224,7 @@ div.csl-indent {
 </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><section id="malliavin-derivative" class="level1"><h1>Malliavin Derivative</h1>
-<p>Now that we have established that Cameron-Martin directions allow us to change the integrals under Gaussian measures, we are ready to define the Malliavin derivative. We can do it from two directions:</p>
+<p>Now that we have established that Cameron-Martin directions allow us to change the integrals under Gaussian measures, we are ready to define the Malliavin derivative. We can do it from two angles:</p>
 <ul>
 <li><p>We can talk about polynomial chaos, and then arrive to the derivative</p></li>
 <li><p>We define the derivative, and not refer to polynomial chaos at all</p></li>
@@ -239,7 +233,7 @@ div.csl-indent {
 <section id="malliavin-derivative-building-blocks" class="level2"><h2 class="anchored" data-anchor-id="malliavin-derivative-building-blocks">Malliavin Derivative building blocks</h2>
 <p>We have accumulated a ton of knowledge. It’s time for us to approach the point of this entire webpage. When we asked the Question, we mentioned that the derivative of a random variable that follows a Brownian motion with respect to time can’t be calculated, that was the whole point: what kind of derivative can we calculate?</p>
 <p>We will consider a Cameron-Martin direction of <span class="math inline">\(\hat{h}(\tau)=\int_0^\tau h\,dt\)</span>. Moreover, <span class="math inline">\(\hat{h}\in\hat{H}\)</span> , the Cameron-Martin space. This definition allow us to have a derivative over time for the direction, so <span class="math inline">\(\frac{\partial \hat{h}(\tau)}{\partial \tau}=h\)</span> , with <span class="math inline">\(h\in H = L^2[0,1]\)</span>, the space of functions that are continuous between 0 and 1, and that allow a 2-norm<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>Brownian motion paths up to <span class="math inline">\(\tau\)</span> will be denoted as <span class="math inline">\(\omega(\tau)\)</span>. The function <span class="math inline">\(1_{[0,\tau]}\)</span> is a function that’s <span class="math inline">\(1\)</span> in the indicated interval and <span class="math inline">\(0\)</span> everywhere else, behaving like a filter. Finally, we will define a function like <span class="math inline">\(W(1_{[0,\tau]})\)</span> as a Brownian motion that’s multiplied by the filter . We will also use <span class="math inline">\(B_t\)</span> and <span class="math inline">\(dB_t\)</span> to reference Brownian motions, alongside <span class="math inline">\(W_t\)</span> and <span class="math inline">\(dW_t\)</span>.</p>
+<p>Brownian motion paths up to <span class="math inline">\(\tau\)</span> will be denoted as <span class="math inline">\(\omega(\tau)\)</span>. The function <span class="math inline">\(1_{[0,\tau]}\)</span> is a function that’s <span class="math inline">\(1\)</span> in the indicated interval and <span class="math inline">\(0\)</span> everywhere else, behaving like a filter. Finally, we will define a function like <span class="math inline">\(W(1_{[0,\tau]})\)</span> as an Ito integral of the filter . We will also use <span class="math inline">\(B_t\)</span> and <span class="math inline">\(dB_t\)</span> to reference Brownian motions, alongside <span class="math inline">\(W_t\)</span> and <span class="math inline">\(dW_t\)</span>.</p>
 <p>We will also consider a polynomial function<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math inline">\(f\)</span> that takes <span class="math inline">\(n\)</span> Brownian motions as variables, each stopping at a different time. Two Brownian motions from <span class="math inline">\(0\)</span> to <span class="math inline">\(t\)</span> are essentially the same, even if their paths are different. So, each Brownian motion will go from <span class="math inline">\(0\)</span> to <span class="math inline">\(t_1\)</span> , <span class="math inline">\(t_2\)</span>, … <span class="math inline">\(t_n\)</span> This function <span class="math inline">\(f\)</span> is for the moment pretty useless and basic. We will find its use and extensions later.</p>
 <p>Now, we will do something just like in the section for calculus of variations. Let’s have <span class="math inline">\(f(\omega + \varepsilon \hat{h})\)</span>. This means that we are moving each of the <span class="math inline">\(n\)</span> Brownian motion path a bit along a Cameron-Martin direction, so all is good. Finally, we will take the derivative with respect to <span class="math inline">\(\varepsilon\)</span> , and we will evaluate the derivative at <span class="math inline">\(\varepsilon = 0\)</span>. The Brownian motions, which can’t be derived, won’t be touched because they don’t depend on <span class="math inline">\(\varepsilon\)</span>.</p>
 <p>And here’s the final result:</p>
@@ -260,9 +254,9 @@ DF = \sum_i\partial_if(W(h_1),\,...\,,W(h_n))h_i
 \]</span></p>
 <p>making <span class="math inline">\(DF\)</span> an <span class="math inline">\(H\)</span>-valued random variable.</p>
 </section><section id="what-did-just-happen" class="level2"><h2 class="anchored" data-anchor-id="what-did-just-happen">What did just happen?</h2>
-<p>This <span class="math inline">\(D\)</span> is the Malliavin Derivative. It is a linear operator (like the ones we saw before) and it’s applied to <span class="math inline">\(F\)</span>. It means that if you have a function <span class="math inline">\(F\)</span> with variables composed of these Brownian motions multiplied by these <span class="math inline">\(h_i\)</span> functions, then you can apply this special derivative definition.</p>
-<p>This <span class="math inline">\(F\)</span> is very limited right now, but if you could <em>represent, approximate</em> or find an <em>equivalence</em> between the random variable you are interested in and a function like <span class="math inline">\(F\)</span>, then you could apply the derivative to the equivalence. A lot of the theory is to find those connections, we won’t bother to do that here unless I see it’s valuable.</p>
-<p>At this point, the collection of <span class="math inline">\(h_i\)</span> functions are a theoretical requirement and seem pulled out of thin air. For one, they aren’t more arbitrary than the displacement <span class="math inline">\(h\)</span> from the classical derivative definition <span class="math inline">\(\lim_{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}\)</span>. As we move forward, we will select the <span class="math inline">\(h_i \in H\)</span> that will be suitable for our purposes. More theoretical sources may establish that <span class="math inline">\(h_i\)</span> are orthonormal (or be made orthonormal). Instead, we will follow the simplest, default choice: we will use the single function <span class="math inline">\(h=1_{[0,1]}\)</span>, that is, a function that’s <span class="math inline">\(1\)</span> on the interval and <span class="math inline">\(0\)</span> elsewhere. This helps when the function is inside an integral because it “cuts” or “filters” the integration domain, like in this example:</p>
+<p>This <span class="math inline">\(D\)</span> is the Malliavin Derivative. It is a linear operator (like the ones we saw before) and it’s applied to <span class="math inline">\(F\)</span>. It means that if you have a function <span class="math inline">\(F\)</span> with variables composed of these Brownian motions multiplied by these <span class="math inline">\(h_i\)</span> functions, then you can apply this derivative definition.</p>
+<p>This <span class="math inline">\(F\)</span> looks very limited right now, but if you could <em>represent, approximate</em> or find an <em>equivalence</em> between the random variable you are interested in and a function like <span class="math inline">\(F\)</span>, then you could apply the derivative to the equivalence. The theory is concerned with finding those connections, we won’t bother to do that here.</p>
+<p>At this point, the collection of <span class="math inline">\(h_i\)</span> functions are a theoretical requirement and seem pulled out of thin air. For one, they aren’t more arbitrary than the displacement <span class="math inline">\(h\)</span> from the classical derivative definition <span class="math inline">\(\lim_{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}\)</span>. As we move forward, we will select the <span class="math inline">\(h_i \in H\)</span> that will be suitable for our purposes. More theoretical sources may establish that <span class="math inline">\(h_i\)</span> are orthonormal (or be made orthonormal), especially under an inner product with a Gaussian weight. Instead, we will follow the simplest, default choice: we will use the single function <span class="math inline">\(h=1_{[0,1]}\)</span>, that is, a function that’s <span class="math inline">\(1\)</span> on the interval and <span class="math inline">\(0\)</span> elsewhere. This helps when the function is inside an integral because it “cuts” or “filters” the integration domain, like in this example:</p>
 <p><span class="math display">\[
 \int_{-\infty}^{+\infty}f(x,t)\cdot1_{[0,1]}(x)\,dx = \int_0^1f(x,t)\,dx
 \]</span></p>
@@ -279,40 +273,47 @@ DF=D(W(h))=h
 <p>Here’s a good rule-of-thumb: it’s as if we did <span class="math inline">\(\frac{\partial F}{\partial W}\cdot h\)</span> instead of <span class="math inline">\(\frac{\partial F}{\partial t}\)</span> (which we know that we can’t do). We are seeing how much the function changes as an underlying Brownian motion changes (on a Cameron-Martin direction). Here’s a plot of how different choices of <span class="math inline">\(h(t)\)</span> and a sample path for <span class="math inline">\(W(h(t))\)</span> look like:</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'rgl' was built under R version 4.3.2</code></pre>
-</div>
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">=</span> <span class="dv">100000</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>steps</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out=</span>steps)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dBt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">rnorm</span>(<span class="at">n=</span>(steps<span class="dv">-1</span>),<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="fu">sqrt</span>(h)))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Left</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>h_1 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) <span class="dv">1</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>h_hat_1 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_1</span>(t) <span class="sc">*</span> dBt)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> h_hat_1)) <span class="sc">+</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> <span class="fu">h_1</span>(t)), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">=</span> <span class="dv">100000</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>steps</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out=</span>steps)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>dBt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">rnorm</span>(<span class="at">n=</span>(steps<span class="dv">-1</span>),<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="fu">sqrt</span>(h)))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Left</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>h_1 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) <span class="dv">1</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>h_hat_1 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_1</span>(t) <span class="sc">*</span> dBt)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Time'</span>) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>h_hat_1, <span class="at">colour=</span><span class="st">"W(h)"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">h_1</span>(t), <span class="at">colour =</span> <span class="st">"h = 1"</span>), <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Functions"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="malliavinderivative_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Middle</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>h_2 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) x)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>h_hat_2 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_2</span>(t) <span class="sc">*</span> dBt)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> h_hat_2)) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> <span class="fu">h_2</span>(t)), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Middle</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>h_2 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) x)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>h_hat_2 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_2</span>(t) <span class="sc">*</span> dBt)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Time'</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>h_hat_2, <span class="at">colour=</span><span class="st">"W(h)"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">h_2</span>(t), <span class="at">colour =</span> <span class="st">"h = t"</span>), <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Functions"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="malliavinderivative_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
 </div>
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Right</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>h_3 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) x<span class="sc">**</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>h_hat_3 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_3</span>(t) <span class="sc">*</span> dBt)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> h_hat_3)) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> <span class="fu">h_3</span>(t)), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Right</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>h_3 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) x<span class="sc">**</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>h_hat_3 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_3</span>(t) <span class="sc">*</span> dBt)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Time'</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>h_hat_3, <span class="at">colour=</span><span class="st">"W(h)"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">h_3</span>(t), <span class="at">colour =</span> <span class="st">"h = t²-1"</span>), <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Functions"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="malliavinderivative_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid" width="672"></p>
 </div>
@@ -333,21 +334,24 @@ F(t)=(W_t)^2
 <p><span class="math display">\[
 D_sF=2\,W_t \, (DW_t)=2\,W_t\,h=2\,W_t\,1_{[0,t]}(s)
 \]</span></p>
-<p>There are two things to note here. First of all, the derivative takes non-zero values only when <span class="math inline">\(0&lt;s&lt;t\)</span>, and this makes sense: we don’t expect the function <span class="math inline">\(F\)</span> to change beyond the time <span class="math inline">\(t\)</span> where it’s evaluated. Secondly, this means that when we plotted <span class="math inline">\(W(h(t))\)</span> and <span class="math inline">\(h(t)\)</span> together, it was a bit fake because we were assuming <span class="math inline">\(s=t\)</span> for the sake of drawing it. Even so, I think that assumption allows us to see there’s a connection between the Malliavin derivative and the “instantaneous variance” or volatility of the process: the closer the derivative is to <span class="math inline">\(0\)</span>, the perturbations or movements are smaller. I’ll plot now a sample path for <span class="math inline">\(F\)</span> and <span class="math inline">\(DF\)</span>, with <span class="math inline">\(t \in [0,1]\)</span> and <span class="math inline">\(s=t\)</span> (which, again, isn’t the full picture, but I find it useful to connect the dots):</p>
+<p>There are two things to note here. First of all, the derivative takes non-zero values only when <span class="math inline">\(0&lt;s&lt;t\)</span>, and this makes sense: we don’t expect the function <span class="math inline">\(F\)</span> to change beyond the time <span class="math inline">\(t\)</span> where it’s evaluated. Secondly, this also means that when we plotted <span class="math inline">\(W(h(t))\)</span> and <span class="math inline">\(h(t)\)</span> together, it was a bit fake because we were assuming <span class="math inline">\(s=t\)</span> for the sake of drawing it. Even so, I think that assumption allows us to see there’s a connection between the Malliavin derivative and the “instantaneous variance” or volatility of the process: the closer the derivative is to <span class="math inline">\(0\)</span>, the perturbations or movements are smaller. I’ll plot now a sample path for <span class="math inline">\(F\)</span> and <span class="math inline">\(DF\)</span>, with <span class="math inline">\(t \in [0,1]\)</span> and <span class="math inline">\(s=t\)</span> (which, again, isn’t the full picture, but I find it useful to connect the dots):</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">=</span> <span class="dv">100000</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>steps</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out=</span>steps)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dWt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">rnorm</span>(<span class="at">n=</span>(steps<span class="dv">-1</span>),<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="fu">sqrt</span>(h)))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Wt <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(dWt)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Wt<span class="sc">**</span><span class="dv">2</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Df <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>Wt</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> f)) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> Df), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">=</span> <span class="dv">100000</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>steps</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out=</span>steps)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dWt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">rnorm</span>(<span class="at">n=</span>(steps<span class="dv">-1</span>),<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="fu">sqrt</span>(h)))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Wt <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(dWt)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Wt<span class="sc">**</span><span class="dv">2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Df <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>Wt</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Time'</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> f, <span class="at">colour=</span><span class="st">"W(t)²"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Df, <span class="at">colour=</span><span class="st">"DW(s=t)"</span>), <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Functions"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="malliavinderivative_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -373,10 +377,10 @@ D_sF=2\,W_t \, (DW_t)=2\,W_t\,h=2\,W_t\,1_{[0,t]}(s)
 <p><span class="math display">\[
 \delta(h) = \int_0^1 h dB_t
 \]</span></p>
+<p>By now, you probably have noticed how common it is to flip integrals and derivatives using integration by parts. It’s almost like second nature with Malliavin Calculus.</p>
 </section><section id="what-now" class="level2"><h2 class="anchored" data-anchor-id="what-now">What now?</h2>
-<p>So, we have finally arrived to a definition of the Malliavin Derivative. It has taken us a while, but now we are in a comfortable position to use it for real stuff.</p>
-
-
+<p>So, we have finally arrived to a definition of the Malliavin Derivative. It has taken us a while, but now we are in a comfortable position to use it for something!</p>
+<hr>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-MalliavinCalculusInFinance" class="csl-entry" role="listitem">
 Alos, &amp; Lorite, E. 2021. <em>Malliavin Calculus in Finance: Theory and Practice (1st Ed.)</em>. 1st ed. Financial Mathematics Series. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781003018681">https://doi.org/10.1201/9781003018681</a>.
@@ -649,8 +653,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
 <div><i class="bi bi-github"></i></div>
 <div class="action-links">
-<p><a href="https://github.com/mateobengualid/malliavincalculus/edit/main/malliavinderivative.qmd" class="toc-action">Edit this page</a></p>
-<p><a href="https://github.com/mateobengualid/malliavincalculus/issues/new" class="toc-action">Report an issue</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/edit/main/malliavinderivative.qmd" class="toc-action">Edit this page</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/issues/new" class="toc-action">Report an issue</a></p>
 </div>
 </div></div></div></footer>
 </body>

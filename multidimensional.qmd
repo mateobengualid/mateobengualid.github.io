@@ -1,6 +1,6 @@
 # Infinite-dimensional vector spaces
 
-Now that we know what Malliavin Calculus wants to achieve, let us jot down some ideas. If you look for the definition of Malliavin Calculus in Wikipedia, you'll quickly find that there's a Cameron-Martin direction in which the derivative takes place. That doesn't make any sense, so we need to explain what a Cameron-Martin space is. But that requires us to go, before that, to vector spaces with infinite dimensions. And that will require talking about measuring, especially lengths and distances between vectors, and functions as vectors. You'll see I take a lot of inspiration from @functions_are_vectors and @lunardi_miranda_pallara, great websites that you must visit if you haven't done so. This section is quite long and touches many algebra-related topics, so brace yourself.
+Now that we know what Malliavin Calculus wants to achieve, let us jot down some ideas. If you look for the definition of Malliavin Calculus in Wikipedia, you'll quickly find that there's a Cameron-Martin direction in which the derivative takes place. That doesn't make any sense, so we need to explain what a Cameron-Martin space is. But that requires us to go, before that, to vector spaces with infinite dimensions. And that will require talking about measuring, especially lengths and distances between vectors, and functions as vectors. You'll see I take a lot of inspiration from @functions_are_vectors and @lunardi_miranda_pallara, great websites that you should visit. This section is quite long and touches many algebra-related topics, so brace yourself.
 
 ## Hierarchy of spaces
 
@@ -64,7 +64,7 @@ There is yet another step in this ladder. You can equip a vector space with an o
 -   It must be linear in the first argument, that is, $\langle ix+jy,z\rangle=i\langle x,z\rangle+j\langle y,z\rangle$ . It will also apply for the second argument because of symmetry.
 -   If x is zero, $\langle x,x\rangle=0$, otherwise it's a strictly positive number.
 
-Every inner product will induce a canonical norm $\|x\|=\sqrt[2]{\langle x, x \rangle}$, which in turn induces a metric. The most common example is the dot product. A $n$-length vector would be:
+Every inner product will induce a canonical norm $\|x\|=\sqrt[2]{\langle x, x \rangle}$, which in turn induces a metric. The most common example is the dot product. A $n$-size vector would be:
 
 $$
 \langle x,y\rangle=x^Ty=\sum_{i=1}^n{(x_i \cdot y_i)}
@@ -100,7 +100,7 @@ $$
 
 We can see that polynomials admit multiplication by a scalar, as well as addition between two polynomials. So, we can truly use these as vectors from a space instead of the full polynomial's formula.
 
-Now, there's nothing preventing us from saying that $n$ is just the *entire* $\mathbb{N}$, and that these vectors are infinite in nature. That is, we need infinitely many vectors to represent all possible polynomials:
+Now, there's nothing preventing us from saying that $n$ is just the *entire* $\mathbb{N}$, and that the basis is infinite in nature. That is, we need infinitely many vectors to represent all possible polynomials:
 
 $$
 \begin{aligned}
@@ -144,7 +144,7 @@ $$
 \|b\|_2=\lim_{n\to \infty}{\sqrt{\sum_{k=1}^n {b_k}^2}}={\sqrt{\lim_{n\to \infty}\sum_{k=1}^n \frac{1}{k^2}}}=\sqrt\frac{\pi^2}{6}
 $$
 
-In fact, mathematicians name $\ell^p$ the space of sequences where the $p$-norm returns a value. Alternatively, if you don't want to deal with norms, you are better off defining a distance function for the space, like this:
+In fact, mathematicians name $\ell^p$ the space of sequences where the $p$-norm converges to a value. Alternatively, if you don't want to deal with norms, you are better off defining a distance function for the space like this:
 
 $$
 d(x,y)=\sum_{k=0}\frac{1}{2^k}\frac{|x_k-y_k|}{1+|x_k-y_k|}
@@ -225,7 +225,7 @@ $$
 \langle Au, v \rangle_V = \langle u, A^* v \rangle_U
 $$
 
-It's important to note that $A^*$ isn't an inverse, although $A^{**}=A$, it's more like a "companion" operator that can be used instead of $A$ if we are in the other vector space. We will use it later to make sense of the derivative operator $D$ under particular inner products.
+It's important to note that $A^*$ isn't an inverse, although $A^{**}=A$, it's more like a "companion" operator that can be used instead of $A$ if we are in the other vector space.
 
 ## Orthonormalization
 
@@ -246,3 +246,5 @@ v = \sum_{b_i \in B}a_i b_i = \sum_{b_i \in B} \underbrace{\langle b_i, x \rangl
 $$
 
 You may ask why don't we just use orthonormal basis all the time and save us the hassle. Indeed, we can transform a basis into an orthonormal basis by using the Gram-Schmidt process. I won't explain the process, it's only important that we know it can be done.
+
+------------------------------------------------------------------------

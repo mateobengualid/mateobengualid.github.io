@@ -10,10 +10,11 @@ $$
 dN_t = \theta(\mu - N_t)\,dt+ \sigma\,dW_t
 $$
 
-For example, let's say that a lake can accept around $\mu=1000$ trouts. If there are more than that, some will starve and die off, and if there are less, then they will reproduce. Finally, $\theta$ controls how strong is the correction. Here are some examples:
+For example, let's say that a lake can accept around $\mu=1000$ trouts. If there are more than that, some will starve and die off, and if there are less, then they will reproduce. Finally, $\theta$ controls how strong is the correction. Here are some examples with $\theta=1$ and different values for $\sigma$:
 
 ```{r}
 #| echo: true
+#| warning: false
 library(ggplot2)
 
 # Right
@@ -21,23 +22,48 @@ dt <- 0.01
 total_time <- 10
 N_0 <- 10
 mu_ou <- 1000.0
-sigma_ou <- 100
 tetha_ou <- 1.0
 
 steps = total_time / dt
 times <- seq(from = 0, to = total_time, length.out=steps)
 stretched_times <- times * tetha_ou
 dBt <- rnorm(steps,mean = 0, sd = sqrt(dt))
-N <- rep_len(x = N_0, length.out = length(times))
 
+df <- data.frame(
+  time=stretched_times
+)
+
+sigma_ou <- 0
+N <- rep_len(x = N_0, length.out = length(times))
 for (i in (2:length(times))) {
   N[i] <- N[i-1] + tetha_ou * (mu_ou - N[i-1]) * dt + sigma_ou * dBt[i]
 }
+df$N_0 <- N
 
-ggplot(mapping = aes(x = stretched_times, y = N)) + geom_line()
+sigma_ou <- 100
+N <- rep_len(x = N_0, length.out = length(times))
+for (i in (2:length(times))) {
+  N[i] <- N[i-1] + tetha_ou * (mu_ou - N[i-1]) * dt + sigma_ou * dBt[i]
+}
+df$N_100 <- N
+
+sigma_ou <- 250
+N <- rep_len(x = N_0, length.out = length(times))
+for (i in (2:length(times))) {
+  N[i] <- N[i-1] + tetha_ou * (mu_ou - N[i-1]) * dt + sigma_ou * dBt[i]
+}
+df$N_250 <- N
+
+ggplot(data = df, mapping = aes(x=time), legend=TRUE) +
+  xlab('Time') +
+  ylab('N(t)') +
+  geom_line(mapping = aes(y=N_100, colour="σ=100"),linewidth = 1) + 
+  geom_line(mapping = aes(y=N_250, colour="σ=250"),linewidth = 1) + 
+  geom_line(mapping = aes(y=N_0, colour="σ=0"),linewidth = 1) +
+  scale_colour_manual("Functions",values=c("black","darkgray","darkviolet"))
 ```
 
-This is a very common process, so much it has a name: the Ornstein-Uhlenbeck process. Now, let's calculate $DN$. We have $a(X) = \theta(\mu - X)$ and $b(x) = \sigma$, so it's not a simple Ito process. We better start from those before tackling the Ornstein-Uhlenbeck process. If we remember that we can split the integrals as $\int_0^t... dW_t=\sum_{i=1}^n{...(W_{t_i}-W_{t_{i-1}})}$, then we can transform a classical Ito process $X_t$ into something we can easily apply chain and product rules:
+This is a very common process, so much it has a name: the Ornstein-Uhlenbeck process. Now, let's calculate $DN$. We have $a(X) = \theta(\mu - X)$ and $b(x) = \sigma$, so it's not a simple Ito process that only depends on time. We better start from those before tackling the Ornstein-Uhlenbeck process. If we remember that we can split the integrals as $\int_0^t... dW_t=\sum_{i=1}^n{...(W_{t_i}-W_{t_{i-1}})}$, then we can transform a classical Ito process $X_t$ into something we can easily apply chain and product rules:
 
 $$
 \begin{aligned}
@@ -50,7 +76,7 @@ $$
 
 It looks messy, but things are what we expect: $t$ is the terminal value of both integrals, $s$ is the variable we use to integrate from $0$ to $t$, and $r$ is the variable we introduced with the Malliavin Derivative. See that it makes sense: the influence of $\sigma$ in the Ito process is the same along the whole Ito process path.
 
-Now, we can use a similar argument for the number of trouts in the lake, which follows an Ornstein-Uhlenbeck process. The formula in general for a process that motivated Ito's Lemma is like so:
+Now, we can use a similar argument for the number of trouts in the lake, which followed an Ornstein-Uhlenbeck process. I'll save us some effort and directly copy the formula for a process like the one that motivated Ito's Lemma:
 
 $$
 D_rX_t = \int_r^t \frac{\partial a}{\partial x}(s, X_s)\,D_rX_s\,ds + b(r,X_r)1_{[0,t]}(r) + \int_r^t \frac{\partial b}{\partial x}(s, X_s)\,D_rX_s\,dW_s \\
@@ -109,7 +135,7 @@ $$
 
 This is the Clark-Ocone formula, which is an explicit formula for the Martingale Representation Theorem. The Malliavin derivative is the key ingredient to have an analytic expression and it's the main reason one would care about it. What this is telling us is that any random variable indexed by time $F_t$ can be split into a sum of a "deterministic" portion, the expected value, and a martingale that fluctuates around it.
 
-We can apply this to the Ornstein-Uhlenbeck process for our trouts. We know from before that $D_rN_t = \sigma\,e^{-\theta(t-r)}$. Notice that there's no $W_t$, so the expected value is just the derivative. We could estimate the value of $\mathbb{E}[N]$, but the process already has a solution for it. Here's in all its splendor:
+We can apply this to the Ornstein-Uhlenbeck process for our trouts. We know from before that $D_rN_t = \sigma\,e^{-\theta(t-r)}$. Notice that there's no $W_t$, so the expected value is just the Malliavin derivative. We could estimate the value of $\mathbb{E}[N]$ or try to solve the (stochastic) differential equation, but given that the process already has a solution for it, I'll go ahead and add it. Here's in all its splendor:
 
 $$
 \begin{aligned}
@@ -118,7 +144,7 @@ N(t) &= \mathbb{E}[N] + \int_0^t \mathbb{E_r}[D_r N_t] dW_r \\
 \end{aligned}
 $$
 
-Why do we care about this? Well, for once, if we wanted to simulate different paths of our fish population $N$, we only need to simulate the martingale portion, and the deterministic portion is only calculated once. Secondly, we can use this to calculate a variance for $N$. Indeed, remember that $\mathbb{Var}[N]=\mathbb{E}[N-\mathbb{E}[N]]^2$, so then, using Ito's Isometry:
+Why do we care about this? Well, for once, if we wanted to simulate different paths of our fish population $N$, we only need to simulate the martingale portion, and the deterministic portion is only calculated once. Secondly, we can use the Clark-Ocone formula to directly calculate the variance for $N$, without knowing the full analytic solution. Indeed, remember that $\mathbb{Var}[N]=\mathbb{E}[N-\mathbb{E}[N]]^2$, so then, using Ito's Isometry:
 
 $$
 \begin{aligned}
@@ -130,14 +156,12 @@ $$
 \end{aligned}
 $$
 
-Notice that this works for any variable: you only need the Malliavin Derivative to get the variance. We see above that: - Our trout population $N$ in the long term ($t \rightarrow \infty$) will have a stable, constant variance around $\mu$ - Variance at the introduction of trouts ($t \approx 0$) is very small because the growth of $N$, trying to reach $\mu$ as soon as possible, dominates the noise - A large $\theta$ will not only make the long term variance arrive sooner, it will also prevent large deviations from $\mu$
+Notice that this works for any variable: you only need the Malliavin Derivative to get the variance. We see above that:
 
-## Is there anything else?
+-   Our trout population $N$ in the long term ($t \rightarrow \infty$) will be a process moving around $\mu$ with a constant variance $\frac{\sigma^2}{2\theta}$
 
-There's a lot left! But I haven't had time to round up the concepts. There are three things that I've excluded, this is long as it is.
+-   Variance at the time of trout introduction ($t \approx 0$) is very small because the growth of $N$, trying to reach $\mu$ as soon as possible, dominates over the noise
 
-First of all, Malliavin Derivatives make it simpler to work with stochastic variances. That is, $\sigma$ is an Ito process. It's more tractable to use the techniques above than simulating and estimating the evolution of $N$.
+-   A large $\theta$ will not only make the long term variance arrive sooner, it will also prevent large deviations from $\mu$
 
-Secondly, we can use an integration by parts to flip between a function derivative and the Skorohod integral. In the case of non-anticipatory processes, the formula is easy to compute because it's just an Ito integral. This makes it, in turn, easier to calculate/estimate derivatives of functions of processes against other processes. For example, the derivative of an insurance payoff for some asset against the price of the asset is called $\Delta$. Switching to less risky assets to reduce this derivative is called delta-hedging. When this derivative is zero, changes on the asset's price don't affect the insurance payoff anymore and the insurance is considered delta-neutral.
-
-A final point is that Skorohod integrals also work for anticipatory integrals. We haven't touched those here because they aren't proper Ito integrals and it was already too complicated, but this is also where it shines.
+------------------------------------------------------------------------

@@ -18,7 +18,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 <script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="./">
 <link href="./measuretheory.html" rel="next">
 <link href="./intro.html" rel="prev">
@@ -62,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
 <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/malliavincalculus/es/integrationbyparts.html" id="language-link-es">Español</a></li></ul>
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/es/integrationbyparts.html" id="language-link-es">Español</a></li></ul>
 </div>
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
@@ -155,13 +174,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Summary</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Closing remarks</span></a>
   </div>
 </li>
     </ul>
@@ -177,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><section id="integration-by-parts" class="level1"><h1>Integration by parts</h1>
-<p>We start our convoluted journey by talking about a trick that could be seen as the reverse for the product rule for derivatives. We will use it to develop an entirely new way to solve problems by minimizing a function of functions.</p>
+<p>We begin our journey by talking about a trick that could be seen as the reverse for the product rule for derivatives. We will use it to develop an entirely new way to solve problems by minimizing a function of functions. This will basically follow <span class="citation" data-cites="calculus_of_variations">Wikipedia contributors (<a href="#ref-calculus_of_variations" role="doc-biblioref">2023</a>)</span>, but I’m copying it here for completion’s sake.</p>
 <section id="sketch-for-deriving-the-integration-by-parts-formula" class="level2"><h2 class="anchored" data-anchor-id="sketch-for-deriving-the-integration-by-parts-formula">Sketch for deriving the integration-by-parts formula</h2>
 <p>We will use the <span class="math inline">\('\)</span> symbol to indicate a derivative with respect to <span class="math inline">\(x\)</span>. If you know the basics of derivation, you recall that:</p>
 <p><span class="math display">\[
@@ -197,14 +210,14 @@ f(x)g(x)&amp;=\int f'(x)g(x)dx+\int f(x)g'(x)dx
 \int_a^b u\,dv &amp;= \left.{uv}\right|_a^b -\int_a^bv\,du
 \end{aligned}
 \]</span></p>
-<p>Finally, imagine that the functions vanish on the extremes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. That is, <span class="math inline">\(u(b)v(b)-u(a)v(a)=0\)</span>. Then you can simplify further:</p>
+<p>Finally, imagine that the functions vanish on the extremes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. That is, <span class="math inline">\(u(b)v(b)-u(a)v(a)=0\)</span>. In that case, you can simplify even further:</p>
 <p><span class="math display">\[
 \int u\,dv = -\int v\,du
 \]</span></p>
 </section><section id="calculus-of-variations" class="level2"><h2 class="anchored" data-anchor-id="calculus-of-variations">Calculus of variations</h2>
-<p>Malliavin Calculus is sometimes called an extension of calculus of variations to stochastic processes. What does that even means? We start with the first part.</p>
+<p>Malliavin Calculus is sometimes called an extension of calculus of variations to stochastic processes. What does that even means? Let’s deal with the first part.</p>
 <section id="derivation-and-application" class="level3"><h3 class="anchored" data-anchor-id="derivation-and-application">Derivation and application</h3>
-<p>I’ll assume that you know the basics of calculus. That means you can solve problems like this: let’s say we have a function <span class="math inline">\(f\)</span> and we want to know the value of <span class="math inline">\(x\)</span> where <span class="math inline">\(f\)</span> attains its minimum.</p>
+<p>I’ll assume that you know the basics of calculus. That means you can solve problems like this: let’s say we have a function <span class="math inline">\(f\)</span> and we want to know the value of <span class="math inline">\(x\)</span> where <span class="math inline">\(f\)</span> attains its minimum:</p>
 <p><span class="math display">\[
 \min{f(x)}=x^2-4x+5
 \]</span></p>
@@ -218,8 +231,8 @@ x &amp;= 2
 \]</span></p>
 <p>Which means that <span class="math inline">\(\min{f(x)}=f(2)=2^2-4*2+5=1\)</span>.</p>
 <p>This approach works great when you try to minimize a function <strong>value</strong> over the reals, <span class="math inline">\(f: \mathbb{R} \to \mathbb{R}\)</span>, or in general for multivariate functions, <span class="math inline">\(f: \mathbb{R}^n \to \mathbb{R}\)</span>.</p>
-<p>But let’s say we want to find the <strong>function</strong> that minimizes an expression. We don’t know how that function looks, or want to impose any preconceived notions like being a polynomial or a sum of sine/cosine pairs. What do we do, then?</p>
-<p>From now on, I’ll be basically copy-pasting Wikipedia. The first step is to define a “function of functions” as the starting point for minimization, and that function is essentially an integral:</p>
+<p>But let’s say we want to find the <strong>function</strong> <span class="math inline">\(y=f(x)\)</span> that minimizes an expression. We don’t know how that function looks, or want to impose any preconceived notions like being a polynomial or a sum of sine/cosine pairs. What do we do, then?</p>
+<p>From now on, it’s autopilot from any course (I’ll be using the Wikipedia article as the baseline). The first step is to define a “function of functions” as the starting point for minimization, and that function is essentially the integral like this:</p>
 <p><span class="math display">\[
 J[y]=\int^{x_2}_{x_1} L(x,y,y')dx \\
 \]</span></p>
@@ -227,7 +240,7 @@ J[y]=\int^{x_2}_{x_1} L(x,y,y')dx \\
 <p><span class="math display">\[
 \min\sum^n_{i=1}\sqrt{ (\Delta x_i)^2+(\Delta y_i)^2}
 \]</span></p>
-<p>As little changes become infinitesimal, and with some extreme abuse of notation, we switch to an integral:</p>
+<p>As little changes become infinitesimal, and with some extreme abuse of notation, we switch to an integral and obtain the expression for <span class="math inline">\(L\)</span>:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \int^{b}_{a} \sqrt{{dx}^2+{dy}^2}
@@ -237,7 +250,7 @@ J[y]=\int^{x_2}_{x_1} L(x,y,y')dx \\
 &amp; = \int^{b}_{a}L(y')\,dx\\
 \end{aligned}
 \]</span></p>
-<p>Now, we will introduce a generic function <span class="math inline">\(\eta(x)\)</span> called the variation. This function represents an unknown perturbation and the only requirement that we will impose on it is that <span class="math inline">\(\eta(a)=\eta(b)=0\)</span>. We can assume now that <span class="math inline">\(f(x)=y\)</span> is the solution and <span class="math inline">\(\eta\)</span> is the deviation from the solution, which we can multiply by a small number <span class="math inline">\(\varepsilon\)</span>. We can then define a function over <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\Phi(\varepsilon)= J[f + \varepsilon *\eta]\)</span>, so that <span class="math inline">\(\Phi(0)=f\)</span>, our solution.</p>
+<p>Now, we will introduce a generic function <span class="math inline">\(\eta(x)\)</span> called the variation. This function represents a perturbation and the only requirement that we will impose on it is that <span class="math inline">\(\eta(a)=\eta(b)=0\)</span>. We can assume that <span class="math inline">\(f(x)=y\)</span> is the solution and <span class="math inline">\(\eta\)</span> is the deviation from the solution, which we can multiply by a small number <span class="math inline">\(\varepsilon\)</span>. We can then define a function over <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\Phi(\varepsilon)= J[f + \varepsilon *\eta]\)</span>, so that <span class="math inline">\(\Phi(0)=f\)</span>, our solution.</p>
 <p>The trick here is that now, instead of minimizing something that depends on unknown functions, which we can’t even start to comprehend, we minimize something that depends on a number, <span class="math inline">\(\varepsilon\)</span>. Not only that, we constructed <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(\eta\)</span> so that we know, in advance, that the function we are looking for, the solution, is at <span class="math inline">\(\Phi(\varepsilon=0)=J[f]\)</span> and <span class="math inline">\(\Phi'(0)=0\)</span> because it’s the minimum. Absolute genius.</p>
 <p><span class="math display">\[
 \Phi'(0)=0=\left.\frac{d\Phi}{d\varepsilon}\right|_{\varepsilon=0}=\int^{b}_{a}\left. \frac{dL}{d\varepsilon}\right|_{\varepsilon=0} dx
@@ -260,7 +273,7 @@ J[y]=\int^{x_2}_{x_1} L(x,y,y')dx \\
 0 &amp;= \int_{a}^{b} \eta (x) \left(\frac{\partial L}{\partial f} - \frac{d}{dx}\frac{\partial L}{\partial f'} \right) \, dx \\
 \end{aligned}
 \]</span></p>
-<p>We start from <span class="math inline">\(\Phi'(0)\)</span> and we do an <em>integration by parts</em>. This is crucial, without that operation this whole scheme falls apart. We also know that <span class="math inline">\(\eta(a)=\eta(b)=0\)</span>, so that term vanishes. Joining terms and taking a common factor we reach our final conclusion. The final piece of magic is realizing that this integral is zero, no matter what <span class="math inline">\(\eta(x)\)</span> we pick. By the Fundamental Lemma of Calculus of Variations, that leaves only one possibility, and it’s so important that it’s named the Euler-Lagrange equation:</p>
+<p>We start from <span class="math inline">\(\Phi'(0)\)</span> and we do an <em>integration by parts</em>. This is crucial, without that operation this whole scheme falls apart. We also know that <span class="math inline">\(\eta(a)=\eta(b)=0\)</span>, so that term vanishes. Joining terms and taking a common factor we reach our final conclusion. The final piece of magic is realizing that this integral is zero, no matter what <span class="math inline">\(\eta(x)\)</span> we pick. By the Fundamental Lemma of Calculus of Variations, that leaves only one possibility, and it’s so important that it’s called the Euler-Lagrange equation:</p>
 <p><span class="math display">\[
 \frac{\partial L}{\partial f} -\frac{d}{dx} \frac{\partial L}{\partial f'}=0
 \]</span></p>
@@ -289,8 +302,12 @@ f(x) &amp;= mx+b
 \end{aligned}
 \]</span></p>
 <p>The function with the shortest path between two points is a straight line, and the only thing we needed to know is how the distance between two points is calculated to get a closed-form, analytic solution.</p>
-
-
+<hr>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-calculus_of_variations" class="csl-entry" role="listitem">
+Wikipedia contributors. 2023. <span>“Calculus of Variations — <span>W</span>ikipedia<span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/wiki/Calculus_of_variations">https://en.wikipedia.org/wiki/Calculus_of_variations</a>.
+</div>
+</div>
 </section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -541,8 +558,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
 <div><i class="bi bi-github"></i></div>
 <div class="action-links">
-<p><a href="https://github.com/mateobengualid/malliavincalculus/edit/main/integrationbyparts.qmd" class="toc-action">Edit this page</a></p>
-<p><a href="https://github.com/mateobengualid/malliavincalculus/issues/new" class="toc-action">Report an issue</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/edit/main/integrationbyparts.qmd" class="toc-action">Edit this page</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/issues/new" class="toc-action">Report an issue</a></p>
 </div>
 </div></div></div></footer>
 </body>

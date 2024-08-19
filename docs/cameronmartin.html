@@ -115,7 +115,7 @@ div.csl-indent {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
 <div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/malliavincalculus/es/cameronmartin.html" id="language-link-es">Español</a></li></ul>
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/es/cameronmartin.html" id="language-link-es">Español</a></li></ul>
 </div>
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
@@ -208,13 +208,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Summary</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Closing remarks</span></a>
   </div>
 </li>
     </ul>
@@ -281,7 +275,7 @@ div.csl-indent {
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(X)'</span>) <span class="sc">+</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>density_y, <span class="at">fill=</span><span class="st">"f(X)"</span>), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>density_y_plus, <span class="at">fill=</span><span class="st">"f(X+5)"</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"green"</span>, <span class="st">"blue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Functions"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"green"</span>, <span class="st">"blue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="cameronmartin_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -327,8 +321,8 @@ div.csl-indent {
 <details><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme(legend.position = "none")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>As you can see, the first function had plenty of area in the middle of the weight, so it retains quite a bit. The shifted function instead has shrunk. In order to preserve the area size, you’ll need to replace the Gaussian measure with a shifted Gaussian measure inside the integral, similar to a change of variables. This is straightforward with finite dimensions, but it’s challenging in infinite dimensions for theoretical reasons (which I won’t put here).</p>
-<p>The main idea, though, is that you <em>are</em> allowed to perform these translations in infinite dimensions. The only requirement is that the translation exists in a “smaller” space, the <strong>Cameron-Martin</strong> space, and only those translations make sense and are allowed.</p>
+<p>As you can see, the first function had plenty of area in the middle of the weight, so it retains quite a bit. The shifted function instead has shrunk. Now, even though the area has changed, we could in theory recover the factor by which it has changed. With finite dimensions, this is doable, but it’s challenging in infinite dimensions.</p>
+<p>The main idea here is that you <em>are</em> allowed to perform these translations in infinite dimensions and arrive to a calculation that still works. The only requirement is that the translation comes from a “smaller” space, the <strong>Cameron-Martin</strong> space, and only those translations make sense and are allowed.</p>
 </section><section id="the-cameron-martin-space" class="level2"><h2 class="anchored" data-anchor-id="the-cameron-martin-space">The Cameron-Martin space</h2>
 <p>Although it sounds mysterious, it’s actually kind of straightforward, and you can follow the approach from <span class="citation" data-cites="cameron_martin_theorem">Wikipedia contributors (<a href="#ref-cameron_martin_theorem" role="doc-biblioref">2023</a>)</span> and <span class="citation" data-cites="lunardi_miranda_pallara">Alessandra Lunardi (<a href="#ref-lunardi_miranda_pallara" role="doc-biblioref">2015</a>)</span>. Let’s go back to the inner product instead of using the norm, to understand what’s going on, and we will use a finite <span class="math inline">\(n\)</span>-dimensional space:</p>
 <p><span class="math display">\[
@@ -344,19 +338,18 @@ div.csl-indent {
 \]</span></p>
 <p>So, a Gaussian measure for a translated set is the measure for the original set, multiplied by an extra factor to perform the “change of variable”. That extra factor is called the <strong>Radon-Nikodym derivative</strong> because it expresses how a measure changes when another changes. In this case, we will denote it as the one that transforms the centered Gaussian measure into the <span class="math inline">\(h\)</span>-Translated Gaussian measure, symbolized as <span class="math inline">\(\frac{\partial(T_h)_*(\gamma)}{d\gamma}(x)\)</span></p>
 <p>Now, let’s point out once again that, if there’s a space <span class="math inline">\(E\)</span> and a measure <span class="math inline">\(\mu\)</span> that’s locally finite and equivalent to itself after <em>any</em> translation “change of variables”, then either <span class="math inline">\(E\)</span> is finite-dimensional, as shown above, or <span class="math inline">\(\mu\)</span> is the trivial measure <span class="math inline">\(\mu(A) = 0,\, \forall A\)</span>. We can also already see from the expression above that if <span class="math inline">\(h\)</span> is infinite-dimensional then there’s the potential to make this integral tend to infinity. Fortunately for us, we can sidestep this by only expecting equivalence under <em>some</em> translations, namely translations that are elements of a Cameron-Martin space, also called Cameron-Martin directions.</p>
-<p>We start from an infinite-dimensional space <span class="math inline">\(H\)</span>, our Cameron-Martin space. We will have <span class="math inline">\(h \in H\)</span>, with a mapping <span class="math inline">\(i(h):H\rightarrow E\)</span>, and <span class="math inline">\(i(H) \subseteq E\)</span>. These <span class="math inline">\(i(H)\)</span> will be our Cameron-Martin directions. We will impose additional restrictions on <span class="math inline">\(h\)</span>. For starters, and based on the Radon-Nikodym derivative we see above, we need <span class="math inline">\(\|h\|^2_H &lt; \infty\)</span>. Then, we need to decide what <span class="math inline">\(\langle h, x \rangle\)</span> even means and what to do with it. In fact, this isn’t a true inner product because <span class="math inline">\(h \in H\)</span> and <span class="math inline">\(x \in E\)</span> (remember, the whole point of <span class="math inline">\(H\)</span> <em>is</em> to reduce the space!). In short, what’s going on with that fake inner product is that there’s a mapping for every <span class="math inline">\(h\)</span> to a function in the space of functions <span class="math inline">\(I(h): H \rightarrow L^2\)</span>, and <span class="math inline">\(I(h)(x)\)</span> is what will count as the “inner product” <span class="math inline">\(\langle h, x \rangle^\sim\)</span>. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>We start from an infinite-dimensional space <span class="math inline">\(H\)</span>, our Cameron-Martin space. We will have <span class="math inline">\(h \in H\)</span>, with a mapping <span class="math inline">\(i(h):H\rightarrow E\)</span>, and <span class="math inline">\(i(H) \subseteq E\)</span>. These <span class="math inline">\(i(H)\)</span> will be our Cameron-Martin directions. We will impose additional restrictions on <span class="math inline">\(h\)</span>. For starters, and based on the Radon-Nikodym derivative we see above, we need <em>at least</em> <span class="math inline">\(\|h\|^2_H &lt; \infty\)</span>. Then, we need to decide what <span class="math inline">\(\langle h, x \rangle\)</span> even means and what to do with it. In fact, this isn’t a true inner product because <span class="math inline">\(h \in H\)</span> and <span class="math inline">\(x \in E\)</span> (remember, the whole point of <span class="math inline">\(H\)</span> <em>is</em> to reduce the space!). In short, what’s going on with that fake inner product is that there’s a mapping for every <span class="math inline">\(h\)</span> to a function in the space of functions <span class="math inline">\(I(h): H \rightarrow L^2\)</span>, and <span class="math inline">\(I(h)(x)\)</span> is what will count as the “inner product” <span class="math inline">\(\langle h, x \rangle^\sim\)</span>. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 </section><section id="example-of-a-cameron-martin-space" class="level2"><h2 class="anchored" data-anchor-id="example-of-a-cameron-martin-space">Example of a Cameron-Martin space</h2>
 <p>All of the above is pretty arid, so let’s take a look at one example of a infinite-dimensional space and its corresponding Cameron-Martin space. I won’t try to explain how this space was obtained, there’s a lengthy derivation in <span class="citation" data-cites="lunardi_miranda_pallara">Alessandra Lunardi (<a href="#ref-lunardi_miranda_pallara" role="doc-biblioref">2015</a>)</span> .</p>
 <section id="infinite-sequences" class="level3"><h3 class="anchored" data-anchor-id="infinite-sequences">Infinite sequences</h3>
-<p>Recall the space of infinite sequences? It’s an infinite-dimensional space and we denoted it <span class="math inline">\(\mathbb{R}^{\mathbb{N}}:=\mathbb{R}^{\infty}\)</span>, with countable cardinality. Now, let’s consider the space of sequences that vanish at infinity, with the exotic symbol <span class="math inline">\(\mathbb{R}_c^{\infty}\)</span> and its elements will have the even more exotic symbol <span class="math inline">\(\xi\in\mathbb{R}_c^{\infty}\)</span> . At this point, we know <span class="math inline">\(\lim_{k\rightarrow \infty}\xi_k = 0\)</span>.</p>
+<p>Recall the space of infinite sequences? It’s an infinite-dimensional space and we denoted it <span class="math inline">\(\mathbb{R}^{\mathbb{N}}:=\mathbb{R}^{\infty}\)</span>, with countable cardinality. Now, let’s consider the space of sequences that vanish at infinity, with the exotic symbol <span class="math inline">\(\mathbb{R}_c^{\infty}\)</span> and its elements will have the even more exotic symbol <span class="math inline">\(\xi\in\mathbb{R}_c^{\infty}\)</span> . So, by definition, we know <span class="math inline">\(\lim_{k\rightarrow \infty}\xi_k = 0\)</span>.</p>
 <p>Now, we establish a correspondence between these sequences and functions, very straightforward: <span class="math inline">\(\xi \rightarrow f, \text{with }f(x) = \sum^\infty_{k=1}\xi_k x_k\)</span> , and we will limit this to the sums that are finite, in other words <span class="math inline">\(f(x)&lt;\infty\)</span> or <span class="math inline">\(f(x) \in L^2\)</span>. Notice that when we measure the first term of this series with a Gaussian measure, we will be simplifying a lot:</p>
 <p><span class="math display">\[
 \int_X \xi_1 x_1 d\gamma(x_1)=\xi_1 \int_{-\infty}^{+\infty} x_1d\gamma(x_1)=\xi_1 *\mathbb{E}[\mathcal{N}(\mu=0,\sigma^2=1)]=0
 \]</span></p>
 <p>Now, you can do this for all <span class="math inline">\(x_k\)</span> and find the same result. This is no coincidence, and it’s the reason why we used the Gaussian measure for infinite dimensions. In fact, <span class="math inline">\(\gamma\)</span> for the infinite-dimensional case will have mean <span class="math inline">\(\mu=0\)</span> and variance/covariance <span class="math inline">\(B_\gamma(\xi,\xi)=\|\xi\|_{\ell^2}\)</span>.</p>
 <p>This last statement is also useful because we can use it to arrive from the norm of a function using the Gaussian measure to its value. I won’t prove it now, but <span class="math inline">\(\|f\|^2_{L^2(X,\gamma)}=\|\xi\|^2_{\ell^2}\)</span>. Now, if we take a <span class="math inline">\(h\in \mathbb{R}^\infty\)</span>, we can show (but we won’t) that by having <span class="math inline">\(h\in H = \ell^2\)</span> instead, this is enough for the functions above to be measured and to always obtain a value. So, the Cameron-Martin space is <span class="math inline">\(\ell^2\)</span>.</p>
-
-
+<hr>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-lunardi_miranda_pallara" class="csl-entry" role="listitem">
 Alessandra Lunardi, Diego Pallara, Michele Miranda. 2015. <span>“Infinite Dimensional Analysis.”</span> 2015. <a href="http://dmi.unife.it/it/ricerca-dmi/seminari/isem19/lectures/lecture-notes/view">http://dmi.unife.it/it/ricerca-dmi/seminari/isem19/lectures/lecture-notes/view</a>.
@@ -623,8 +616,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
 <div><i class="bi bi-github"></i></div>
 <div class="action-links">
-<p><a href="https://github.com/mateobengualid/malliavincalculus/edit/main/cameronmartin.qmd" class="toc-action">Edit this page</a></p>
-<p><a href="https://github.com/mateobengualid/malliavincalculus/issues/new" class="toc-action">Report an issue</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/edit/main/cameronmartin.qmd" class="toc-action">Edit this page</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/issues/new" class="toc-action">Report an issue</a></p>
 </div>
 </div></div></div></footer>
 </body>

@@ -1,6 +1,6 @@
 # Malliavin Derivative
 
-Now that we have established that Cameron-Martin directions allow us to change the integrals under Gaussian measures, we are ready to define the Malliavin derivative. We can do it from two directions:
+Now that we have established that Cameron-Martin directions allow us to change the integrals under Gaussian measures, we are ready to define the Malliavin derivative. We can do it from two angles:
 
 -   We can talk about polynomial chaos, and then arrive to the derivative
 
@@ -26,7 +26,7 @@ We will consider a Cameron-Martin direction of $\hat{h}(\tau)=\int_0^\tau h\,dt$
 
     Finally, without loss of generality, we can assume $\|h\|=1$, and let all the $h_i$ be orthonormal in $H$. This is a safe assumption due to Gram-Schmidt orthonormalization.
 
-Brownian motion paths up to $\tau$ will be denoted as $\omega(\tau)$. The function $1_{[0,\tau]}$ is a function that's $1$ in the indicated interval and $0$ everywhere else, behaving like a filter. Finally, we will define a function like $W(1_{[0,\tau]})$ as a Brownian motion that's multiplied by the filter . We will also use $B_t$ and $dB_t$ to reference Brownian motions, alongside $W_t$ and $dW_t$.
+Brownian motion paths up to $\tau$ will be denoted as $\omega(\tau)$. The function $1_{[0,\tau]}$ is a function that's $1$ in the indicated interval and $0$ everywhere else, behaving like a filter. Finally, we will define a function like $W(1_{[0,\tau]})$ as an Ito integral of the filter . We will also use $B_t$ and $dB_t$ to reference Brownian motions, alongside $W_t$ and $dW_t$.
 
 We will also consider a polynomial function[^malliavinderivative-2] $f$ that takes $n$ Brownian motions as variables, each stopping at a different time. Two Brownian motions from $0$ to $t$ are essentially the same, even if their paths are different. So, each Brownian motion will go from $0$ to $t_1$ , $t_2$, ... $t_n$ This function $f$ is for the moment pretty useless and basic. We will find its use and extensions later.
 
@@ -60,11 +60,11 @@ making $DF$ an $H$-valued random variable.
 
 ## What did just happen?
 
-This $D$ is the Malliavin Derivative. It is a linear operator (like the ones we saw before) and it's applied to $F$. It means that if you have a function $F$ with variables composed of these Brownian motions multiplied by these $h_i$ functions, then you can apply this special derivative definition.
+This $D$ is the Malliavin Derivative. It is a linear operator (like the ones we saw before) and it's applied to $F$. It means that if you have a function $F$ with variables composed of these Brownian motions multiplied by these $h_i$ functions, then you can apply this derivative definition.
 
-This $F$ is very limited right now, but if you could *represent, approximate* or find an *equivalence* between the random variable you are interested in and a function like $F$, then you could apply the derivative to the equivalence. A lot of the theory is to find those connections, we won't bother to do that here unless I see it's valuable.
+This $F$ looks very limited right now, but if you could *represent, approximate* or find an *equivalence* between the random variable you are interested in and a function like $F$, then you could apply the derivative to the equivalence. The theory is concerned with finding those connections, we won't bother to do that here.
 
-At this point, the collection of $h_i$ functions are a theoretical requirement and seem pulled out of thin air. For one, they aren't more arbitrary than the displacement $h$ from the classical derivative definition $\lim_{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}$. As we move forward, we will select the $h_i \in H$ that will be suitable for our purposes. More theoretical sources may establish that $h_i$ are orthonormal (or be made orthonormal). Instead, we will follow the simplest, default choice: we will use the single function $h=1_{[0,1]}$, that is, a function that's $1$ on the interval and $0$ elsewhere. This helps when the function is inside an integral because it "cuts" or "filters" the integration domain, like in this example:
+At this point, the collection of $h_i$ functions are a theoretical requirement and seem pulled out of thin air. For one, they aren't more arbitrary than the displacement $h$ from the classical derivative definition $\lim_{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}$. As we move forward, we will select the $h_i \in H$ that will be suitable for our purposes. More theoretical sources may establish that $h_i$ are orthonormal (or be made orthonormal), especially under an inner product with a Gaussian weight. Instead, we will follow the simplest, default choice: we will use the single function $h=1_{[0,1]}$, that is, a function that's $1$ on the interval and $0$ elsewhere. This helps when the function is inside an integral because it "cuts" or "filters" the integration domain, like in this example:
 
 $$
 \int_{-\infty}^{+\infty}f(x,t)\cdot1_{[0,1]}(x)\,dx = \int_0^1f(x,t)\,dx
@@ -90,6 +90,7 @@ Here's a good rule-of-thumb: it's as if we did $\frac{\partial F}{\partial W}\cd
 
 ```{r}
 #| echo: true
+#| warning: false
 library(ggplot2)
 library(rgl)
 
@@ -102,23 +103,32 @@ dBt <- c(0, rnorm(n=(steps-1),mean = 0,sd = sqrt(h)))
 # Left
 h_1 <- Vectorize(function(x) 1)
 h_hat_1 <- cumsum(h_1(t) * dBt)
-ggplot(mapping = aes(x = t, y = h_hat_1)) +
-  geom_line() +
-  geom_line(mapping = aes(x = t, y = h_1(t)), color = "red", linewidth = 1.25)
+ggplot(mapping = aes(x = t)) +
+  xlab('Time') +
+  ylab('f(t)') +
+  geom_line(mapping = aes(y=h_hat_1, colour="W(h)"),linetype = 2) + 
+  geom_line(mapping = aes(y = h_1(t), colour = "h = 1"), linewidth = 1.25) + 
+  scale_colour_manual("Functions",values=c("black","red"))
 
 # Middle
 h_2 <- Vectorize(function(x) x)
 h_hat_2 <- cumsum(h_2(t) * dBt)
-ggplot(mapping = aes(x = t, y = h_hat_2)) +
-  geom_line() +
-  geom_line(mapping = aes(x = t, y = h_2(t)), color = "red", linewidth = 1.25)
+ggplot(mapping = aes(x = t)) +
+  xlab('Time') +
+  ylab('f(t)') +
+  geom_line(mapping = aes(y=h_hat_2, colour="W(h)"),linetype = 2) + 
+  geom_line(mapping = aes(y = h_2(t), colour = "h = t"), linewidth = 1.25) + 
+  scale_colour_manual("Functions",values=c("black","red"))
 
 # Right
 h_3 <- Vectorize(function(x) x**2 - 1)
 h_hat_3 <- cumsum(h_3(t) * dBt)
-ggplot(mapping = aes(x = t, y = h_hat_3)) +
-  geom_line() +
-  geom_line(mapping = aes(x = t, y = h_3(t)), color = "red", linewidth = 1.25)
+ggplot(mapping = aes(x = t)) +
+  xlab('Time') +
+  ylab('f(t)') +
+  geom_line(mapping = aes(y=h_hat_3, colour="W(h)"),linetype = 2) + 
+  geom_line(mapping = aes(y = h_3(t), colour = "h = t²-1"), linewidth = 1.25) + 
+  scale_colour_manual("Functions",values=c("black","red"))
 ```
 
 The simple case above also means that we can rewrite our original definition as
@@ -145,7 +155,7 @@ $$
 D_sF=2\,W_t \, (DW_t)=2\,W_t\,h=2\,W_t\,1_{[0,t]}(s)
 $$
 
-There are two things to note here. First of all, the derivative takes non-zero values only when $0<s<t$, and this makes sense: we don't expect the function $F$ to change beyond the time $t$ where it's evaluated. Secondly, this means that when we plotted $W(h(t))$ and $h(t)$ together, it was a bit fake because we were assuming $s=t$ for the sake of drawing it. Even so, I think that assumption allows us to see there's a connection between the Malliavin derivative and the "instantaneous variance" or volatility of the process: the closer the derivative is to $0$, the perturbations or movements are smaller. I'll plot now a sample path for $F$ and $DF$, with $t \in [0,1]$ and $s=t$ (which, again, isn't the full picture, but I find it useful to connect the dots):
+There are two things to note here. First of all, the derivative takes non-zero values only when $0<s<t$, and this makes sense: we don't expect the function $F$ to change beyond the time $t$ where it's evaluated. Secondly, this also means that when we plotted $W(h(t))$ and $h(t)$ together, it was a bit fake because we were assuming $s=t$ for the sake of drawing it. Even so, I think that assumption allows us to see there's a connection between the Malliavin derivative and the "instantaneous variance" or volatility of the process: the closer the derivative is to $0$, the perturbations or movements are smaller. I'll plot now a sample path for $F$ and $DF$, with $t \in [0,1]$ and $s=t$ (which, again, isn't the full picture, but I find it useful to connect the dots):
 
 ```{r}
 
@@ -159,9 +169,12 @@ f <- Wt**2
 Df <- 2*Wt
 
 # Plot
-ggplot(mapping = aes(x = t, y = f)) +
-  geom_line() +
-  geom_line(mapping = aes(x = t, y = Df), color = "red", linewidth = 0.25)
+ggplot(mapping = aes(x = t)) +
+  xlab('Time') +
+  ylab('f(t)') +
+  geom_line(mapping = aes(y = f, colour="W(t)²"),linetype = 2) + 
+  geom_line(mapping = aes(y = Df, colour="DW(s=t)"), linewidth = 0.25) + 
+  scale_colour_manual("Functions",values=c("black","red"))
 ```
 
 ## Skorohod integral & more integration by parts
@@ -194,6 +207,10 @@ $$
 \delta(h) = \int_0^1 h dB_t
 $$
 
+By now, you probably have noticed how common it is to flip integrals and derivatives using integration by parts. It's almost like second nature with Malliavin Calculus.
+
 ## What now?
 
-So, we have finally arrived to a definition of the Malliavin Derivative. It has taken us a while, but now we are in a comfortable position to use it for real stuff.
+So, we have finally arrived to a definition of the Malliavin Derivative. It has taken us a while, but now we are in a comfortable position to use it for something!
+
+------------------------------------------------------------------------
