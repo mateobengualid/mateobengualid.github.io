@@ -1,0 +1,250 @@
+# Espacios vectoriales de dimensión infinita
+
+Ahora que sabemos lo que pretende conseguir el Cálculo de Malliavin, hay que delinear algunas ideas. Si buscamos la definición de Cálculo de Malliavin en Wikipedia, van a encontrar rápido que hay una dirección de Cameron-Martin sobre la que se produce la derivada. Eso no tiene ningún sentido, así que hay que explicar qué es un espacio de Cameron-Martin. Pero eso requiere que vayamos, incluso antes, a espacios vectoriales de dimensión infinita. Y eso requerirá hablar de cómo se miden longitudes y distancias entre vectores, y de funciones como vectores. Me inspiré mucho en @functions_are_vectors y @lunardi_miranda_pallara, grandes sitios web que deberían visitar. Esta sección es bastante larga y toca muchos temas de álgebra, así que prepárense.
+
+## Jerarquía de espacios
+
+Empezamos por el principio, por los espacios, especialmente los espacios sobre $\mathbb{R}$, el campo de los reales[^multidimensional.es-1]. Un espacio es un conjunto $V$, con elementos que llamaremos vectores, que viene equipado con dos operaciones:
+
+[^multidimensional.es-1]: Una advertencia: algunas de estas propiedades no se aplican al campo de los números complejos $\mathbb{C}$, pero no las trataremos acá.
+
+-   Una operación de "suma de vectores", que devuelve otro vector. Es decir, $V_1 \text{ '+' } V_2 = V_3$
+-   Una operación de "multiplicación por un escalar" que devuelve otro vector. Es decir, $k \text{ '}*\text{' } V_1 = V_2$
+
+Usamos las comillas porque no queremos imponer ninguna definición previa sobre qué son esas operaciones. Como mucho, diremos que deben observar ciertas propiedades como la conmutación ($V_1+V_2=V_2+V_1$). En la práctica, sin embargo, no seremos tan exóticos.
+
+Ahora bien, también podemos dotar a los espacios de otras operaciones que nos permitirán medir distancias y longitudes (ojo, no en el sentído de Teoría de la Medida).
+
+### Espacios métricos
+
+Un espacio métrico es un espacio vectorial al que le han agregado una **métrica** o **función de distancia** $d(V,V) \rightarrow \mathbb{R}$. Es decir, una función que toma dos vectores y devuelve un valor real y positivo, la "distancia" entre ellos. Sin embargo, no todas las funciones sirven:
+
+-   Deben ser simétricas, es decir $d(x,y)=d(y,x)$
+-   Deben devolver un valor positivo para vectores diferentes, o cero si ambos vectores son iguales
+-   Deben cumplir la "desigualdad del triángulo". Es decir, la distancia entre dos vectores es mayor (o igual) que la suma de las distancias entre esos vectores y un vector intermedio.
+
+Las tres distancias más famosas son la distancia euclidiana o $d_2$, la distancia del taxi o $d_1$ y la distancia máxima o $d_\infty$. Estas son sus definiciones para vectores compuestos de $n$ números reales:
+
+$$
+\begin{aligned}
+d_2(\vec a,\vec b) &= \sqrt[2]{\sum_{k=1}^n{\left(a_k - b_k\right)^2}} \\\\
+d_1(\vec a,\vec b) &= \sum_{k=1}^n{\left|a_k - b_k\right|} \\\\
+d_\infty(\vec a,\vec b) &= \max_k{\left|a_k - b_k\right|}
+\end{aligned}
+$$
+
+### Espacios vectoriales normalizados
+
+Si a un espacio vectorial se le asocia una **norma**, se convierte en un espacio vectorial normado. Una norma es una operación que calcula la longitud de un vector y se denota como $\|\,.\|:V\rightarrow \mathbb{R}$. Como función, toma un único vector y devuelve un valor real y positivo. Nuevamente, no todas las funciones pueden ser normas:
+
+-   Deben devolver cero para el vector cero, o un valor positivo para los vectores distintos de cero
+-   Deben ser homogéneas. Es decir, un vector con componentes dos veces más grandes tendrá una longitud dos veces más grande, como en $\| k\cdot x\|=|k|\cdot\|x\|$
+-   Deben cumplir la desigualdad del triángulo. Es decir, la norma de una suma es menor o igual que la suma de las normas
+
+Un ejemplo clásico de normas es la familia de las $p$-normas. Para un vector de longitud $n$:
+
+$$
+\|x\|_p=\sqrt[p]{\sum_{i=1}^n\left(|x_i|\right)^p}
+$$
+
+De manera similar a lo anterior, la norma-1 es la norma del taxi $\|x\|_1=\sum_{i=1}^n{|x_i|}$, la norma-2 es la norma euclidiana y la norma-infinito es la norma del máximo. Todo esto suena parecido a las funciones distancia, y la similitud no es casual: se puede crear una métrica a partir de una norma si se define la función de distancia como la norma de la diferencia entre dos vectores. Por ejemplo, $d_1(a,b)=|a-b|_1$ . Se dice que la métrica es inducida por la norma.
+
+Sin embargo, lo opuesto no siempre es cierto. En general, una función de distancia no se puede convertir en una norma, a menos que:
+
+-   La métrica sea invariante a traslaciones, es decir, $d(x,y)=d(x+a,y+a)$
+-   La métrica sea homogénea, es decir, $d(kx, ky)=|k|\cdot d(x,y)$
+
+En ese caso, la métrica es inducida por la norma $\|x\|=d(x,0)$.
+
+### Espacios de producto interno
+
+Hay otro paso más en esta escalera. Podés equipar un espacio vectorial con una operación llamada **producto interno** o **producto interior**. Se denota $\langle V,V\rangle \rightarrow\mathbb{R}$ y es, como la métrica, una función que toma dos vectores y devuelve un número real. Puede interpretarse como la longitud de un vector cuando se utiliza otro vector como regla. Sin embargo, como antes, también tiene ciertos requisitos:
+
+-   Debe ser simétrico, es decir, $\langle x,y\rangle=\langle y,x\rangle$
+-   Debe ser lineal en el primer argumento, es decir, $\langle ix+jy,z\rangle=i\langle x,z\rangle+j\langle y,z\rangle$ . Dado que el producto interno es simétrico, esto también aplica para el segundo argumento.
+-   Si x es cero, $\langle x,x\rangle=0$, de lo contrario, es un número estrictamente positivo.
+
+Todo producto interno induce una norma canónica $\|x\|=\sqrt[2]{\langle x, x \rangle}$, que a su vez induce una métrica. El ejemplo más común es el producto escalar. Para un vector de tamaño $n$, sería:
+
+$$
+\langle x,y\rangle=x^Ty=\sum_{i=1}^n{(x_i \cdot y_i)}
+$$
+
+## Espacios vectoriales de dimensión infinita {#sec-infinite-dimensional-vector-spaces}
+
+En las fórmulas anteriores, decimos que hay $n$ componentes en nuestros vectores. Si queremos entender los espacios de Cameron Martin, necesitamos comparar distancias y longitudes de vectores de dimensiones potencialmente infinitas. Esto estará fuertemente inspirado en @functions_are_vectors.
+
+Voy a asumir que sabés un poco sobre álgebra lineal. Por ejemplo, tomemos un espacio vectorial con vectores de esta forma:
+
+$$
+\begin{pmatrix}
+a &b &c \\
+\end{pmatrix},\,\text{ } a,b,c \in \mathbb{R}
+$$
+
+Decimos que este espacio vectorial tiene dimensión 3 porque el número más pequeño de vectores que necesitamos para crear una combinación lineal de cada vector en ese espacio es 3. Esos vectores conforman una **base**, de la siguiente manera:
+
+$$
+\begin{aligned}
+\begin{pmatrix}a &b &c\end{pmatrix} =\, &a \begin{pmatrix}1 &0 &0\end{pmatrix} + \\
+&b \begin{pmatrix}0 &1 &0\end{pmatrix} + \\
+&c \begin{pmatrix}0 &0 &1\end{pmatrix} \\
+\end{aligned}
+$$
+
+Veamos a un caso más interesante: un espacio vectorial que representa polinomios, hasta el grado $x^n, n \in \mathbb{N}$. Esto significa que
+
+$$
+a_0 + a_1 x + ... + a_{n-1} x^{n-1} + a_n x^n \rightarrow \begin{pmatrix}a_0 &a_1 &... &a_{n-1} &a_n\end{pmatrix}
+$$
+
+Podemos ver que los polinomios se pueden sumar entre sí y que se pueden multiplicar por un número. Por lo tanto, podemos utilizarlos como vectores de un espacio vectorial en lugar de la fórmula del polinomio completo.
+
+De hecho, no hay nada que nos impida decir que $n$ es directamente tan grande como los números naturales $\mathbb{N}$, es decir que la base es de naturaleza infinita. Necesitamos, pues, una cantidad infinita de vectores para representar todos los polinomios posibles:
+
+$$
+\begin{aligned}
+a_0 + a_1 x+ a_2x^2 +\, ... \rightarrow \begin{pmatrix}a_0 &a_1 &a_2 &...\end{pmatrix} =\, &a_0 \begin{pmatrix}1 &0 &0 &...\end{pmatrix} + \\
+&a_1 \begin{pmatrix}0 &1 &0 &...\end{pmatrix} + \\
+&a_2 \begin{pmatrix}0 &0 &1 &...\end{pmatrix} +\, ...\\
+\end{aligned}
+$$
+
+La idea es rara pero no *demasiado* rara. Mucho de lo que ya sabíamos sobre vectores con dimensiones finitas se traduce a dimensiones infinitas. Por ejemplo, podemos aplicar una transformación lineal multiplicando estos vectores por una matriz igualmente infinita. Es posible que sepas que la derivada es una operación lineal, por lo que podemos representarla con una matriz que actúe sobre nuestro vector (que en realidad es un polinomio):
+
+$$
+\frac{\partial }{\partial{x}}\left(a_0+a_1x+a_2x^2+...\right)
+\rightarrow
+\begin{pmatrix}
+0 &1 &0 &0 &...\\
+0 &0 &2 &0 &...\\
+0 &0 &0 &3 &...\\
+0 &0 &0 &0 &...\end{pmatrix}*\begin{pmatrix}a_0 \\ a_1 \\ a_2 \\...\end{pmatrix}=\begin{pmatrix}a_1 \\ 2a_2 \\ 3a_3 \\...\end{pmatrix}
+\rightarrow
+a_1+2a_2x+3a_3x^2+...
+$$
+
+### Sucesiones infinitas
+
+Una situación un poco más interesante es cuando evaluamos la norma o "longitud" de un elemento en estos espacios de dimensión infinita. Siguiendo un ejemplo de @lunardi_miranda_pallara, consideremos el espacio vectorial de las sucesiones infinitas de números reales, $(a_i)$, que se asignan a $\mathbb{R}^{\infty}$. Cuando se trabaja con dimensiones finitas, las normas siempre darán un resultado finito. Este ya no es el caso con dimensiones infinitas. Por ejemplo, tomemos la secuencia armónica:
+
+$$
+(b_k)_{k\in\mathbb{N}}, b_k=\frac{1}{k} \rightarrow \begin{pmatrix}1 &\frac{1}{2} &\frac{1}{3} &...\end{pmatrix}
+$$
+
+Con la norma-1 nos queda:
+
+$$
+\|b\|_1=\lim_{n\to \infty}{\sum_{k=1}^n |b_k|}=\lim_{n\to \infty}{\sum_{k=1}^n \frac{1}{k}} \rightarrow \infty
+$$
+
+No podemos calcular una longitud para la sucesión porque la serie armónica diverge. Por el contrario, la norma euclidiana sí es capaz de calcular un valor porque la serie converge a un número real:
+
+$$
+\|b\|_2=\lim_{n\to \infty}{\sqrt{\sum_{k=1}^n {b_k}^2}}={\sqrt{\lim_{n\to \infty}\sum_{k=1}^n \frac{1}{k^2}}}=\frac{\pi}{\sqrt6}
+$$
+
+Debido a esto, los matemáticos denominan $\ell^p$ al espacio de aquellas sucesiones donde la norma-$p$ converge a un valor. Alternativamente, podemos no lidiar con normas y definir solamente una función de distancia para el espacio, de esta manera:
+
+$$
+d(x,y)=\sum_{k=0}\frac{1}{2^k}\frac{|x_k-y_k|}{1+|x_k-y_k|}
+$$
+
+Esto puede calcular una distancia entre dos sucesiones y converge siempre, pero esta métrica no es invariante a traslaciones y, por lo tanto, no tiene una norma equivalente.
+
+### Espacios de funciones
+
+Hasta ahora, hemos visto dimensiones infinitas numerables, con una base tan grande como los números naturales. Exploremos ahora una no numerable: un espacio de *funciones*. Sí, las funciones ahora son elementos de un espacio vectorial.
+
+Para que esto tenga algún sentido, vamos a empezar con un espacio vectorial con un producto interno, que es relativamente fácil de construir. Eso también nos dará la norma y la métrica de forma gratuita. Recordemos que para vectores de tamaño $n$, hicimos $x^Ty$. Entonces, en dimensiones infinitas, sería algo como:
+
+$$
+\begin{pmatrix}1 &3 &-2 &...\end{pmatrix} 
+*
+\begin{pmatrix}0 \\ -1 \\ 3 \\...\end{pmatrix}=1\cdot0+3\cdot(-1)+(-2)\cdot3+...=\lim_{n\rightarrow\infty}\sum_{i=1}^n{(x_i \cdot y_i)}
+$$
+
+A medida que pasamos de $\mathbb{N}$ a $\mathbb{R}$, estas sumas se convertirán en integrales. En nuestro espacio vectorial de funciones definidas sobre un dominio genérico $X$:
+
+$$
+\langle f,g \rangle=\int_Xf(x)g(x)dx
+$$
+
+Esta definición cumple nuestras condiciones para un producto interno y, por lo tanto, induce una norma y una función de distancia:
+
+$$
+\begin{aligned}
+\|f\|&=\left(\int_X\left[f(x)\right]^2dx\right)^{\frac{1}{2}} \\
+d(f,g)&=\left(\int_X\left[f(x)-g(x)\right]^2dx\right)^{\frac{1}{2}} \\
+\end{aligned}
+$$
+
+Para redondear el concepto, se puede comprobar que también existen funciones para las que este producto interno, norma y métrica no puede calcular o converger a un valor. De la misma manera que $\ell^p$ restringe el espacio a sucesiones que devolvían un valor bajo la norma $p$, también podemos restringir el espacio de funciones a aquellas que sí devuelven un valor bajo la norma-2 para funciones inducida anteriormente. El espacio se llama creativamente $L^p$. Alternativamente, $L^p$ se llama el espacio de funciones que son integrables en Lebesgue.
+
+Este espacio es realmente muy limitado cuando $X=\mathbb{R}$. No hay muchas funciones donde $\int_{-\infty}^{+\infty}\left[f(x)\right]^2dx<\infty$. Solo algunas funciones como $e^{-x^2}$ pertenecen allí. Los polinomios, $e^x$ o los logaritmos no están incluidos. Es por eso que la gente generalmente define el producto interno sobre un intervalo más pequeño, $X=[a,b]$. Una norma como $\int_{a}^{b}\left[f(x)\right]^2dx$ admite muchas más funciones y es mucho más útil.
+
+Hay una opción adicional que te permite integrar sobre todo el dominio, $X=\mathbb{R}$, y aún así converger a un valor: descartamos la medida de Lebesgue y cambiamos a la medida gaussiana. En términos de la integral de Riemann, significa que dejamos de tratar todos los valores de $X$ por igual y agregamos un "factor de ponderación" que reducirá los valores de la función a medida que se acerquen al infinito. Nos queda así:
+
+$$
+\int_{-\infty}^{+\infty}f(x)g(x)dx = \int_{\mathbb{R}}\left[f\cdot g\right] d\lambda \rightarrow \int_{\mathbb{R}}\left[f\cdot g\right] d\gamma_{\mu,\sigma}=\int_{-\infty}^{+\infty}f(x)g(x)e^{-\frac{(x-\mu)^2}{\sigma}}dx
+$$
+
+Esta es la alternativa que elegiremos. Como veremos pronto, no será gratis.
+
+## Operadores lineales y una definición alternativa de derivada
+
+Ya estamos listos para discutir lo que es el espacio de Cameron Martin. Antes de continuar, este es probablemente el mejor momento para presentar los operadores lineales. Los mencionamos brevemente en nuestro ejemplo de polinomios/vectores. Dijimos que podíamos crear una matriz (de tamaño infinito) para representar la derivada. En verdad, estas matrices también pueden considerarse funciones que transforman un vector en otro vector. Si esta transformación es lineal, entonces la matriz/función se denomina, como es de esperar, operador lineal o mapa lineal.
+
+Usaremos esta forma elegante de llamar a las matrices/funciones para definir una derivada en el sentido de Fréchet. El objetivo de Fréchet era extender la definición de derivada para que sirva para funciones que toman $m$ variables como entrada y generan un vector de tamaño $n$, siendo la derivada clásica el caso para $m=1,n=1$. Aquí está la definición: dado dos espacios vectoriales normados $V$ y $W$, y un subconjunto $U \subseteq V$. Entonces $f: V \rightarrow W$ es diferenciable en el sentido de Fréchet para un $x \in V$ si hay un operador lineal $A: V \rightarrow W$ tal que
+
+$$
+\lim_{\|h\|\rightarrow 0} \frac{\|f(x+h)-f(x)-Ah\|_W}{\|h\|_V}=0
+$$
+
+y $A=Df(x)$ es la derivada de Fréchet. Esta fórmula se ve complicada pero, con un poco de álgebra y pasaje de términos, podemos obtener una fórmula más familiar y directa:
+
+$$
+f(x+h) = f(x) + Ah
+$$
+
+Al final, $A$ es cuánto cambia la función con un pequeño desplazamiento $h$.
+
+Esta definición especial de derivada te permite calcular la derivada de la norma $\|\,.\|:H \rightarrow \mathbb{R}$ alrededor de $x \neq 0$:
+
+$$
+D_xv = \left\langle v, \frac{x}{\|x\|} \right\rangle
+$$
+
+Es decir, la derivada de la norma alrededor de $x$, aplicada a un vector, es cuánto crece la longitud del vector en la dirección de $x$, usando un vector de longitud 1 como regla.
+
+## Operadores adjuntos
+
+Un último punto sobre operadores es el operador adjunto. Tomemos un operador lineal $A:U\rightarrow V$, vectores $u \in U, v \in V$ y un producto interno para $U$ y $V$. Entonces, el operador adjunto de $A$, llamado $A^*: V \rightarrow U$ , es aquel que cumple:
+
+$$
+\langle Au, v \rangle_V = \langle u, A^* v \rangle_U
+$$
+
+Es importante remarcar que $A^*$ no es una inversa, aunque $A^{**}=A$, es más como un operador "acompañante" que se puede usar en lugar de $A$ si estamos en el otro espacio vectorial.
+
+## Ortonormalización
+
+Una base tiene la propiedad de generar todos los elementos de un espacio vectorial por combinación lineal de sus elementos (linealmente independientes). También puede tener propiedades adicionales.
+
+Una base es "ortogonal" si $\langle b_i, b_j \rangle = 0 \text{ if } i \neq j$ . Es decir, los diferentes elementos en la base no se "superponen" entre sí. Esto significa que podemos expresar cualquier vector $v$ como una suma que depende únicamente de los vectores base y $v$. En particular, si $B$ es una base ortogonal de $V$, entonces cualquier elemento $v$ de $V$ puede escribirse como:
+
+$$
+v = \sum_{b_i \in B}a_i b_i = \sum_{b_i \in B} \underbrace{\frac{\langle b_i, x \rangle}{\|b_i\|^2}}_{a_i}b_i
+$$
+
+Con una base no ortogonal, se puede escribir una suma, pero para obtener los $a_i$ hay que resolver un sistema de ecuaciones para cada vector. En cambio, usando una base ortogonal, se pueden obtener directamente de una operación que usa el vector y los elementos de la base.
+
+Esto puede ser incluso mejor si la base es "ortonormal". Una base es ortonormal si es ortogonal y $\langle b_i, b_i \rangle = \|b_i\|^2=1$ . En ese caso es aún más sencillo, solamente hace falta una única operación de producto interno para obtener el escalar que pertenece al elemento base:
+
+$$
+v = \sum_{b_i \in B}a_i b_i = \sum_{b_i \in B} \underbrace{\langle b_i, x \rangle}_{a_i}b_i
+$$
+
+Uno puede preguntarse por qué no usamos bases ortonormales todo el tiempo y nos ahorraríamos todas las molestias. De hecho, podemos transformar una base en una base ortonormal usando el proceso de Gram-Schmidt. No explicaré el proceso, solo es importante que sepamos que se puede hacer.
+
+------------------------------------------------------------------------

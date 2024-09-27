@@ -1,0 +1,169 @@
+# Aplicaciones y casos en profundidad
+
+Hasta ahora, el cálculo de Malliavin ha sido principalmente un juego o procedimiento que aplicamos a procesos estocásticos. Profundicemos más y obtendremos a algunos resultados interesantes.
+
+## Derivada de Malliavin del proceso de Ornstein-Uhlenbeck
+
+Supongamos un proceso aleatorio $N_t$ que fluctúa alrededor de un valor $\mu$ y se corrige a sí mismo con mayor intensidad mientras mayor sea la distancia a $\mu$, más algo de ruido. En términos de ecuaciones, queremos algo como esto:
+
+$$
+dN_t = \theta(\mu - N_t)\,dt+ \sigma\,dW_t
+$$
+
+Por ejemplo, digamos que un lago puede albergar alrededor de $\mu=1000$ truchas. Si hay más que eso, algunas morirán de hambre y, si hay menos, se reproducirán. Finalmente, $\theta$ controla cuán fuerte es la corrección. A continuación, se muestran algunas trayectorias poblacionales con $\theta=1$ y diferentes valores para $\sigma$:
+
+```{r}
+#| echo: true
+#| warning: false
+library(ggplot2)
+
+# Right
+dt <- 0.01
+total_time <- 10
+N_0 <- 10
+mu_ou <- 1000.0
+tetha_ou <- 1.0
+
+steps = total_time / dt
+times <- seq(from = 0, to = total_time, length.out=steps)
+stretched_times <- times * tetha_ou
+dBt <- rnorm(steps,mean = 0, sd = sqrt(dt))
+
+df <- data.frame(
+  time=stretched_times
+)
+
+sigma_ou <- 0
+N <- rep_len(x = N_0, length.out = length(times))
+for (i in (2:length(times))) {
+  N[i] <- N[i-1] + tetha_ou * (mu_ou - N[i-1]) * dt + sigma_ou * dBt[i]
+}
+df$N_0 <- N
+
+sigma_ou <- 100
+N <- rep_len(x = N_0, length.out = length(times))
+for (i in (2:length(times))) {
+  N[i] <- N[i-1] + tetha_ou * (mu_ou - N[i-1]) * dt + sigma_ou * dBt[i]
+}
+df$N_100 <- N
+
+sigma_ou <- 250
+N <- rep_len(x = N_0, length.out = length(times))
+for (i in (2:length(times))) {
+  N[i] <- N[i-1] + tetha_ou * (mu_ou - N[i-1]) * dt + sigma_ou * dBt[i]
+}
+df$N_250 <- N
+
+ggplot(data = df, mapping = aes(x=time), legend=TRUE) +
+  xlab('Tiempo') +
+  ylab('N(t)') +
+  geom_line(mapping = aes(y=N_100, colour="σ=100"),linewidth = 1) + 
+  geom_line(mapping = aes(y=N_250, colour="σ=250"),linewidth = 1) + 
+  geom_line(mapping = aes(y=N_0, colour="σ=0"),linewidth = 1) +
+  scale_colour_manual("Funciones",values=c("black","darkgray","darkviolet"))
+```
+
+Este es un proceso muy común, tanto que ya tiene un nombre propio: el proceso de Ornstein-Uhlenbeck. Ahora, calculemos su derivada $DN$. Tenemos $a(X) = \theta(\mu - X)$ y $b(x) = \sigma$, por lo que no es un proceso de Ito sencillo que solo depende del tiempo. Es mejor comenzar con ellos antes de abordar el proceso de Ornstein-Uhlenbeck.
+
+Recordemos que podemos dividir las integrales como $\int_0^t... dW_t=\sum_{i=1}^n{ ...(W_{t_i}-W_{t_{i-1}})}$. Entonces, podemos transformar un proceso de Ito clásico $X_t$ en algo a lo que podemos aplicar fácilmente las reglas de la cadena y del producto para la derivada de Malliavin:
+
+$$
+\begin{aligned}
+X_t &= \sum_{i=1}^n \mu_{t_i}(t_i-t_{i-1}) + \sum_{i=1}^n \sigma_{t_i}(W_{t_i}-W_{t_{i-1}}) \\
+D_rX_t &= \sum_{i=1}^n D_r\mu_{t_i}(t_i-t_{i-1}) + \sum_{i=1}^n D_r[\sigma_{t_i}\cdot(W_{t_i}-W_{t_{i-1}})] \\
+&= \sum_{i=1}^n D_r\mu_{t_i}(t_i-t_{i-1}) + \sum_{i=1}^n \sigma_{t_i} \cdot 1_{[t_{i-1},t_{i}]}(r) + \sum_{i=1}^n D_r(\sigma_{t_i})\cdot(W_{t_i}-W_{t_{i-1}})] \\
+&= \int_0^t D_r\mu_s\,ds + \sigma_r 1_{[0,t]}(r) + \int_0^t D_r\sigma_s\,dW_s \\
+\end{aligned}
+$$
+
+Se ve un poco caótico, pero todo es como podríamos esperar: $t$ es el valor terminal de ambas integrales, $s$ es la variable que usamos para integrar de $0$ a $t$, y $r$ es la variable que introdujimos con la derivada de Malliavin. La expresión tiene sentido: la influencia de $\sigma$ en el proceso de Ito es la misma a lo largo de todo el recorrido del proceso de Ito.
+
+Ahora, usamos un argumento similar para la cantidad de truchas en el lago, que evoluciona según un proceso de Ornstein-Uhlenbeck. Dado que $\mu_s$ y $\sigma_s$ son ahora $a(s,X_s)$ y $b(s,X_s)$, aplicamos las reglas de la cadena y del producto como se indicó anteriormente para llegar a:
+
+$$
+D_rX_t = \int_r^t \frac{\partial a}{\partial x}(s, X_s)\,D_rX_s\,ds + b(r,X_r)1_{[0,t]}(r) + \int_r^t \frac{\partial b}{\partial x}(s, X_s)\,D_rX_s\,dW_s \\
+$$
+
+Ahora, sabemos por lo anterior que $\frac{\partial a}{\partial x} = -\theta$ y $\frac{\partial b}{\partial x} = 0$, entonces reemplazamos y, suponiendo que sabemos resolver ecuaciones integrales, resolvemos:
+
+$$
+\begin{aligned}
+D_rN_t &= \int_r^t (-\theta)\,D_rN_s\,ds + \sigma1_{[0,t]}(r) \\
+&= -\theta\int_r^t \,D_rN_s\,ds + \sigma1_{[0,t]}(r) \\
+&= \sigma\,e^{-\theta(t-r)}
+\end{aligned}
+$$
+
+En este caso, llegamos a una expresión linda que nos dice algo interesante: el efecto de una perturbación en el número de truchas es exponencialmente menor si $r<<t$. Esto tiene sentido: la población de truchas $N$ quiere estar cerca de $\mu$ y la población de un pasado lejano es irrelevante. También nos dice que no hay aleatoriedad en la fluctuación porque no depende de una variable aleatoria como $W_t$.
+
+Finalmente, tuvimos suerte arriba. $D_rN_t$ es simple y pudimos escribir una solución en forma analítica. Si fuera más complicada, probablemente sea mejor estimar una solución. @MalliavinCalculusInFinance hace un gran trabajo mostrando lo anterior.
+
+## Fórmula de Clark-Ocone-Haussman
+
+Veamos una aplicación relativamente simple con implicaciones muy profundas, siguiendo completamente el planteo descripto en @Friz2002AnIT. Consideremos esta función:
+
+$$
+F(t) = e^{\int_0^t h\,dB - \frac{1}{2}\int_0^t{h^2}d\lambda}
+$$
+
+Esta función es una martingala exponencial, es decir, $\mathbb{E}_s[F(t)]=F(s)$. A continuación, tomamos $F(1) = \mathcal{E}(h)$ y calculamos $DF$ :
+
+$$
+\begin{aligned}
+D_tF &= e^{-\frac{1}{2}\int_0^1{h^2}d\lambda}\cdot D_t(e^{\int_0^1 h\,dB}) \\
+&= \underbrace{e^{-\frac{1}{2}\int_0^1{h^2}d\lambda}\cdot e^{\int_0^1 h\,dB}}_{F} \cdot h(t) \\
+&= Fh(t)
+\end{aligned}
+$$
+
+Ahora bien, esto sólo es válido en $t=1$, pero podemos usar el operador de esperanza y la propiedad de las martingalas para obtener los valores en un tiempo anterior. Llamaremos $\mathcal{F}_s$ a la filtración hasta el tiempo $s$ (la forma a la que llamamos a la "historia" o "información" conocida hasta el tiempo $s$), y luego:
+
+$$
+\begin{aligned}
+\mathbb{E}[D_t F | \mathcal{F}_t] &= \mathbb{E}[F(1)h(t)|\mathcal{F_t}] \\
+&=h(t) \mathbb{E}[F(1)|\mathcal{F_t}] \\
+&=h(t) F(t)
+\end{aligned}
+$$
+
+Por último, esta martingala $F(t)$ es la solución de la ecuación diferencial (estocástica) $dF(t) = h(t)F(t)dB_t$, cuando $F(0)=1=\mathbb{E}[F]$. Reemplazando con la expresión anterior obtenemos:
+
+$$
+\begin{aligned}
+F(t) &= \mathbb{E}[F] + \int_0^1  h(t)F(t) dB_t \\
+&= \mathbb{E}[F] + \int_0^1 \mathbb{E}[D_t F | \mathcal{F_t}] dB_t
+\end{aligned}
+$$
+
+Esta es la fórmula de Clark-Ocone en todo su esplendor. Nos permite calcular en forma explícita lo que el Teorema de Representación en Martingala indicaba que debía existir. La derivada de Malliavin es el ingrediente clave para tener una expresión analítica y es la razón principal por la que a uno le interesaría. La expresión nos afirma que *cualquier* variable aleatoria indexada por el tiempo $F_t$ se puede dividir en una suma de una parte "determinista" (su esperanza matemática), y una martingala que fluctúa alrededor de ella.
+
+Podemos aplicar esto al proceso de Ornstein-Uhlenbeck para nuestra población de truchas. Sabemos de antes que $D_rN_t = \sigma\,e^{-\theta(t-r)}$. Vemos que no hay $W_t$, por lo que la esperanza es la derivada de Malliavin, directamente. Podríamos estimar el valor de $\mathbb{E}[N]$ o intentar resolver la ecuación diferencial (estocástica), pero dado que el proceso ya tiene una solución conocida, voy a ahorrarnos el esfuerzo y usarla directamente. Aquí está la aplicación de Clark-Ocone para un proceso de Ornstein-Uhlenbeck:
+
+$$
+\begin{aligned}
+N(t) &= \mathbb{E}[N] + \int_0^t \mathbb{E_r}[D_r N_t] dW_r \\
+&= \underbrace{X_0e^{-\theta t} + \mu(1-e^{-\theta t})}_{Determinístico} + \underbrace{\int_0^t \sigma\,e^{-\theta(t-r)}\,dW_r}_{Martingala} \\
+\end{aligned}
+$$
+
+¿Por qué nos importa esto? Bueno, si quisiéramos simular diferentes trayectorias de nuestra población de truchas $N$, solo necesitamos simular la martingala, y la parte determinista solo se calcula una vez. En segundo lugar, podemos usar la fórmula de Clark-Ocone para calcular directamente la varianza para $N$, sin conocer la solución analítica completa que usamos arriba. Recordemos que $\mathbb{Var}[N]=\mathbb{E}[N-\mathbb{E}[N]]^2$, entonces, usando la isometría de Ito:
+
+$$
+\begin{aligned}
+\mathbb{Var}[N]&=\mathbb{E}\left[\left(\int_0^t \mathbb{E_r}[D_r N_t] dW_r\right)^2\right] \\
+&=\mathbb{E}\left[\int_0^t \left(\sigma\,e^{-\theta(t-r)}\right)^2dr\right] \\
+&=\sigma^2\mathbb{E}\left[\int_0^t e^{2\theta(r-t)}dr\right] \\
+&=\frac{\sigma^2}{2\theta}\mathbb{E}\left[1-e^{-2\theta t}\right] \\
+&=\frac{\sigma^2}{2\theta}\left(1-e^{-2\theta t}\right)
+\end{aligned}
+$$
+
+Tengamos en cuenta que esto funciona para cualquier variable: solo se necesita la derivada de Malliavin para obtener la varianza. Vemos arriba que:
+
+-   Nuestra población de truchas $N$ en el largo plazo ($t \rightarrow \infty$) será un proceso que se mueve alrededor de $\mu$ con una varianza constante $\frac{\sigma^2}{2\theta}$
+
+-   La varianza en el momento de la introducción de las truchas al lago ($t \approx 0$) es muy pequeña porque el crecimiento de $N$, que intenta alcanzar $\mu$ lo antes posible, predomina por encima del ruido normal del proceso
+
+-   Un $\theta$ grande no solo hará que la varianza de largo plazo llegue antes, sino que también evitará grandes desviaciones de $\mu$ en el largo plazo
+
+------------------------------------------------------------------------

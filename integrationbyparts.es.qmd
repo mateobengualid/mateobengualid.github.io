@@ -1,0 +1,159 @@
+# Integración por Partes
+
+Empezamos este viaje hablando de un truco que podría interpretarse como el inverso de la regla del producto para las derivadas. Lo usaremos para describir una forma novedosa de resolver el problema de minimizar funciones. Finalmente, usando @calculus_of_variations como base, haremos un desarrollo clásico.
+
+## Esbozo para obtener la fórmula de integración por partes
+
+Usaremos el símbolo $'$ para indicar la derivada con respecto a $x$. Si sabés lo básico de cálculo diferencial, vas a recordar que:
+
+$$
+\left( f(x)g(x)\right)'=f'(x)g(x)+f(x)g'(x)
+$$
+
+Ahora, integrando a ambos lados:
+
+$$
+\begin{aligned}
+\int\left( f(x)g(x)\right)'dx&=\int f'(x)g(x)dx+\int f(x)g'(x)dx \\ 
+f(x)g(x)&=\int f'(x)g(x)dx+\int f(x)g'(x)dx
+\end{aligned}
+$$
+
+Si renombramos $u=f(x)$ y $dv = g'(x)dx$, entonces obtenemos las expresiones familiares para integrales definidas e indefinidas:
+
+$$
+\begin{aligned}
+\int u\,dv &= uv -\int v\,du \\
+\int_a^b u\,dv &= \left.{uv}\right|_a^b -\int_a^bv\,du
+\end{aligned}
+$$
+
+Finalmente, imaginá que las funciones tienden a cero en los extremos $a$ y $b$. Es decir, $u(b)v(b)-u(a)v(a)=0$. En ese caso, se puede simplificar la expresión aún más:
+
+$$
+\int u\,dv = -\int v\,du
+$$
+
+## Cálculo de variaciones
+
+El Cálculo Malliavin a veces se lo llama la extensión del cálculo de variaciones a procesos estocásticos. ¿Qué significa eso? Vamos a empezar por la primera parte.
+
+### Desarrollo y aplicación
+
+Voy a asumir que sabés lo más básico de cálculo diferencial e integral. Eso significa que podés resolver problemas como este: supongamos que tenemos una función $f$ y que queremos obtener el valor de $x$ donde $f$ alcanza su mínimo:
+
+$$
+\min{f(x)}=x^2-4x+5
+$$
+
+Para resolver esto, derivamos e igualamos a cero. Con esto, obtenemos el valor del argumento que minimiza la función.
+
+$$
+\begin{aligned}
+f'(x)=2x-4 &= 0 \\
+2x &= 4 \\
+x &= 2 
+\end{aligned}
+$$
+
+Esto significa que $\min{f(x)}=f(2)=2^2-4*2+5=1$.
+
+Este método funciona bien cuando se trata de minimizar el **valor** de una función sobre los números reales, $f: \mathbb{R} \to \mathbb{R}$, o en general para funciones de más de una variable, $f: \mathbb{R}^n \to \mathbb{R}$.
+
+Pero digamos que lo que queremos encontrar es la **función** $y=f(x)$ que minimiza una expresión. No sabemos cómo es esa función, o no queremos imponer ideas preconcebidas como que sea un polinomio o una suma de pares de senos y cosenos. ¿Qué hacemos entonces?
+
+A partir de ahora, entramos en piloto automático para cualquier curso en la materia (yo usaré como base el artículo de Wikipedia sobre el tema). El primer paso es definir una "función de funciones" como el punto de partida para la minimización, y esa función es esencialmente una integral como esta:
+
+$$
+J[y]=\int^{x_2}_{x_1} L(x,y,y')dx \\
+$$
+
+Para que todo sea menos abstracto, usaremos el ejemplo clásico de encontrar la función que representa la distancia más corta entre dos puntos, $a$ y $b$. Empezando por el caso "de grano grueso" con deltas o intervalos, lo que queremos es minimizar la suma de todos los pequeños cambios en el camino entre esos dos puntos, usando el teorema de Pitágoras:
+
+$$
+\min\sum^n_{i=1}\sqrt{ (\Delta x_i)^2+(\Delta y_i)^2}
+$$
+
+A medida que los cambios se vuelven infinitesimales, y haciendo un abuso de notación, podemos cambiar de sumas a una integral y obtener una expresión para $L$:
+
+$$
+\begin{aligned}
+\int^{b}_{a} \sqrt{{dx}^2+{dy}^2}
+& = \int^{b}_{a} \sqrt{{(dx)}^2\left ( 1+\left({\frac{dy}{dx}}\right)^2\right)} \\
+& = \int^{b}_{a} \sqrt{1+(y')^2}\sqrt{(dx)^2} \\
+& = \int^{b}_{a} \sqrt{1+(y')^2}\,dx \\
+& = \int^{b}_{a}L(y')\,dx\\
+\end{aligned}
+$$
+
+Ahora, introducimos una función genérica $\eta(x)$ que llamaremos la variación. Esta función representa una perturbación y el único requisito que le impondremos es que $\eta(a)=\eta(b)=0$. Vamos a asumir que $f(x)=y$ es la solución y $\eta$ es la desviación que la función tiene con respecto a la solución. Además, podemos multiplicar la variación por un número pequeño $\varepsilon$. Finalmente, podemos definir una función sobre $\varepsilon$, $\Phi(\varepsilon)= J[f + \varepsilon *\eta]$, de modo tal que $\Phi(0)=f$ termina siendo nuestra solución.
+
+El truco es que, ahora, en vez de minimizar algo que depende de una función que no conocemos (y que ni siquiera podemos empezar a comprender), podemos minimizar algo que depende de un número, $\varepsilon$. No solo eso, hemos construido $\varepsilon$ y $\eta$ para que sepamos de antemano que la función que estamos buscando, la solución, se encuentra en $\Phi(\varepsilon=0)=J[f]$, y también que $\Phi'(0)=0$ porque esa función está en su mínimo. Una genialidad.
+
+$$
+\Phi'(0)=0=\left.\frac{d\Phi}{d\varepsilon}\right|_{\varepsilon=0}=\int^{b}_{a}\left. \frac{dL}{d\varepsilon}\right|_{\varepsilon=0} dx
+$$
+
+Tomamos la derivada total de $\Phi$ con respecto a $\varepsilon$, como hicimos antes, pero ahora consideramos los cambios de variables $y=f+\varepsilon\eta$ y $y'=f'+\varepsilon\eta'$:
+
+$$
+\begin{aligned}
+\frac{dL}{d\varepsilon}
+& = \frac{\partial L}{\partial x}\underbrace{\frac{dx}{d\varepsilon}}_{=0} + \frac{\partial L}{\partial y}\underbrace{\frac{dy}{d\varepsilon}}_{=\eta} + \frac{\partial L}{\partial y'}\underbrace{\frac{dy'}{d\varepsilon}}_{=\eta'}\\
+& = \frac{\partial L}{\partial y}\eta + \frac{\partial L}{\partial y'}\eta'\\
+\end{aligned}
+$$
+
+Esto parece no tener sentido, pero ahora viene la magia:
+
+$$
+\begin{aligned}
+\int_{a}^{b} \left.\frac{dL}{d\varepsilon}\right|_{\varepsilon = 0} dx
+&  = \int_{a}^{b} \left(\frac{\partial L}{\partial f} \eta + \frac{\partial L}{\partial f'} \eta'\right)\, dx \\
+&  = \int_{a}^{b} \frac{\partial L}{\partial f} \eta \, dx + \underbrace{\left.\frac{\partial L}{\partial f'} \eta \right|_{a}^{b}}_{=0} - \int_{a}^{b} \eta \frac{d}{dx}\frac{\partial L}{\partial f'} \, dx \\
+&  = \int_{a}^{b} \left(\frac{\partial L}{\partial f} \eta - \eta \frac{d}{dx}\frac{\partial L}{\partial f'} \right)\, dx\\
+0 &= \int_{a}^{b} \eta (x) \left(\frac{\partial L}{\partial f} - \frac{d}{dx}\frac{\partial L}{\partial f'} \right) \, dx \\
+\end{aligned}
+$$
+
+Empezamos obteniendo $\Phi'(0)$ e hicimos una *integración por partes*. Esto es crucial, sin ella nada de esto funciona. También sabemos que $\eta(a)=\eta(b)=0$, entonces ese término se cancela. Uniendo términos y tomando un factor común, llegamos a nuestra conclusión. La última pieza de magia es darse cuenta que esa integral es cero, para cualquier función $\eta(x)$. Por el Lema Fundamental del Cálculo de Variaciones, solo queda una posibilidad, y es tan importante que se llama la ecuación de Euler-Lagrange:
+
+$$
+\frac{\partial L}{\partial f} -\frac{d}{dx} \frac{\partial L}{\partial f'}=0
+$$
+
+Sea cual sea la función solución $f$, debe cumplir esa condición.
+
+### Ejemplo del camino más corto
+
+¿Para qué nos sirve esto? Volvamos al caso del camino más corto entre dos puntos. Usaré en forma indistinta $f=y$. Lo último que habíamos concluído era que:
+
+$$
+L(f') = \sqrt{1+(f')^2}
+$$
+
+Aplicamos la ecuación de Euler-Lagrange y veremos a dónde nos conduce. Lo que hace que el ejemplo sea muy sencillo es que no hay un $f$ explícito en la función, solo un $f'$, y la fórmula queda muy simple:
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial f} -\frac{d}{dx} \frac{\partial L}{\partial f'}&=0\\
+- \frac{d}{dx} \ \frac{f'(x)} {\sqrt{1 + [f'(x)]^2}} \ &= 0\\
+\end{aligned}
+$$
+
+Si la derivada es cero, podemos integrar esa expresión y el resultado es una constante (desconocida) $c<1$. Hacemos un poco de álgebra, integramos al final, y listo:
+
+$$
+\begin{aligned}
+\frac{f'(x)}{\sqrt{1+[f'(x)]^2}} &= c \\
+\frac{[f'(x)]^2}{1+[f'(x)]^2} &= c^2 \\
+{[f'(x)]}^2 &= c^2 + c^2{[f'(x)]}^2 \\
+{[f'(x)]}^2 &= \frac{c^2}{1-c^2} \\
+f'(x) &= \sqrt{\frac{c^2}{1-c^2}} = m \\
+f(x) &= mx+b
+\end{aligned}
+$$
+
+La función con el camino más corto entre dos puntos es una linea recta, y lo único necesario para obtener la solución analítica es saber cómo se calcula la distancia entre dos puntos.
+
+------------------------------------------------------------------------

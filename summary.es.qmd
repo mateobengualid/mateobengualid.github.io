@@ -1,0 +1,19 @@
+# Comentarios finales
+
+## ¿Hay algo más?
+
+¡Queda mucho más! Este trabajo hizo lo suficiente para presentar la derivada de Malliavin y la fórmula de Clark-Ocone, pero quedaron asuntos en el tintero. Hay tres cosas que he excluido, este ensayo ya es muy largo así como está.
+
+En primer lugar, las derivadas de Malliavin simplifican el trabajo con varianzas estocásticas. Es decir, imaginemos que $\sigma$ es un proceso de Ito. Si no tiene una solución, hace falta correr un programa de computadora para estimar el proceso y su esperanza. Es más manejable utilizar las técnicas anteriores, en lugar de simular y estimar la evolución de $N$.
+
+En segundo lugar, podemos utilizar integración por partes para alternar entre la derivada de una función y la integral de Skorohod. En el caso de procesos no anticipatorios, la fórmula es fácil de calcular porque es simplemente una integral de Ito. Esto hace que sea, a su vez, más fácil calcular/estimar derivadas de funciones de procesos contra otros procesos. Por ejemplo, suponiendo que el precio de un activo sigue un proceso estocástico, se denomina Delta a la derivada del pago del seguro de algún activo contra el precio del activo. Cambiar a activos menos riesgosos para reducir esta derivada se llama cobertura Delta. Cuando esta derivada es cero, los cambios en el precio del activo ya no afectan la recompensa del seguro y el seguro se considera delta-neutral.
+
+Un último punto es que las integrales de Skorohod también funcionan para las integrales anticipatorias. No las hemos tocado aquí porque no son integrales de Ito propiamente dichas y ya era demasiado contenido, pero aquí también es donde el cálculo de Malliavin ayuda.
+
+## Últimas palabras
+
+Qué viaje. Para ser honesto, cuando empecé este ensayo no pensaba que llegaría tan lejos. Me llevó meses sentirme lo suficientemente cómodo para escribir esto. Espero que hayamos podido aprender un poco sobre el cálculo de Malliavin. Si querés continuar y preferís un tratamiento más teórico, dejé enlaces a todas las fuentes interesantes para el trabajo previo, antes del cálculo de Malliavin, y supongo que Nualart, Oksendal o el propio Malliavin para el tópico en sí. Para cuestiones más prácticas, no puedo recomendar lo suficiente @MalliavinCalculusInFinance. Está muy por delante del resto de las fuentes consultadas.
+
+Finalmente, te agradezco a vos, que leíste todo esto. Me hago eco de Bret Victor cuando dijo que las ideas no deberían morir, y que hayas llegado a este punto demuestra que este tema puede sobrevivir un día más.
+
+------------------------------------------------------------------------
