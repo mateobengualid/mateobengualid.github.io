@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Desvarios sobre el Calculo Malliavin – clarkocone</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./malliavinderivative.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Desvarios sobre el Calculo Malliavin</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+<div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/clarkocone.html" id="language-link-en">English</a></li></ul>
+</div>
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Prefacio</span></a>
+  </li>  
+</ul>
+<div class="quarto-navbar-tools ms-auto">
+    <a href="https://x.com/one_twit_wonder/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/mateobengualid/mateobengualid.github.io">
+            Source Code
+            </a>
+          </li>
+      </ul>
+</div>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./clarkocone.html">Aplicaciones y casos en profundidad</a></li></ol></nav><a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introducción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./integrationbyparts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integración por Partes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measuretheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Teoría de la Medida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">La pregunta</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multidimensional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Espacios vectoriales de dimensión infinita</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cameronmartin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Espacios de Cameron-Martin</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./malliavinderivative.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Derivada de Malliavin</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clarkocone.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Aplicaciones y casos en profundidad</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comentarios finales</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats">
+<h2>Otros formatos</h2>
+<ul><li><a href="clarkocone.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul>
+</div>
+</div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><section id="aplicaciones-y-casos-en-profundidad" class="level1"><h1>Aplicaciones y casos en profundidad</h1>
+<p>Hasta ahora, el cálculo de Malliavin ha sido principalmente un juego o procedimiento que aplicamos a procesos estocásticos. Profundicemos más y obtendremos a algunos resultados interesantes.</p>
+<section id="derivada-de-malliavin-del-proceso-de-ornstein-uhlenbeck" class="level2"><h2 class="anchored" data-anchor-id="derivada-de-malliavin-del-proceso-de-ornstein-uhlenbeck">Derivada de Malliavin del proceso de Ornstein-Uhlenbeck</h2>
+<p>Supongamos un proceso aleatorio <span class="math inline">\(N_t\)</span> que fluctúa alrededor de un valor <span class="math inline">\(\mu\)</span> y se corrige a sí mismo con mayor intensidad mientras mayor sea la distancia a <span class="math inline">\(\mu\)</span>, más algo de ruido. En términos de ecuaciones, queremos algo como esto:</p>
+<p><span class="math display">\[
+dN_t = \theta(\mu - N_t)\,dt+ \sigma\,dW_t
+\]</span></p>
+<p>Por ejemplo, digamos que un lago puede albergar alrededor de <span class="math inline">\(\mu=1000\)</span> truchas. Si hay más que eso, algunas morirán de hambre y, si hay menos, se reproducirán. Finalmente, <span class="math inline">\(\theta\)</span> controla cuán fuerte es la corrección. A continuación, se muestran algunas trayectorias poblacionales con <span class="math inline">\(\theta=1\)</span> y diferentes valores para <span class="math inline">\(\sigma\)</span>:</p>
+<div class="cell">
+<details><summary>Código</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Right</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>total_time <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>N_0 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>mu_ou <span class="ot">&lt;-</span> <span class="fl">1000.0</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>tetha_ou <span class="ot">&lt;-</span> <span class="fl">1.0</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">=</span> total_time <span class="sc">/</span> dt</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> total_time, <span class="at">length.out=</span>steps)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>stretched_times <span class="ot">&lt;-</span> times <span class="sc">*</span> tetha_ou</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>dBt <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(steps,<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(dt))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">time=</span>stretched_times</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>sigma_ou <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">rep_len</span>(<span class="at">x =</span> N_0, <span class="at">length.out =</span> <span class="fu">length</span>(times))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(times))) {</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  N[i] <span class="ot">&lt;-</span> N[i<span class="dv">-1</span>] <span class="sc">+</span> tetha_ou <span class="sc">*</span> (mu_ou <span class="sc">-</span> N[i<span class="dv">-1</span>]) <span class="sc">*</span> dt <span class="sc">+</span> sigma_ou <span class="sc">*</span> dBt[i]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>N_0 <span class="ot">&lt;-</span> N</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>sigma_ou <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">rep_len</span>(<span class="at">x =</span> N_0, <span class="at">length.out =</span> <span class="fu">length</span>(times))</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(times))) {</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  N[i] <span class="ot">&lt;-</span> N[i<span class="dv">-1</span>] <span class="sc">+</span> tetha_ou <span class="sc">*</span> (mu_ou <span class="sc">-</span> N[i<span class="dv">-1</span>]) <span class="sc">*</span> dt <span class="sc">+</span> sigma_ou <span class="sc">*</span> dBt[i]</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>N_100 <span class="ot">&lt;-</span> N</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>sigma_ou <span class="ot">&lt;-</span> <span class="dv">250</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">rep_len</span>(<span class="at">x =</span> N_0, <span class="at">length.out =</span> <span class="fu">length</span>(times))</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(times))) {</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  N[i] <span class="ot">&lt;-</span> N[i<span class="dv">-1</span>] <span class="sc">+</span> tetha_ou <span class="sc">*</span> (mu_ou <span class="sc">-</span> N[i<span class="dv">-1</span>]) <span class="sc">*</span> dt <span class="sc">+</span> sigma_ou <span class="sc">*</span> dBt[i]</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>N_250 <span class="ot">&lt;-</span> N</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>time), <span class="at">legend=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Tiempo'</span>) <span class="sc">+</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'N(t)'</span>) <span class="sc">+</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>N_100, <span class="at">colour=</span><span class="st">"σ=100"</span>),<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>N_250, <span class="at">colour=</span><span class="st">"σ=250"</span>),<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>N_0, <span class="at">colour=</span><span class="st">"σ=0"</span>),<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Funciones"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"darkgray"</span>,<span class="st">"darkviolet"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><img src="clarkocone_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Este es un proceso muy común, tanto que ya tiene un nombre propio: el proceso de Ornstein-Uhlenbeck. Ahora, calculemos su derivada <span class="math inline">\(DN\)</span>. Tenemos <span class="math inline">\(a(X) = \theta(\mu - X)\)</span> y <span class="math inline">\(b(x) = \sigma\)</span>, por lo que no es un proceso de Ito sencillo que solo depende del tiempo. Es mejor comenzar con ellos antes de abordar el proceso de Ornstein-Uhlenbeck.</p>
+<p>Recordemos que podemos dividir las integrales como <span class="math inline">\(\int_0^t... dW_t=\sum_{i=1}^n{ ...(W_{t_i}-W_{t_{i-1}})}\)</span>. Entonces, podemos transformar un proceso de Ito clásico <span class="math inline">\(X_t\)</span> en algo a lo que podemos aplicar fácilmente las reglas de la cadena y del producto para la derivada de Malliavin:</p>
+<p><span class="math display">\[
+\begin{aligned}
+X_t &amp;= \sum_{i=1}^n \mu_{t_i}(t_i-t_{i-1}) + \sum_{i=1}^n \sigma_{t_i}(W_{t_i}-W_{t_{i-1}}) \\
+D_rX_t &amp;= \sum_{i=1}^n D_r\mu_{t_i}(t_i-t_{i-1}) + \sum_{i=1}^n D_r[\sigma_{t_i}\cdot(W_{t_i}-W_{t_{i-1}})] \\
+&amp;= \sum_{i=1}^n D_r\mu_{t_i}(t_i-t_{i-1}) + \sum_{i=1}^n \sigma_{t_i} \cdot 1_{[t_{i-1},t_{i}]}(r) + \sum_{i=1}^n D_r(\sigma_{t_i})\cdot(W_{t_i}-W_{t_{i-1}})] \\
+&amp;= \int_0^t D_r\mu_s\,ds + \sigma_r 1_{[0,t]}(r) + \int_0^t D_r\sigma_s\,dW_s \\
+\end{aligned}
+\]</span></p>
+<p>Se ve un poco caótico, pero todo es como podríamos esperar: <span class="math inline">\(t\)</span> es el valor terminal de ambas integrales, <span class="math inline">\(s\)</span> es la variable que usamos para integrar de <span class="math inline">\(0\)</span> a <span class="math inline">\(t\)</span>, y <span class="math inline">\(r\)</span> es la variable que introdujimos con la derivada de Malliavin. La expresión tiene sentido: la influencia de <span class="math inline">\(\sigma\)</span> en el proceso de Ito es la misma a lo largo de todo el recorrido del proceso de Ito.</p>
+<p>Ahora, usamos un argumento similar para la cantidad de truchas en el lago, que evoluciona según un proceso de Ornstein-Uhlenbeck. Dado que <span class="math inline">\(\mu_s\)</span> y <span class="math inline">\(\sigma_s\)</span> son ahora <span class="math inline">\(a(s,X_s)\)</span> y <span class="math inline">\(b(s,X_s)\)</span>, aplicamos las reglas de la cadena y del producto como se indicó anteriormente para llegar a:</p>
+<p><span class="math display">\[
+D_rX_t = \int_r^t \frac{\partial a}{\partial x}(s, X_s)\,D_rX_s\,ds + b(r,X_r)1_{[0,t]}(r) + \int_r^t \frac{\partial b}{\partial x}(s, X_s)\,D_rX_s\,dW_s \\
+\]</span></p>
+<p>Ahora, sabemos por lo anterior que <span class="math inline">\(\frac{\partial a}{\partial x} = -\theta\)</span> y <span class="math inline">\(\frac{\partial b}{\partial x} = 0\)</span>, entonces reemplazamos y, suponiendo que sabemos resolver ecuaciones integrales, resolvemos:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D_rN_t &amp;= \int_r^t (-\theta)\,D_rN_s\,ds + \sigma1_{[0,t]}(r) \\
+&amp;= -\theta\int_r^t \,D_rN_s\,ds + \sigma1_{[0,t]}(r) \\
+&amp;= \sigma\,e^{-\theta(t-r)}
+\end{aligned}
+\]</span></p>
+<p>En este caso, llegamos a una expresión linda que nos dice algo interesante: el efecto de una perturbación en el número de truchas es exponencialmente menor si <span class="math inline">\(r&lt;&lt;t\)</span>. Esto tiene sentido: la población de truchas <span class="math inline">\(N\)</span> quiere estar cerca de <span class="math inline">\(\mu\)</span> y la población de un pasado lejano es irrelevante. También nos dice que no hay aleatoriedad en la fluctuación porque no depende de una variable aleatoria como <span class="math inline">\(W_t\)</span>.</p>
+<p>Finalmente, tuvimos suerte arriba. <span class="math inline">\(D_rN_t\)</span> es simple y pudimos escribir una solución en forma analítica. Si fuera más complicada, probablemente sea mejor estimar una solución. <span class="citation" data-cites="MalliavinCalculusInFinance">Alos (<a href="#ref-MalliavinCalculusInFinance" role="doc-biblioref">2021</a>)</span> hace un gran trabajo mostrando lo anterior.</p>
+</section><section id="fórmula-de-clark-ocone-haussman" class="level2"><h2 class="anchored" data-anchor-id="fórmula-de-clark-ocone-haussman">Fórmula de Clark-Ocone-Haussman</h2>
+<p>Veamos una aplicación relativamente simple con implicaciones muy profundas, siguiendo completamente el planteo descripto en <span class="citation" data-cites="Friz2002AnIT">Friz (<a href="#ref-Friz2002AnIT" role="doc-biblioref">2002</a>)</span>. Consideremos esta función:</p>
+<p><span class="math display">\[
+F(t) = e^{\int_0^t h\,dB - \frac{1}{2}\int_0^t{h^2}d\lambda}
+\]</span></p>
+<p>Esta función es una martingala exponencial, es decir, <span class="math inline">\(\mathbb{E}_s[F(t)]=F(s)\)</span>. A continuación, tomamos <span class="math inline">\(F(1) = \mathcal{E}(h)\)</span> y calculamos <span class="math inline">\(DF\)</span> :</p>
+<p><span class="math display">\[
+\begin{aligned}
+D_tF &amp;= e^{-\frac{1}{2}\int_0^1{h^2}d\lambda}\cdot D_t(e^{\int_0^1 h\,dB}) \\
+&amp;= \underbrace{e^{-\frac{1}{2}\int_0^1{h^2}d\lambda}\cdot e^{\int_0^1 h\,dB}}_{F} \cdot h(t) \\
+&amp;= Fh(t)
+\end{aligned}
+\]</span></p>
+<p>Ahora bien, esto sólo es válido en <span class="math inline">\(t=1\)</span>, pero podemos usar el operador de esperanza y la propiedad de las martingalas para obtener los valores en un tiempo anterior. Llamaremos <span class="math inline">\(\mathcal{F}_s\)</span> a la filtración hasta el tiempo <span class="math inline">\(s\)</span> (la forma a la que llamamos a la “historia” o “información” conocida hasta el tiempo <span class="math inline">\(s\)</span>), y luego:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[D_t F | \mathcal{F}_t] &amp;= \mathbb{E}[F(1)h(t)|\mathcal{F_t}] \\
+&amp;=h(t) \mathbb{E}[F(1)|\mathcal{F_t}] \\
+&amp;=h(t) F(t)
+\end{aligned}
+\]</span></p>
+<p>Por último, esta martingala <span class="math inline">\(F(t)\)</span> es la solución de la ecuación diferencial (estocástica) <span class="math inline">\(dF(t) = h(t)F(t)dB_t\)</span>, cuando <span class="math inline">\(F(0)=1=\mathbb{E}[F]\)</span>. Reemplazando con la expresión anterior obtenemos:</p>
+<p><span class="math display">\[
+\begin{aligned}
+F(t) &amp;= \mathbb{E}[F] + \int_0^1  h(t)F(t) dB_t \\
+&amp;= \mathbb{E}[F] + \int_0^1 \mathbb{E}[D_t F | \mathcal{F_t}] dB_t
+\end{aligned}
+\]</span></p>
+<p>Esta es la fórmula de Clark-Ocone en todo su esplendor. Nos permite calcular en forma explícita lo que el Teorema de Representación en Martingala indicaba que debía existir. La derivada de Malliavin es el ingrediente clave para tener una expresión analítica y es la razón principal por la que a uno le interesaría. La expresión nos afirma que <em>cualquier</em> variable aleatoria indexada por el tiempo <span class="math inline">\(F_t\)</span> se puede dividir en una suma de una parte “determinista” (su esperanza matemática), y una martingala que fluctúa alrededor de ella.</p>
+<p>Podemos aplicar esto al proceso de Ornstein-Uhlenbeck para nuestra población de truchas. Sabemos de antes que <span class="math inline">\(D_rN_t = \sigma\,e^{-\theta(t-r)}\)</span>. Vemos que no hay <span class="math inline">\(W_t\)</span>, por lo que la esperanza es la derivada de Malliavin, directamente. Podríamos estimar el valor de <span class="math inline">\(\mathbb{E}[N]\)</span> o intentar resolver la ecuación diferencial (estocástica), pero dado que el proceso ya tiene una solución conocida, voy a ahorrarnos el esfuerzo y usarla directamente. Aquí está la aplicación de Clark-Ocone para un proceso de Ornstein-Uhlenbeck:</p>
+<p><span class="math display">\[
+\begin{aligned}
+N(t) &amp;= \mathbb{E}[N] + \int_0^t \mathbb{E_r}[D_r N_t] dW_r \\
+&amp;= \underbrace{X_0e^{-\theta t} + \mu(1-e^{-\theta t})}_{Determinístico} + \underbrace{\int_0^t \sigma\,e^{-\theta(t-r)}\,dW_r}_{Martingala} \\
+\end{aligned}
+\]</span></p>
+<p>¿Por qué nos importa esto? Bueno, si quisiéramos simular diferentes trayectorias de nuestra población de truchas <span class="math inline">\(N\)</span>, solo necesitamos simular la martingala, y la parte determinista solo se calcula una vez. En segundo lugar, podemos usar la fórmula de Clark-Ocone para calcular directamente la varianza para <span class="math inline">\(N\)</span>, sin conocer la solución analítica completa que usamos arriba. Recordemos que <span class="math inline">\(\mathbb{Var}[N]=\mathbb{E}[N-\mathbb{E}[N]]^2\)</span>, entonces, usando la isometría de Ito:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{Var}[N]&amp;=\mathbb{E}\left[\left(\int_0^t \mathbb{E_r}[D_r N_t] dW_r\right)^2\right] \\
+&amp;=\mathbb{E}\left[\int_0^t \left(\sigma\,e^{-\theta(t-r)}\right)^2dr\right] \\
+&amp;=\sigma^2\mathbb{E}\left[\int_0^t e^{2\theta(r-t)}dr\right] \\
+&amp;=\frac{\sigma^2}{2\theta}\mathbb{E}\left[1-e^{-2\theta t}\right] \\
+&amp;=\frac{\sigma^2}{2\theta}\left(1-e^{-2\theta t}\right)
+\end{aligned}
+\]</span></p>
+<p>Tengamos en cuenta que esto funciona para cualquier variable: solo se necesita la derivada de Malliavin para obtener la varianza. Vemos arriba que:</p>
+<ul>
+<li><p>Nuestra población de truchas <span class="math inline">\(N\)</span> en el largo plazo (<span class="math inline">\(t \rightarrow \infty\)</span>) será un proceso que se mueve alrededor de <span class="math inline">\(\mu\)</span> con una varianza constante <span class="math inline">\(\frac{\sigma^2}{2\theta}\)</span></p></li>
+<li><p>La varianza en el momento de la introducción de las truchas al lago (<span class="math inline">\(t \approx 0\)</span>) es muy pequeña porque el crecimiento de <span class="math inline">\(N\)</span>, que intenta alcanzar <span class="math inline">\(\mu\)</span> lo antes posible, predomina por encima del ruido normal del proceso</p></li>
+<li><p>Un <span class="math inline">\(\theta\)</span> grande no solo hará que la varianza de largo plazo llegue antes, sino que también evitará grandes desviaciones de <span class="math inline">\(\mu\)</span> en el largo plazo</p></li>
+</ul>
+<hr>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-MalliavinCalculusInFinance" class="csl-entry" role="listitem">
+Alos, &amp; Lorite, E. 2021. <em>Malliavin Calculus in Finance: Theory and Practice (1st ed.)</em>. 1.ª ed. Financial Mathematics Series. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781003018681">https://doi.org/10.1201/9781003018681</a>.
+</div>
+<div id="ref-Friz2002AnIT" class="csl-entry" role="listitem">
+Friz, Peter K. 2002. <span>«An Introduction to Malliavin Calculus»</span>. En. <a href="https://api.semanticscholar.org/CorpusID:2479628">https://api.semanticscholar.org/CorpusID:2479628</a>.
+</div>
+</div>
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./malliavinderivative.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Derivada de Malliavin</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text">Comentarios finales</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
+<div><i class="bi bi-github"></i></div>
+<div class="action-links">
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/edit/main/clarkocone.qmd" class="toc-action">Editar esta página</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/issues/new" class="toc-action">Informar de un problema</a></p>
+</div>
+</div></div></div></footer>
+</body>
+</html>

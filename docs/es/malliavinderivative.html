@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Desvarios sobre el Calculo Malliavin – malliavinderivative</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="./">
+<link href="./clarkocone.html" rel="next">
+<link href="./cameronmartin.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Desvarios sobre el Calculo Malliavin</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+<div class="dropdown" id="languages-links-parent">
+<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i></button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://mateobengualid.github.io/malliavinderivative.html" id="language-link-en">English</a></li></ul>
+</div>
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Prefacio</span></a>
+  </li>  
+</ul>
+<div class="quarto-navbar-tools ms-auto">
+    <a href="https://x.com/one_twit_wonder/" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/mateobengualid/mateobengualid.github.io">
+            Source Code
+            </a>
+          </li>
+      </ul>
+</div>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./malliavinderivative.html">Derivada de Malliavin</a></li></ol></nav><a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introducción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./integrationbyparts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integración por Partes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measuretheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Teoría de la Medida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">La pregunta</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multidimensional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Espacios vectoriales de dimensión infinita</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cameronmartin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Espacios de Cameron-Martin</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./malliavinderivative.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Derivada de Malliavin</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clarkocone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aplicaciones y casos en profundidad</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comentarios finales</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats">
+<h2>Otros formatos</h2>
+<ul><li><a href="malliavinderivative.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul>
+</div>
+</div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><section id="derivada-de-malliavin" class="level1"><h1>Derivada de Malliavin</h1>
+<p>Ahora que establecimos que las direcciones de Cameron-Martin nos permiten cambiar las integrales bajo medidas gaussianas, estamos listos para definir la derivada de Malliavin. Podemos hacerlo desde dos enfoques:</p>
+<ul>
+<li><p>Podemos hablar de caos polinómico y luego llegar a la derivada</p></li>
+<li><p>Definimos la derivada y no hacemos referencia alguna al caos polinómico</p></li>
+</ul>
+<p>Seguiremos el segundo enfoque por razones pedagógicas, recopilando todo lo que hemos aprendido. Después de eso, seguiremos a <span class="citation" data-cites="Friz2002AnIT">Friz (<a href="#ref-Friz2002AnIT" role="doc-biblioref">2002</a>)</span> y <span class="citation" data-cites="MalliavinCalculusInFinance">Alos (<a href="#ref-MalliavinCalculusInFinance" role="doc-biblioref">2021</a>)</span> para ponerlo en terminos más concretos.</p>
+<section id="fundamentos-de-la-derivada-de-malliavin" class="level2"><h2 class="anchored" data-anchor-id="fundamentos-de-la-derivada-de-malliavin">Fundamentos de la derivada de Malliavin</h2>
+<p>Hemos acumulado una gran cantidad de conocimiento. Es hora de que abordemos el objetivo de este ensayo. Cuando planteamos la Pregunta, mencionamos que la derivada de una variable aleatoria que sigue un movimiento browniano con respecto al tiempo no se puede calcular, ese era todo el punto: ¿Qué tipo de derivada podemos calcular?</p>
+<p>Consideremos una dirección de Cameron-Martin de <span class="math inline">\(\hat{h}(\tau)=\int_0^\tau h\,dt\)</span>. Además, <span class="math inline">\(\hat{h}\in\hat{H}\)</span> , el espacio de Cameron-Martin. Esta definición nos permite tener una derivada en el tiempo para la dirección, por lo que <span class="math inline">\(\frac{\partial \hat{h}(\tau)}{\partial \tau}=h\)</span> , con <span class="math inline">\(h\in H = L^2[0,1]\)</span>, el espacio de funciones que son continuas entre 0 y 1, y que permiten una norma-2<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Las trayectorias de movimiento browniano hasta <span class="math inline">\(\tau\)</span> se denotarán como <span class="math inline">\(\omega(\tau)\)</span>. La función <span class="math inline">\(1_{[0,\tau]}\)</span> es una función que es <span class="math inline">\(1\)</span> en el intervalo indicado y <span class="math inline">\(0\)</span> en el resto del intervalo, comportándose como un filtro. Finalmente, definiremos una función como <span class="math inline">\(W(1_{[0,\tau]})\)</span> como una integral de Ito del filtro. También utilizaremos <span class="math inline">\(B_t\)</span> y <span class="math inline">\(dB_t\)</span> para hacer referencia a los movimientos brownianos, junto con <span class="math inline">\(W_t\)</span> y <span class="math inline">\(dW_t\)</span>.</p>
+<p>Nuestro último ingrediente es una función polinómica<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math inline">\(f\)</span> que toma <span class="math inline">\(n\)</span> movimientos brownianos como variables, cada uno deteniéndose en un momento diferente. Dos movimientos brownianos desde <span class="math inline">\(0\)</span> hasta <span class="math inline">\(t\)</span> son esencialmente iguales, incluso si sus trayectorias son diferentes. Así, cada movimiento browniano irá de <span class="math inline">\(0\)</span> a <span class="math inline">\(t_1\)</span> , <span class="math inline">\(t_2\)</span>, … <span class="math inline">\(t_n\)</span>. Esta función <span class="math inline">\(f\)</span> es por el momento bastante básica. Encontraremos su uso y extensiones más adelante.</p>
+<p>Ahora, haremos algo como en la sección de cálculo de variaciones. Planteamos <span class="math inline">\(f(\omega + \varepsilon \hat{h})\)</span>. Esto significa que estamos moviendo cada una de las <span class="math inline">\(n\)</span> trayectorias del movimiento browniano un poco a lo largo de una dirección de Cameron-Martin, por lo que es una traslación aceptable. Finalmente, tomamos la derivada con respecto a <span class="math inline">\(\varepsilon\)</span> , y evaluamos la derivada en <span class="math inline">\(\varepsilon = 0\)</span>. Los movimientos brownianos, que no se pueden derivar, no se tocan porque no dependen de <span class="math inline">\(\varepsilon\)</span>.</p>
+<p>Y aquí está el resultado final:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\left.\frac{d}{d\varepsilon}F(\omega + \varepsilon \hat{h})\right|_{\varepsilon=0} &amp;=\left[\sum_{i=1}^n\partial_i f(\omega(t_1)+ \varepsilon \hat{h},\omega(t_2)+ \varepsilon \hat{h},\,...\,,\omega(t_n)+ \varepsilon \hat{h})\int_0^{t_i}h\,d\lambda \right]_{\varepsilon=0} \\
+&amp;=\sum_{i=1}^n\partial_i f(\omega(t_1),\omega(t_2),\,...\,,\omega(t_n))\int_0^{t_i}h\,d\lambda \\
+&amp;=\langle DF,h \rangle_H
+\end{aligned}
+\]</span></p>
+<p>Definimos <span class="math inline">\(DF\)</span> como:</p>
+<p><span class="math display">\[
+DF = \sum_i\partial_if(W(1_{[0,\tau_1]}),\,...\,,W(1_{[0,\tau_n]}))1_{[0,\tau_i]}
+\]</span></p>
+<p>O su extensión alternativa:</p>
+<p><span class="math display">\[
+DF = \sum_i\partial_if(W(h_1),\,...\,,W(h_n))h_i
+\]</span></p>
+<p>haciendo que <span class="math inline">\(DF\)</span> sea una variable aleatoria con valores de <span class="math inline">\(H\)</span>.</p>
+</section><section id="qué-acaba-de-pasar" class="level2"><h2 class="anchored" data-anchor-id="qué-acaba-de-pasar">¿Qué acaba de pasar?</h2>
+<p>Esta <span class="math inline">\(D\)</span> es la derivada de Malliavin. Es un operador lineal (como los que vimos antes) y se aplica a la función <span class="math inline">\(F\)</span>. Significa que si tenés una función <span class="math inline">\(F\)</span> con variables compuestas por estos movimientos brownianos multiplicados por estas funciones <span class="math inline">\(h_i\)</span>, entonces se puede aplicar esta definición de derivada.</p>
+<p>Esta <span class="math inline">\(F\)</span> parece muy limitada ahora mismo, pero si se pudiera <em>representar, aproximar</em> o <em>encontrar una equivalencia</em> entre la variable aleatoria de interés y una función como <span class="math inline">\(F\)</span>, entonces se podría aplicar la derivada a la equivalencia. La teoría se ocupa de encontrar esas conexiones, no nos molestaremos en hacerlo aquí.</p>
+<p>Llegados a este punto, la colección de funciones <span class="math inline">\(h_i\)</span> son un requisito teórico y parecen salidas de la nada. Por un lado, no son más arbitrarias que el desplazamiento <span class="math inline">\(h\)</span> de la definición clásica de derivada <span class="math inline">\(\lim_{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}\)</span>. En los textos que vienen, seleccionaremos las <span class="math inline">\(h_i \in H\)</span> que sean adecuadas para nuestros propósitos. Fuentes más teóricas pueden establecer que las <span class="math inline">\(h_i\)</span> son ortonormales (o pueden volverse ortonormales), especialmente bajo un producto interno con un ponderador gaussiano. En vez de eso, tomamos la opción más directa y más simple: usaremos una única función <span class="math inline">\(h=1_{[0,1]}\)</span>, es decir, una función que es <span class="math inline">\(1\)</span> en el intervalo de integración y <span class="math inline">\(0\)</span> en el resto. Esto ayuda cuando la función está dentro de una integral porque “corta” o “filtra” el dominio de integración, como en este ejemplo:</p>
+<p><span class="math display">\[
+\int_{-\infty}^{+\infty}f(x,t)\cdot1_{[0,1]}(x)\,dx = \int_0^1f(x,t)\,dx
+\]</span></p>
+<p>Un segundo interrogante es si el intervalo <span class="math inline">\(\left[ 0 , 1 \right]\)</span> es un límite fundamental o si podemos extenderlo al menos hasta <span class="math inline">\(\left[0,T\right]\)</span>, que es lo que vemos en procesos estocásticos comunes y corrientes. Todos los autores que se centran en los aspectos teóricos de la derivada se mantienen en ese intervalo, tratando aparentemente a <span class="math inline">\(1\)</span> como un límite convencional. Por otro lado, <span class="citation" data-cites="MalliavinCalculusInFinance">Alos (<a href="#ref-MalliavinCalculusInFinance" role="doc-biblioref">2021</a>)</span> lo extiende a <span class="math inline">\(T\)</span>. Por lo tanto, a partir de ahora usamos, basándonos puramente en la conveniencia, tanto <span class="math inline">\(h = 1_{[0,T]}\)</span> como <span class="math inline">\(h = 1_{[0,1]}\)</span> .</p>
+</section><section id="ejemplos" class="level2"><h2 class="anchored" data-anchor-id="ejemplos">Ejemplos</h2>
+<p>Ahora, comencemos con un ejemplo <em>muy</em> simple. Calculemos la derivada de Malliavin de un proceso de Wiener/movimiento browniano:</p>
+<p><span class="math display">\[
+F=W(h)=\int_0^1h\,dB
+\]</span></p>
+<p>Sea <span class="math inline">\(h\)</span> una función de <span class="math inline">\(L^2\)</span> en el intervalo <span class="math inline">\(\left[0,1\right]\)</span>, como hemos definido anteriormente. En este caso, la derivada de Malliavin es:</p>
+<p><span class="math display">\[
+DF=D(W(h))=h
+\]</span></p>
+<p>Una buena regla mnemotécnica: esto es como si hiciéramos <span class="math inline">\(\frac{\partial F}{\partial W}\cdot h\)</span> en lugar de <span class="math inline">\(\frac{\partial F}{\partial t}\)</span> (algo que sabemos que no podemos hacer). Es decir, esto es cuánto cambia la función a medida que cambia el movimiento browniano subyacente (en la dirección de Cameron-Martin). Aquí hay un gráfico de cómo se ven las diferentes opciones de <span class="math inline">\(h(t)\)</span> y un ejemplo/realización de <span class="math inline">\(W(h(t))\)</span>:</p>
+<div class="cell">
+<details><summary>Código</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">=</span> <span class="dv">100000</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>steps</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out=</span>steps)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>dBt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">rnorm</span>(<span class="at">n=</span>(steps<span class="dv">-1</span>),<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="fu">sqrt</span>(h)))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Left</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>h_1 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) <span class="dv">1</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>h_hat_1 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_1</span>(t) <span class="sc">*</span> dBt)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Tiempo'</span>) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>h_hat_1, <span class="at">colour=</span><span class="st">"W(h)"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">h_1</span>(t), <span class="at">colour =</span> <span class="st">"h = 1"</span>), <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Funciones"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><img src="malliavinderivative_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+<details><summary>Código</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Middle</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>h_2 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) x)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>h_hat_2 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_2</span>(t) <span class="sc">*</span> dBt)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Tiempo'</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>h_hat_2, <span class="at">colour=</span><span class="st">"W(h)"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">h_2</span>(t), <span class="at">colour =</span> <span class="st">"h = t"</span>), <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Funciones"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><img src="malliavinderivative_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
+</div>
+<details><summary>Código</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Right</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>h_3 <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x) x<span class="sc">**</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>h_hat_3 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">h_3</span>(t) <span class="sc">*</span> dBt)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Tiempo'</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y=</span>h_hat_3, <span class="at">colour=</span><span class="st">"W(h)"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">h_3</span>(t), <span class="at">colour =</span> <span class="st">"h = t²-1"</span>), <span class="at">linewidth =</span> <span class="fl">1.25</span>) <span class="sc">+</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Funciones"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><img src="malliavinderivative_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>El caso simple también significa que podemos reescribir nuestra definición original como</p>
+<p><span class="math display">\[
+DF = \sum_i\partial_if(W(h_1),\,...\,,W(h_n))D(W(h_i))
+\]</span></p>
+<p>que se ve como una regla de la cadena normal. No voy a demostrarlo, pero la regla del producto también es exactamente como lo que esperamos:</p>
+<p><span class="math display">\[
+D(FG) = FD(G) + GD(F)
+\]</span></p>
+<p>Ahora, usaremos otro ejemplo simple, un movimiento browniano al cuadrado:</p>
+<p><span class="math display">\[
+F(t)=(W_t)^2
+\]</span></p>
+<p>En este caso, usamos <span class="math inline">\(h(s)=1_{[0,t]}(s)\)</span>. Observemos que en realidad hay dos variables relacionadas con el tiempo: una es la <span class="math inline">\(t\)</span> original a la que se refiere <span class="math inline">\(F(t)\)</span>, y la segunda es la introducida por la derivada de Malliavin, a la que llamaremos <span class="math inline">\(s\)</span> . Con esto en mente, estamos listos para brindar una respuesta:</p>
+<p><span class="math display">\[
+D_sF=2\,W_t \, (DW_t)=2\,W_t\,h=2\,W_t\,1_{[0,t]}(s)
+\]</span></p>
+<p>Hay dos cosas para destacar acá. En primer lugar, la derivada toma valores distintos de cero solo cuando <span class="math inline">\(0&lt;s&lt;t\)</span>, y esto tiene sentido: no esperamos que la función <span class="math inline">\(F\)</span> cambie más allá del tiempo <span class="math inline">\(t\)</span> en el que se evalúa. En segundo lugar, esto también significa que cuando graficamos <span class="math inline">\(W(h(t))\)</span> y <span class="math inline">\(h(t)\)</span> juntos, fue un poco impreciso porque estábamos asumiendo <span class="math inline">\(s=t\)</span> para poder dibujarlos juntos. Aun así, creo que ese supuesto nos permite ver que hay cierta conexión entre la derivada de Malliavin y la “varianza instantánea” o volatilidad del proceso: cuanto más cerca está la derivada de <span class="math inline">\(0\)</span>, las perturbaciones o movimientos son menores en el proceso estocástico. Graficaré ahora una trayectoria de ejemplo para <span class="math inline">\(F\)</span> y <span class="math inline">\(DF\)</span>, con <span class="math inline">\(t \in [0,1]\)</span> y <span class="math inline">\(s=t\)</span> (que, nuevamente, no es la imagen completa, pero me parece útil para conectar los puntos):</p>
+<div class="cell">
+<details><summary>Código</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>steps <span class="ot">=</span> <span class="dv">100000</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>steps</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out=</span>steps)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dWt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">rnorm</span>(<span class="at">n=</span>(steps<span class="dv">-1</span>),<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="fu">sqrt</span>(h)))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Wt <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(dWt)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Wt<span class="sc">**</span><span class="dv">2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Df <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>Wt</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Tiempo'</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'f(t)'</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> f, <span class="at">colour=</span><span class="st">"W(t)²"</span>),<span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Df, <span class="at">colour=</span><span class="st">"DW(s=t)"</span>), <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Funciones"</span>,<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><img src="malliavinderivative_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="integral-de-skorohod-y-más-integración-por-partes" class="level2"><h2 class="anchored" data-anchor-id="integral-de-skorohod-y-más-integración-por-partes">Integral de Skorohod y más integración por partes</h2>
+<p>Dijimos que los operadores lineales vienen con un operador adjunto. Las derivadas de Malliavin no son la excepción y, dado que definimos <span class="math inline">\(D\)</span> con un producto interno y una función <span class="math inline">\(h\)</span> en <span class="math inline">\(\langle DF, h \rangle_H\)</span>, buscaremos un operador adjunto, al que llamamos <span class="math inline">\(\delta\)</span>, de modo que:</p>
+<p><span class="math display">\[
+\langle DF, h \rangle_H = \langle F, \delta(h)\rangle_{{R}^{\,n}}
+\]</span></p>
+<p>Podemos encontrarlo haciendo un poco de manipulación, tomando algunos atajos y renunciando a cierto rigor matemático. A partir de la definición anterior y suponiendo que <span class="math inline">\(h=h_1\)</span>, tomamos el valor esperado del producto interno, realizamos integración por partes y algunos reemplazos y obtendremos:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}\left[{\langle DF, h \rangle_H}\right] &amp;= \mathbb{E}\left[{\sum_i \partial_i f \langle h_i, h \rangle_H}\right] \\
+&amp;= \int_{\mathbb{R}^n} \underbrace{\partial_1 f(x)}_{dv}(2\pi)^{-n/2}\underbrace{e^{-\|x\|/2}}_{u} dx \\
+&amp;= -\int_{\mathbb{R}^n} f(x) (-x_1) \underbrace{(2\pi)^{-n/2}e^{-\|x\|/2} dx}_{\text{Medida gaussiana}} \\
+&amp;= \int_{\mathbb{R}^n} x_1 f(x) d\mu_1 \\
+&amp;= \mathbb{E} \left[{ F\,W(h_1)}\right] \\
+&amp;= \mathbb{E} \left[{ F\,W(h)}\right] \\
+&amp;= \mathbb{E} \left[{ F\int_0^1 h dB}\right]
+\end{aligned}
+\]</span></p>
+<p>Esto significa que la esperanza matemática de la variable aleatoria <span class="math inline">\(DF\)</span> medida usando la función <span class="math inline">\(h\)</span> entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span> como regla, tiene el mismo valor que la esperanza de <span class="math inline">\(F\)</span> multiplicado por esa integral de <span class="math inline">\(h\)</span> a la derecha. Estamos dando a entender que el operador <span class="math inline">\(\delta\)</span> es esa integral. A esta integral se la llama la <strong>integral de Skorohod</strong>, y coincide con una integral de Ito para procesos no anticipativos<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+<p><span class="math display">\[
+\delta(h) = \int_0^1 h dB_t
+\]</span></p>
+<p>A estas alturas, probablemente hayas notado lo común que es invertir integrales y derivadas mediante integración por partes.</p>
+</section><section id="y-ahora-qué" class="level2"><h2 class="anchored" data-anchor-id="y-ahora-qué">¿Y ahora qué?</h2>
+<p>Por fin llegamos a una definición de la derivada de Malliavin. Nos ha llevado un tiempo, pero ahora estamos en una posición cómoda para usarla para algo útil.</p>
+<hr>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-MalliavinCalculusInFinance" class="csl-entry" role="listitem">
+Alos, &amp; Lorite, E. 2021. <em>Malliavin Calculus in Finance: Theory and Practice (1st ed.)</em>. 1.ª ed. Financial Mathematics Series. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781003018681">https://doi.org/10.1201/9781003018681</a>.
+</div>
+<div id="ref-Friz2002AnIT" class="csl-entry" role="listitem">
+Friz, Peter K. 2002. <span>«An Introduction to Malliavin Calculus»</span>. En. <a href="https://api.semanticscholar.org/CorpusID:2479628">https://api.semanticscholar.org/CorpusID:2479628</a>.
+</div>
+</div>
+</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1">
+<p>En términos más formales, podemos considerar esta traslación:</p>
+<p><span class="math display">\[
+T_{\hat{h}}(\omega)=\omega + \varepsilon\int_0^\tau h = \omega + \varepsilon\hat{h}
+\]</span></p>
+<p>Y el cambio de medida/variable, es decir, nuestra derivada de Radon-Nikodym, será:</p>
+<p><span class="math display">\[
+\frac{d(T_{\hat{h}})_{*} W}{dW}(\omega) = \exp \left( \int_0^1 h d\beta(\omega) - \frac{1}{2} \int_0^1 h^2 d\lambda \right)
+\]</span></p>
+<p>Finalmente, sin pérdida de generalidad, podemos suponer que <span class="math inline">\(\|h\|=1\)</span> y que todos los <span class="math inline">\(h_i\)</span> sean ortonormales en <span class="math inline">\(H\)</span>. Esta es seguro de suponer debido a la ortonormalización de Gram-Schmidt.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p>
+</li>
+<li id="fn2"><p>Una función con crecimiento polinómico también es aceptable. Las condiciones para esta función pertenecen a la teoría y no aportan claridad pedagógica.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Formalmente, se trata de procesos predecibles o adaptados. Un proceso predecible tiene un valor en <span class="math inline">\(t\)</span> conocido en momentos anteriores a <span class="math inline">\(t\)</span> (por ejemplo, una función no aleatoria). Un proceso adaptado tiene un valor en <span class="math inline">\(t\)</span> conocido en <span class="math inline">\(t\)</span> o posterior (por ejemplo, el precio de una acción). Los procesos no adaptados, o procesos anticipativos, solo se conocen después de que haya pasado algún tiempo, y su información depende del futuro (por ejemplo, que una granizada se produzca en los próximos 7 días).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./cameronmartin.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Espacios de Cameron-Martin</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./clarkocone.html" class="pagination-link">
+        <span class="nav-page-text">Aplicaciones y casos en profundidad</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions">
+<div><i class="bi bi-github"></i></div>
+<div class="action-links">
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/edit/main/malliavinderivative.qmd" class="toc-action">Editar esta página</a></p>
+<p><a href="https://github.com/mateobengualid/mateobengualid.github.io/issues/new" class="toc-action">Informar de un problema</a></p>
+</div>
+</div></div></div></footer>
+</body>
+</html>

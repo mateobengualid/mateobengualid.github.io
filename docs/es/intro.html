@@ -20,6 +20,7 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 <script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="./">
+<link href="./integrationbyparts.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
@@ -87,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Introduccion</a></li></ol></nav><a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Introducción</a></li></ol></nav><a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -105,33 +106,57 @@ ul.task-list li input[type="checkbox"] {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Introduccion</span></a>
+ <span class="menu-text">Introducción</span></a>
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">integrationbyparts.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./integrationbyparts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integración por Partes</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">measuretheory.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./measuretheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Teoría de la Medida</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">question.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">La pregunta</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">multidimensional.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./multidimensional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Espacios vectoriales de dimensión infinita</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">cameronmartin.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./cameronmartin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Espacios de Cameron-Martin</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">malliavinderivative.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./malliavinderivative.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Derivada de Malliavin</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">clarkocone.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./clarkocone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aplicaciones y casos en profundidad</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">summary.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comentarios finales</span></a>
+  </div>
+</li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
@@ -144,15 +169,14 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><section id="introduccion" class="level1"><h1>Introduccion</h1>
-<p>Este ensayo trata sobre el Calculo Malliavin y la formula de Clark-Ocone. Tras meses de estudio, conclui que el principal problema para entender el topico es el enfasis en el rigor matematico de las fuentes consultadas, por sobre la claridad pedagogica. La falta de aplicaciones en la vida real o ejemplos practicos tambien es muy frustrante.</p>
-<p>Voy a empezar desarrollando que intenta lograr el Calculo Malliavin. Me aproximare en forma indirecta, meandrosa. Luego de documentar situaciones donde un problema existe, la necesidad de una solucion generara una especie de “vacio”. Luego, tambien indirectamente, pondre las fundaciones paso a paso. Finalmente, el vacio sera llenado.</p>
-<p>Elegi Quarto porque el codigo fuente y sus resultados estaran disponibles. Ayuda mucho ver una pieza de matematicas y conectarla con instrucciones de codigo fuente.</p>
-<p>Como dije anteriormente, la claridad pedagogica es el factor primorial. No voy a escribir demostraciones si no pienso que sean importantes. Tomare atajos con impunidad. Algunas partes tal vez no lleven a ningun lado y solo esten ahi para redondear un concepto. Incluso puede que me declare ignorante sobre un tema y lo deje ahi.</p>
-<p>Por ultimo, no soy un profesional de las matematicas, estadisticas o economia. Soy un ingeniero tratando de entender un topico muy arido y oscuro. Y esto es, al fin, una suerte de conversacion conmigo mismo.</p>
-
-
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<main class="content" id="quarto-document-content"><section id="introducción" class="level1"><h1>Introducción</h1>
+<p>Este ensayo trata sobre el Cálculo Malliavin y la fórmula de Clark-Ocone. Tras meses de estudio y frustración, concluí que el principal obstáculo para entender el tópico es el énfasis en el rigor matemático de las fuentes consultadas, por sobre la claridad pedagógica. Mi esperanza es conectar estos extremos, asumiendo conocimientos básicos de análisis matemático, álgebra, y probabilidad y estadística.</p>
+<p>Voy a empezar desarrollando qué intenta lograr el Calculo Malliavin. Me aproximaré en forma indirecta, meandrosa. Luego de documentar situaciones donde existe un problema, la necesidad de una solución generará una especie de “vacío”. Luego, también indirectamente, pondré las fundaciones paso a paso. Finalmente, el vacío sera llenado.</p>
+<p>Elegí Quarto porque el código fuente y sus resultados estarán disponibles. Ayuda mucho ver una pieza de matemáticas y conectarla con instrucciones de código fuente.</p>
+<p>Como dije anteriormente, la claridad pedagógica es el factor primordial. No voy a escribir demostraciones si no pienso que sean importantes. Tomaré atajos con impunidad. Algunas partes tal vez no lleven a ningún lado y solo estén ahí para redondear un concepto. Incluso puede que me declare ignorante sobre un tema y lo deje ahí.</p>
+<p>La verdad es que no soy un profesional de las matemáticas, estadísticas o economía. Simplemente estoy tratando de entender un tópico muy árido y oscuro.</p>
+<p>Y, ahora, es el momento de empezar.</p>
+<hr></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -384,7 +408,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./integrationbyparts.html" class="pagination-link">
+        <span class="nav-page-text">Integración por Partes</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

@@ -64,7 +64,7 @@ ggplot(data = df, mapping = aes(x=time), legend=TRUE) +
   ylab('f(X)') +
   geom_area(mapping = aes(y=density_y, fill="f(X)"), alpha = 0.3) +
   geom_area(mapping = aes(y=density_y_plus, fill="f(X+5)"), alpha = 0.5) +
-  scale_fill_manual("Functions",values=c("green", "blue"))
+  scale_fill_manual("Funciones",values=c("green", "blue"))
 ```
 
 Desafortunadamente, la medida gaussiana no permite esto. Recordemos los casos n-dimensionales o unidimensionales para una medida gaussiana centrada y estándar.
@@ -103,8 +103,8 @@ ggplot(data = df, mapping = aes(x=time), legend=TRUE) +
   geom_area(mapping = aes(y=y_weighted, fill="f(X)"), alpha = 0.3) +
   geom_area(mapping = aes(y=y_plus_h_weighted, fill="f(X+5)"), alpha = 0.5) + 
   geom_line(mapping = aes(y=weight, colour="Weight"),linetype = 2) + 
-  scale_fill_manual("Functions",values=c("green", "blue")) + 
-  scale_colour_manual("",values=c("black"),labels=c("Weight"))
+  scale_fill_manual("Funciones",values=c("green", "blue")) + 
+  scale_colour_manual("",values=c("black"),labels=c("Ponderación"))
   #theme(legend.position = "none")
 ```
 
